@@ -20,7 +20,7 @@ import java.net.URLEncoder;
 public class GetJson extends AsyncTask<String ,Void, String> {
 
     String StrURl;
-    String finalJson;
+  public   String finalJson;
     boolean Recieved = false;
     JSONObject jsonobj;
     public GetJson(String strURl) {

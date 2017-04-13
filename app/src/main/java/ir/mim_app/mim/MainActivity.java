@@ -1,8 +1,11 @@
 package ir.mim_app.mim;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
@@ -48,7 +51,12 @@ public class MainActivity extends AppCompatActivity
     BottomBar bottomBar;
     FragmentManager fragmentManager = getSupportFragmentManager();
 
-
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+    }
 
 
     void inint (){
@@ -81,11 +89,20 @@ public class MainActivity extends AppCompatActivity
 //        });
 
        // final ImageView imgview = (ImageView) findViewById(R.id.main_imgView);
+
+        if (isNetworkAvailable()){
+            Toast.makeText(MainActivity.this, "network is connected", Toast.LENGTH_SHORT).show();
+        }else {
+            Toast.makeText(MainActivity.this, "network isn't connected", Toast.LENGTH_SHORT).show();
+        }
+
+
+
         bottomBar.setOnTabSelectListener(new OnTabSelectListener() {
             @Override
             public void onTabSelected(@IdRes int tabId) {
                 if (tabId == R.id.home_tab){
-                    // Toast.makeText(MainActivity.this, "home", Toast.LENGTH_SHORT).show();
+                     Toast.makeText(MainActivity.this, "home", Toast.LENGTH_SHORT).show();
 
 
                     FragmentTransaction frm = fragmentManager.beginTransaction().replace(R.id.frameLayout_main_activity,new home_fragment());
@@ -96,27 +113,31 @@ public class MainActivity extends AppCompatActivity
 
                 if (tabId == R.id.btn_profList_tab){
                    // Toast.makeText(MainActivity.this, "home", Toast.LENGTH_SHORT).show();
+                    if (isNetworkAvailable()){
+                        Prof_listview_Fragment fragobj = new Prof_listview_Fragment();
+                        FragmentTransaction frm = fragmentManager.beginTransaction().replace(R.id.frameLayout_main_activity,fragobj);
+                        frm.commit();
+                    }else {
+                        Toast.makeText(MainActivity.this, "network isn't connected", Toast.LENGTH_SHORT).show();
+                    }
 
-                    Prof_listview_Fragment fragobj = new Prof_listview_Fragment();
-                    FragmentTransaction frm = fragmentManager.beginTransaction().replace(R.id.frameLayout_main_activity,fragobj);
-                    frm.commit();
 
                 }
                 if (tabId == R.id.courses_list_tab){
-                    // Toast.makeText(MainActivity.this, "home", Toast.LENGTH_SHORT).show();
+                     Toast.makeText(MainActivity.this, "courses", Toast.LENGTH_SHORT).show();
 
                     FragmentTransaction frm = fragmentManager.beginTransaction().replace(R.id.frameLayout_main_activity,new courses_list_fragment());
                     frm.commit();
 
                 }
                 if (tabId == R.id.notification_tab){
-                    // Toast.makeText(MainActivity.this, "home", Toast.LENGTH_SHORT).show();
+                     Toast.makeText(MainActivity.this, "notifications", Toast.LENGTH_SHORT).show();
 
                     FragmentTransaction frm = fragmentManager.beginTransaction().replace(R.id.frameLayout_main_activity,new notification_fragment());
                     frm.commit();
                 }
                 if (tabId == R.id.serach_tab){
-                    // Toast.makeText(MainActivity.this, "home", Toast.LENGTH_SHORT).show();
+                     Toast.makeText(MainActivity.this, "search", Toast.LENGTH_SHORT).show();
 
                     FragmentTransaction frm = fragmentManager.beginTransaction().replace(R.id.frameLayout_main_activity,new search_fragment());
                     frm.commit();

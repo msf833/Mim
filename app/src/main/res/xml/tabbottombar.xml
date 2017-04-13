@@ -5,24 +5,30 @@
 
         <tab
            id="@+id/home_tab"
-           icon="@drawable/ic_home_black_48dp"
+           icon="@drawable/ic_home_black_24dp"
+            barColorWhenSelected="#CBD5D2"
            title="خانه" />
         <tab
             id="@+id/btn_profList_tab"
-            icon="@drawable/ic_assignment_ind_black_48dp"
+            icon="@drawable/ic_mentor_ind_black_24dp"
+            barColorWhenSelected="#98C4C9"
             title="لیست اساتید" />
 
         <tab
             id="@+id/courses_list_tab"
-            icon="@drawable/ic_book_black_48"
+            icon="@drawable/ic_book_black_24dp"
+            barColorWhenSelected="#56ACBA"
             title="لیست دروس " />
         <tab
             id="@+id/notification_tab"
-            icon="@drawable/ic_notifications_black_48"
+            icon="@drawable/ic_notifications_black_24dp"
+            barColorWhenSelected="#2DA7C7"
+
             title="اطلاعیه ها" />
         <tab
-            id="@+id/nav_search"
-            icon="@drawable/ic_search_black_48"
+            id="@+id/serach_tab"
+            icon="@drawable/ic_search_black_24dp"
+            barColorWhenSelected="#1A2944"
             title="جستجو" />
 
     </tabs>

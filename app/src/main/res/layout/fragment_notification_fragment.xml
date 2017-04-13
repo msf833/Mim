@@ -2,16 +2,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="ir.mim_app.mim.fragment.Prof_listview_Fragment"
-    android:layoutDirection="rtl"
-
-    >
+    tools:context="ir.mim_app.mim.fragment.notification_fragment">
 
     <!-- TODO: Update blank fragment layout -->
-
-
-    <ListView
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/LV_fragment_prfoListView"/>
+        android:text="@string/hello_blank_fragment" />
+
 </FrameLayout>

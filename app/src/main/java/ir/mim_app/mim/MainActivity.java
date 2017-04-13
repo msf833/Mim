@@ -5,8 +5,11 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.annotation.IdRes;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -18,26 +21,49 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.roughike.bottombar.BottomBar;
+import com.roughike.bottombar.OnTabSelectListener;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.concurrent.ExecutionException;
 
+import ir.mim_app.mim.fragment.Prof_listview_Fragment;
+import ir.mim_app.mim.fragment.courses_list_fragment;
+import ir.mim_app.mim.fragment.home_fragment;
+import ir.mim_app.mim.fragment.notification_fragment;
+import ir.mim_app.mim.fragment.search_fragment;
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     GetJson getJson;
+    FrameLayout framelayout;
+    BottomBar bottomBar;
+    FragmentManager fragmentManager = getSupportFragmentManager();
 
+
+
+
+    void inint (){
+        //bottombar_Activity_main
+        bottomBar = (BottomBar) findViewById(R.id.bottombar_Activity_main);
+        framelayout= (FrameLayout) findViewById(R.id.frameLayout_main_activity);
+
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
+        inint();
         getWindow().getDecorView().setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
 
 //        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -55,6 +81,49 @@ public class MainActivity extends AppCompatActivity
 //        });
 
        // final ImageView imgview = (ImageView) findViewById(R.id.main_imgView);
+        bottomBar.setOnTabSelectListener(new OnTabSelectListener() {
+            @Override
+            public void onTabSelected(@IdRes int tabId) {
+                if (tabId == R.id.home_tab){
+                    // Toast.makeText(MainActivity.this, "home", Toast.LENGTH_SHORT).show();
+
+
+                    FragmentTransaction frm = fragmentManager.beginTransaction().replace(R.id.frameLayout_main_activity,new home_fragment());
+                    frm.commit();
+
+                }
+
+
+                if (tabId == R.id.btn_profList_tab){
+                   // Toast.makeText(MainActivity.this, "home", Toast.LENGTH_SHORT).show();
+
+                    Prof_listview_Fragment fragobj = new Prof_listview_Fragment();
+                    FragmentTransaction frm = fragmentManager.beginTransaction().replace(R.id.frameLayout_main_activity,fragobj);
+                    frm.commit();
+
+                }
+                if (tabId == R.id.courses_list_tab){
+                    // Toast.makeText(MainActivity.this, "home", Toast.LENGTH_SHORT).show();
+
+                    FragmentTransaction frm = fragmentManager.beginTransaction().replace(R.id.frameLayout_main_activity,new courses_list_fragment());
+                    frm.commit();
+
+                }
+                if (tabId == R.id.notification_tab){
+                    // Toast.makeText(MainActivity.this, "home", Toast.LENGTH_SHORT).show();
+
+                    FragmentTransaction frm = fragmentManager.beginTransaction().replace(R.id.frameLayout_main_activity,new notification_fragment());
+                    frm.commit();
+                }
+                if (tabId == R.id.serach_tab){
+                    // Toast.makeText(MainActivity.this, "home", Toast.LENGTH_SHORT).show();
+
+                    FragmentTransaction frm = fragmentManager.beginTransaction().replace(R.id.frameLayout_main_activity,new search_fragment());
+                    frm.commit();
+                }
+            }
+        });
+
 
 
 
@@ -81,7 +150,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
+       // getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
 

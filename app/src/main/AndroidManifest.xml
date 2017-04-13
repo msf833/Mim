@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="ir.mim_app.mim">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <service
+        android:name="com.myapppackage.application.gcm.GcmIntentService"
+        android:exported="false">
+        <intent-filter>
+            <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+        </intent-filter>
+    </service>
+    <service
+        android:name="com.myapppackage.application.gcm.GcmIDListenerService"
+        android:exported="false">
+        <intent-filter>
+            <action android:name="com.google.android.gms.iid.InstanceID" />
+        </intent-filter>
+    </service>
+    <service
+        android:name="com.myapppackage.application.gcm.RegistrationIntentService"
+        android:exported="false" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_mimlogo2"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity
+            android:name=".MainActivity"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".firstActivity"
+            android:label="@string/title_activity_first" />
+        <activity
+            android:name=".Activity_proffListView"
+            android:label="@string/title_activity_proff_list_view"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".proff_detail_activity"
+            android:label="@string/title_activity_proff_detail_activity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Courses_Activity_ListView"
+            android:label="@string/title_activity_courses___list_view"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+    </application>
+
+</manifest>

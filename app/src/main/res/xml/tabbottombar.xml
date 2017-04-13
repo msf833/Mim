@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <tabs>
+
+        <tab
+           id="@+id/home_tab"
+           icon="@drawable/ic_home_black_48dp"
+           title="خانه" />
+        <tab
+            id="@+id/btn_profList_tab"
+            icon="@drawable/ic_assignment_ind_black_48dp"
+            title="لیست اساتید" />
+
+        <tab
+            id="@+id/courses_list_tab"
+            icon="@drawable/ic_book_black_48"
+            title="لیست دروس " />
+        <tab
+            id="@+id/notification_tab"
+            icon="@drawable/ic_notifications_black_48"
+            title="اطلاعیه ها" />
+        <tab
+            id="@+id/nav_search"
+            icon="@drawable/ic_search_black_48"
+            title="جستجو" />
+
+    </tabs>
+</PreferenceScreen>

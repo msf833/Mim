@@ -1,5 +1,8 @@
 package ir.mim_app.mim;
 
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 
 import org.json.JSONException;
@@ -28,6 +31,10 @@ public class GetJson extends AsyncTask<String ,Void, String> {
 
     }
 
+
+
+
+
     public String getStrURl() {
         return StrURl;
     }
@@ -47,6 +54,9 @@ public class GetJson extends AsyncTask<String ,Void, String> {
     @Override
     protected String doInBackground(String... params) {
         String method= params[0];
+
+
+
         if(method.equals("register")){
 
             String name = params[1];

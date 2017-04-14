@@ -101,7 +101,7 @@ public class Professors_Listview_ArrayAdabter extends ArrayAdapter {
 
 
 }
-//this is a good exaple and i didnt used it in my app
+//this is a good example and i didn,t used it in my app
  class AsyncTaskLoadImage  extends AsyncTask<String, String, Bitmap> {
     private final static String TAG = "AsyncTaskLoadImage";
     private ImageView imageView;

@@ -67,4 +67,15 @@ public class professor {
     public void setProfRate(float profRate) {
         this.profRate = profRate;
     }
+
+    @Override
+    public String toString() {
+        return "professor{" +
+                "profName='" + profName + '\'' +
+                ", profFamily='" + profFamily + '\'' +
+                ", profPic='" + profPic + '\'' +
+                ", profRate=" + profRate +
+                ", bmp=" + bmp +
+                '}';
+    }
 }

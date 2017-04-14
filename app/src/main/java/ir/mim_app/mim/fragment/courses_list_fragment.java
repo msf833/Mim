@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -42,6 +43,8 @@ public class courses_list_fragment extends Fragment {
     String JsonString;
     JSONObject jsonobject = null;
     JSONArray jsonArray;
+    GridView gv;
+
     public courses_list_fragment() {
         // Required empty public constructor
     }
@@ -66,6 +69,7 @@ public class courses_list_fragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         lv = (ListView) getView().findViewById(R.id.LV_fragment_coursesListView);
+       // gv = (GridView) getView().findViewById(R.id.courseFragment_gridview);
         clvad = new  Courses_ListView_ArrayAdabter(getContext(),R.layout.row_courselist);
         try {
             getJson.get();
@@ -76,6 +80,7 @@ public class courses_list_fragment extends Fragment {
         }
 
         JsonString = getJson.finalJson;
+        //gv.setAdapter(clvad);
         lv.setAdapter(clvad);
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

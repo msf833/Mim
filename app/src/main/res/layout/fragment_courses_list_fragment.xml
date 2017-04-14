@@ -7,10 +7,16 @@
     <!-- TODO: Update blank fragment layout -->
 
 
-
-
     <ListView
+        android:id="@+id/LV_fragment_coursesListView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/LV_fragment_coursesListView"/>
+        android:visibility="visible" />
+
+    <GridView
+        android:id="@+id/courseFragment_gridview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:numColumns="2"
+        android:visibility="invisible"></GridView>
 </FrameLayout>

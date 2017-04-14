@@ -69,7 +69,7 @@ public class Prof_listview_Fragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         //Bundle Fextras = getIntent().getExtras();
         lv = (ListView) getView().findViewById(R.id.LV_fragment_prfoListView);
-
+        gv = (GridView) getView().findViewById(R.id.ProfFragment_gridview);
         plvad = new Professors_Listview_ArrayAdabter(getContext(),R.layout.row_profflist);
         try {
             getJson.get();
@@ -81,8 +81,8 @@ public class Prof_listview_Fragment extends Fragment {
 
 
         JsonString = getJson.finalJson;
-       lv.setAdapter(plvad);
-
+       gv.setAdapter(plvad);
+       // lv.setAdapter(plvad);
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {

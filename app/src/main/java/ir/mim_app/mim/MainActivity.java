@@ -51,6 +51,8 @@ public class MainActivity extends AppCompatActivity
     BottomBar bottomBar;
     FragmentManager fragmentManager = getSupportFragmentManager();
 
+    Prof_listview_Fragment fragobj;
+    courses_list_fragment clfobj;
     private boolean isNetworkAvailable() {
         ConnectivityManager connectivityManager
                 = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -91,11 +93,12 @@ public class MainActivity extends AppCompatActivity
        // final ImageView imgview = (ImageView) findViewById(R.id.main_imgView);
 
         if (isNetworkAvailable()){
-            Toast.makeText(MainActivity.this, "network is connected", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(MainActivity.this, "network is connected", Toast.LENGTH_SHORT).show();
+             fragobj = new Prof_listview_Fragment();
+             clfobj =  new courses_list_fragment();
         }else {
             Toast.makeText(MainActivity.this, "network isn't connected", Toast.LENGTH_SHORT).show();
         }
-
 
 
         bottomBar.setOnTabSelectListener(new OnTabSelectListener() {
@@ -114,7 +117,8 @@ public class MainActivity extends AppCompatActivity
                 if (tabId == R.id.btn_profList_tab){
                    // Toast.makeText(MainActivity.this, "home", Toast.LENGTH_SHORT).show();
                     if (isNetworkAvailable()){
-                        Prof_listview_Fragment fragobj = new Prof_listview_Fragment();
+                       // Prof_listview_Fragment fragobj = new Prof_listview_Fragment();
+                        if(fragobj == null) fragobj = new Prof_listview_Fragment();
                         FragmentTransaction frm = fragmentManager.beginTransaction().replace(R.id.frameLayout_main_activity,fragobj);
                         frm.commit();
                     }else {
@@ -126,7 +130,8 @@ public class MainActivity extends AppCompatActivity
                 if (tabId == R.id.courses_list_tab){
                     // Toast.makeText(MainActivity.this, "courses", Toast.LENGTH_SHORT).show();
                     if (isNetworkAvailable()) {
-                        FragmentTransaction frm = fragmentManager.beginTransaction().replace(R.id.frameLayout_main_activity, new courses_list_fragment());
+                        if(clfobj == null)  clfobj =  new courses_list_fragment();
+                        FragmentTransaction frm = fragmentManager.beginTransaction().replace(R.id.frameLayout_main_activity, clfobj);
                         frm.commit();
                     }    else {
                         Toast.makeText(MainActivity.this, "Check internet connection !!", Toast.LENGTH_SHORT).show();

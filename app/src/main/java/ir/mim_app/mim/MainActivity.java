@@ -118,16 +118,19 @@ public class MainActivity extends AppCompatActivity
                         FragmentTransaction frm = fragmentManager.beginTransaction().replace(R.id.frameLayout_main_activity,fragobj);
                         frm.commit();
                     }else {
-                        Toast.makeText(MainActivity.this, "network isn't connected", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainActivity.this, "Check internet connection !!", Toast.LENGTH_SHORT).show();
                     }
 
 
                 }
                 if (tabId == R.id.courses_list_tab){
-                     Toast.makeText(MainActivity.this, "courses", Toast.LENGTH_SHORT).show();
-
-                    FragmentTransaction frm = fragmentManager.beginTransaction().replace(R.id.frameLayout_main_activity,new courses_list_fragment());
-                    frm.commit();
+                    // Toast.makeText(MainActivity.this, "courses", Toast.LENGTH_SHORT).show();
+                    if (isNetworkAvailable()) {
+                        FragmentTransaction frm = fragmentManager.beginTransaction().replace(R.id.frameLayout_main_activity, new courses_list_fragment());
+                        frm.commit();
+                    }    else {
+                        Toast.makeText(MainActivity.this, "Check internet connection !!", Toast.LENGTH_SHORT).show();
+                    }
 
                 }
                 if (tabId == R.id.notification_tab){

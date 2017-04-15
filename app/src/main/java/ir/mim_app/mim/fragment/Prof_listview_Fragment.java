@@ -15,6 +15,7 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import org.json.JSONArray;
@@ -44,6 +45,9 @@ public class Prof_listview_Fragment extends Fragment {
     ListView lv;
     GridView gv;
     List piclist = new ArrayList();
+    ProgressBar progBar;
+
+
 
     public Prof_listview_Fragment() {
         // Required empty public constructor
@@ -68,8 +72,12 @@ public class Prof_listview_Fragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         //Bundle Fextras = getIntent().getExtras();
+     //   progBar.setVisibility(View.VISIBLE);
+        progBar = (ProgressBar) getView().findViewById(R.id.Fragment_prof_progressBar);
+        progBar.setVisibility(View.VISIBLE);
         lv = (ListView) getView().findViewById(R.id.LV_fragment_prfoListView);
         gv = (GridView) getView().findViewById(R.id.ProfFragment_gridview);
+        gv.setVisibility(View.INVISIBLE);
         plvad = new Professors_Listview_ArrayAdabter(getContext(),R.layout.row_profflist);
         try {
             getJson.get();
@@ -140,7 +148,8 @@ public class Prof_listview_Fragment extends Fragment {
 
 
             }
-
+            progBar.setVisibility(View.INVISIBLE);
+            gv.setVisibility(View.VISIBLE);
 
 
         } catch (JSONException e) {

@@ -26,6 +26,7 @@ import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -50,7 +51,7 @@ public class MainActivity extends AppCompatActivity
     FrameLayout framelayout;
     BottomBar bottomBar;
     FragmentManager fragmentManager = getSupportFragmentManager();
-
+    ProgressBar progBar;
     Prof_listview_Fragment fragobj;
     courses_list_fragment clfobj;
     private boolean isNetworkAvailable() {
@@ -75,7 +76,7 @@ public class MainActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
         inint();
         getWindow().getDecorView().setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
-
+        progBar = (ProgressBar) findViewById(R.id.progressBar);
 //        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
 //       // final ImageView tev = (ImageView) findViewById(R.id.main_imgView);
 //
@@ -95,6 +96,8 @@ public class MainActivity extends AppCompatActivity
         if (isNetworkAvailable()){
             //Toast.makeText(MainActivity.this, "network is connected", Toast.LENGTH_SHORT).show();
              fragobj = new Prof_listview_Fragment();
+           // fragobj.setProgresbar(progBar);
+            //progBar.setVisibility(View.VISIBLE);
              clfobj =  new courses_list_fragment();
         }else {
             Toast.makeText(MainActivity.this, "network isn't connected", Toast.LENGTH_SHORT).show();
@@ -119,8 +122,10 @@ public class MainActivity extends AppCompatActivity
                     if (isNetworkAvailable()){
                        // Prof_listview_Fragment fragobj = new Prof_listview_Fragment();
                         if(fragobj == null) fragobj = new Prof_listview_Fragment();
+                        progBar.setVisibility(View.VISIBLE);
                         FragmentTransaction frm = fragmentManager.beginTransaction().replace(R.id.frameLayout_main_activity,fragobj);
                         frm.commit();
+                        progBar.setVisibility(View.INVISIBLE);
                     }else {
                         Toast.makeText(MainActivity.this, "Check internet connection !!", Toast.LENGTH_SHORT).show();
                     }
@@ -131,8 +136,10 @@ public class MainActivity extends AppCompatActivity
                     // Toast.makeText(MainActivity.this, "courses", Toast.LENGTH_SHORT).show();
                     if (isNetworkAvailable()) {
                         if(clfobj == null)  clfobj =  new courses_list_fragment();
+                        progBar.setVisibility(View.VISIBLE);
                         FragmentTransaction frm = fragmentManager.beginTransaction().replace(R.id.frameLayout_main_activity, clfobj);
                         frm.commit();
+                        progBar.setVisibility(View.INVISIBLE);
                     }    else {
                         Toast.makeText(MainActivity.this, "Check internet connection !!", Toast.LENGTH_SHORT).show();
                     }
@@ -146,7 +153,7 @@ public class MainActivity extends AppCompatActivity
                 }
                 if (tabId == R.id.serach_tab){
                      Toast.makeText(MainActivity.this, "search", Toast.LENGTH_SHORT).show();
-
+                //    progBar.setVisibility(View.INVISIBLE);
                     FragmentTransaction frm = fragmentManager.beginTransaction().replace(R.id.frameLayout_main_activity,new search_fragment());
                     frm.commit();
                 }

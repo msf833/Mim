@@ -45,6 +45,8 @@ public class courses_list_fragment extends Fragment {
     JSONArray jsonArray;
     GridView gv;
 
+
+
     public courses_list_fragment() {
         // Required empty public constructor
     }

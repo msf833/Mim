@@ -10,6 +10,14 @@
     <!-- TODO: Update blank fragment layout -->
 
 
+    <ProgressBar
+        android:id="@+id/Fragment_prof_progressBar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        tools:visibility="visible" />
+
     <ListView
         android:id="@+id/LV_fragment_prfoListView"
         android:layout_width="match_parent"

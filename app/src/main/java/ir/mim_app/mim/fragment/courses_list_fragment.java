@@ -2,7 +2,6 @@ package ir.mim_app.mim.fragment;
 
 
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -14,10 +13,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -25,14 +22,11 @@ import org.json.JSONObject;
 
 import java.util.concurrent.ExecutionException;
 
-import ir.mim_app.mim.Courses_Activity_ListView;
+import ir.mim_app.mim.CourseToProf_ListView;
 import ir.mim_app.mim.Courses_ListView_ArrayAdabter;
 import ir.mim_app.mim.GetJson;
-import ir.mim_app.mim.Professors_Listview_ArrayAdabter;
 import ir.mim_app.mim.R;
 import ir.mim_app.mim.course;
-import ir.mim_app.mim.professor;
-import ir.mim_app.mim.proff_detail_activity;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -104,14 +98,31 @@ public class courses_list_fragment extends Fragment {
               //  Toast.makeText(getContext(),"قراره اسم استادای  "+((TextView) view.findViewById(R.id.TV_Course_Name)).getText().toString() +" رو نشون بده", Toast.LENGTH_SHORT).show();
                 String courseID = ((TextView) view.findViewById(R.id.TV_Course_Name)).getText().toString();
 
-                Intent item_intent = new Intent(getContext(), Courses_Activity_ListView.class);
-               Bundle extras = new Bundle();
+
+                String url = "http://api.mim-app.ir/SelectValue_coursesList2profselect.php";
+                getJson= new GetJson(url);
+                getJson.execute("CourseToProf",courseID);
+
+                try {
+                    getJson.get();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                }
+                Intent i = new Intent(getContext() , CourseToProf_ListView.class);
+                i.putExtra("JSON_string_data",getJson.finalJson);
+                Log.i("in_mainactivity","intent ");
+                startActivity(i);
+
+                //Intent item_intent = new Intent(getContext(), Courses_Activity_ListView.class);
+              // Bundle extras = new Bundle();
               // extras.putParcelable("profimage", profimage);
                //item_intent.putExtras(extras);
-               item_intent.putExtra("courseID",courseID);
+              // item_intent.putExtra("courseID",courseID);
               //  item_intent.putExtra("family",family);
 
-                startActivity(item_intent);
+                //startActivity(item_intent);
 
             }
         });

@@ -74,10 +74,13 @@ public class Prof_listview_Fragment extends Fragment {
         //Bundle Fextras = getIntent().getExtras();
      //   progBar.setVisibility(View.VISIBLE);
         progBar = (ProgressBar) getView().findViewById(R.id.Fragment_prof_progressBar);
+
         progBar.setVisibility(View.VISIBLE);
+        progBar.setVisibility(View.GONE);
         lv = (ListView) getView().findViewById(R.id.LV_fragment_prfoListView);
-        gv = (GridView) getView().findViewById(R.id.ProfFragment_gridview);
-        gv.setVisibility(View.INVISIBLE);
+        //gv = (GridView) getView().findViewById(R.id.ProfFragment_gridview);
+        //gv.setVisibility(View.INVISIBLE);
+       // lv.setVisibility(View.VISIBLE);
         plvad = new Professors_Listview_ArrayAdabter(getContext(),R.layout.row_profflist);
         try {
             getJson.get();
@@ -89,8 +92,8 @@ public class Prof_listview_Fragment extends Fragment {
 
 
         JsonString = getJson.finalJson;
-       gv.setAdapter(plvad);
-       // lv.setAdapter(plvad);
+       //gv.setAdapter(plvad);
+        lv.setAdapter(plvad);
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -149,7 +152,7 @@ public class Prof_listview_Fragment extends Fragment {
 
             }
             progBar.setVisibility(View.INVISIBLE);
-            gv.setVisibility(View.VISIBLE);
+            //gv.setVisibility(View.VISIBLE);
 
 
         } catch (JSONException e) {

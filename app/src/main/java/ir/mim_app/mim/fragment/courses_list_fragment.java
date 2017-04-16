@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -23,6 +25,7 @@ import org.json.JSONObject;
 
 import java.util.concurrent.ExecutionException;
 
+import ir.mim_app.mim.Courses_Activity_ListView;
 import ir.mim_app.mim.Courses_ListView_ArrayAdabter;
 import ir.mim_app.mim.GetJson;
 import ir.mim_app.mim.Professors_Listview_ArrayAdabter;
@@ -70,6 +73,12 @@ public class courses_list_fragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+
+
+        //floating action bar
+
+
+
         lv = (ListView) getView().findViewById(R.id.LV_fragment_coursesListView);
        // gv = (GridView) getView().findViewById(R.id.courseFragment_gridview);
         clvad = new  Courses_ListView_ArrayAdabter(getContext(),R.layout.row_courselist);
@@ -92,17 +101,17 @@ public class courses_list_fragment extends Fragment {
                // String family = ((TextView) view.findViewById(R.id.TV_ProffFamily)).getText().toString();
                // ((ImageView) view.findViewById(R.id.IV_proffIamge)).buildDrawingCache();
                // Bitmap profimage = ((ImageView) view.findViewById(R.id.IV_proffIamge)).getDrawingCache();
+              //  Toast.makeText(getContext(),"قراره اسم استادای  "+((TextView) view.findViewById(R.id.TV_Course_Name)).getText().toString() +" رو نشون بده", Toast.LENGTH_SHORT).show();
+                String courseID = ((TextView) view.findViewById(R.id.TV_Course_Name)).getText().toString();
 
-                       Toast.makeText(getContext(),"قراره اسم استادای  "+((TextView) view.findViewById(R.id.TV_Course_Name)).getText().toString() +" رو نشون بده", Toast.LENGTH_SHORT).show();
-
-               // Intent item_intent = new Intent(getContext(), proff_detail_activity.class);
-              //  Bundle extras = new Bundle();
-               // extras.putParcelable("profimage", profimage);
-               // item_intent.putExtras(extras);
-              //  item_intent.putExtra("name",name);
+                Intent item_intent = new Intent(getContext(), Courses_Activity_ListView.class);
+               Bundle extras = new Bundle();
+              // extras.putParcelable("profimage", profimage);
+               //item_intent.putExtras(extras);
+               item_intent.putExtra("courseID",courseID);
               //  item_intent.putExtra("family",family);
 
-               // startActivity(item_intent);
+                startActivity(item_intent);
 
             }
         });
@@ -146,6 +155,14 @@ public class courses_list_fragment extends Fragment {
         //Toast.makeText(getApplicationContext(), "prof_list", Toast.LENGTH_LONG).show();
 
 
+        FloatingActionButton fab = (FloatingActionButton) getView().findViewById(R.id.fab_Fragment_coursesList);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+            }
+        });
 
 
         //  JsonString = getJson.finalJson;

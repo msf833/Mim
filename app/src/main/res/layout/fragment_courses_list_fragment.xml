@@ -2,6 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="ir.mim_app.mim.fragment.courses_list_fragment">
 
     <!-- TODO: Update blank fragment layout -->
@@ -13,10 +14,11 @@
         android:layout_height="match_parent"
         android:visibility="visible" />
 
-    <GridView
-        android:id="@+id/courseFragment_gridview"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:numColumns="2"
-        android:visibility="invisible"></GridView>
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_Fragment_coursesList"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/fab_margin"
+        app:srcCompat="@android:drawable/ic_menu_search" />
 </FrameLayout>

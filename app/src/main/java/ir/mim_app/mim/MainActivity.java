@@ -123,9 +123,12 @@ public class MainActivity extends AppCompatActivity
                        // Prof_listview_Fragment fragobj = new Prof_listview_Fragment();
                         if(fragobj == null) fragobj = new Prof_listview_Fragment();
                         progBar.setVisibility(View.VISIBLE);
+                        progBar.setVisibility(View.GONE);
                         FragmentTransaction frm = fragmentManager.beginTransaction().replace(R.id.frameLayout_main_activity,fragobj);
                         frm.commit();
+                        progBar.setVisibility(View.GONE);
                         progBar.setVisibility(View.INVISIBLE);
+
                     }else {
                         Toast.makeText(MainActivity.this, "Check internet connection !!", Toast.LENGTH_SHORT).show();
                     }
@@ -137,8 +140,10 @@ public class MainActivity extends AppCompatActivity
                     if (isNetworkAvailable()) {
                         if(clfobj == null)  clfobj =  new courses_list_fragment();
                         progBar.setVisibility(View.VISIBLE);
+                        progBar.setVisibility(View.GONE);
                         FragmentTransaction frm = fragmentManager.beginTransaction().replace(R.id.frameLayout_main_activity, clfobj);
                         frm.commit();
+                        progBar.setVisibility(View.GONE);
                         progBar.setVisibility(View.INVISIBLE);
                     }    else {
                         Toast.makeText(MainActivity.this, "Check internet connection !!", Toast.LENGTH_SHORT).show();
@@ -157,6 +162,9 @@ public class MainActivity extends AppCompatActivity
                     FragmentTransaction frm = fragmentManager.beginTransaction().replace(R.id.frameLayout_main_activity,new search_fragment());
                     frm.commit();
                 }
+
+
+
             }
         });
 

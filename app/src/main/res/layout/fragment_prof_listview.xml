@@ -2,13 +2,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="ir.mim_app.mim.fragment.Prof_listview_Fragment"
     android:layoutDirection="rtl"
 
     >
 
     <!-- TODO: Update blank fragment layout -->
-
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/fab_margin"
+        app:srcCompat="@android:drawable/ic_menu_search" />
 
     <ProgressBar
         android:id="@+id/Fragment_prof_progressBar"
@@ -22,11 +29,5 @@
         android:id="@+id/LV_fragment_prfoListView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="invisible" />
-    <GridView
-        android:id="@+id/ProfFragment_gridview"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:numColumns="2"
-        ></GridView>
+        android:visibility="visible" />
 </FrameLayout>

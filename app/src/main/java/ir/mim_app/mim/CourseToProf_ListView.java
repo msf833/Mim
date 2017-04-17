@@ -14,6 +14,7 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -22,7 +23,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CourseToProf_ListView extends AppCompatActivity {
+public class CourseToProf_ListView extends  AppCompatActivity {
     GetJson getJson;
     String JsonString;
     JSONObject jsonobject = null;
@@ -49,7 +50,7 @@ public class CourseToProf_ListView extends AppCompatActivity {
         });
 
         plvad = new Professors_Listview_ArrayAdabter(getApplicationContext(),R.layout.row_profflist);
-        lv = (ListView) findViewById(R.id.LV_ProffListView);
+        lv = (ListView) findViewById(R.id.LV_coursetoProffListView);
         lv.setAdapter(plvad);
 
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -77,7 +78,9 @@ public class CourseToProf_ListView extends AppCompatActivity {
         // gv = (GridView) findViewById(R.id.secGridView);
         //gv.setAdapter(plvad);
         JsonString = getIntent().getExtras().getString("JSON_string_data");
-
+       // Toast.makeText(getApplicationContext(), JsonString, Toast.LENGTH_SHORT).show();
+         TextView tv = (TextView) findViewById(R.id.textView2);
+        tv.setText(JsonString);
         String profName;
         String profFamily;
         String profPic;
@@ -88,8 +91,8 @@ public class CourseToProf_ListView extends AppCompatActivity {
 
             jsonobject = new JSONObject(JsonString);
 
-            int count =0;
-            jsonArray = jsonobject.getJSONArray("prof_list");
+            int count = 0;
+            jsonArray = jsonobject.getJSONArray("coursetoprofs_list");
 
 
             while (count < jsonArray.length()){
@@ -119,7 +122,6 @@ public class CourseToProf_ListView extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        //Toast.makeText(getApplicationContext(), "prof_list", Toast.LENGTH_LONG).show();
 
 
 

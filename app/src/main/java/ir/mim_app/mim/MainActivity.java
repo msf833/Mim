@@ -77,6 +77,7 @@ public class MainActivity extends AppCompatActivity
         inint();
         getWindow().getDecorView().setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
         progBar = (ProgressBar) findViewById(R.id.progressBar);
+        progBar.setVisibility(View.INVISIBLE);
 //        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
 //       // final ImageView tev = (ImageView) findViewById(R.id.main_imgView);
 //
@@ -122,12 +123,14 @@ public class MainActivity extends AppCompatActivity
                     if (isNetworkAvailable()){
                        // Prof_listview_Fragment fragobj = new Prof_listview_Fragment();
                         if(fragobj == null) fragobj = new Prof_listview_Fragment();
-                        progBar.setVisibility(View.VISIBLE);
-                        progBar.setVisibility(View.GONE);
+                      //  framelayout.setVisibility(View.INVISIBLE);
+
+                        //progBar.setVisibility(View.GONE);
                         FragmentTransaction frm = fragmentManager.beginTransaction().replace(R.id.frameLayout_main_activity,fragobj);
                         frm.commit();
-                        progBar.setVisibility(View.GONE);
-                        progBar.setVisibility(View.INVISIBLE);
+                        //progBar.setVisibility(View.VISIBLE);
+                     //  progBar.setVisibility(View.GONE);
+                        //progBar.setVisibility(View.INVISIBLE);
 
                     }else {
                         Toast.makeText(MainActivity.this, "Check internet connection !!", Toast.LENGTH_SHORT).show();
@@ -139,12 +142,12 @@ public class MainActivity extends AppCompatActivity
                     // Toast.makeText(MainActivity.this, "courses", Toast.LENGTH_SHORT).show();
                     if (isNetworkAvailable()) {
                         if(clfobj == null)  clfobj =  new courses_list_fragment();
-                        progBar.setVisibility(View.VISIBLE);
-                        progBar.setVisibility(View.GONE);
+                      //  progBar.setVisibility(View.VISIBLE);
+                     //   progBar.setVisibility(View.GONE);
                         FragmentTransaction frm = fragmentManager.beginTransaction().replace(R.id.frameLayout_main_activity, clfobj);
                         frm.commit();
-                        progBar.setVisibility(View.GONE);
-                        progBar.setVisibility(View.INVISIBLE);
+                       // progBar.setVisibility(View.GONE);
+                      //  progBar.setVisibility(View.INVISIBLE);
                     }    else {
                         Toast.makeText(MainActivity.this, "Check internet connection !!", Toast.LENGTH_SHORT).show();
                     }

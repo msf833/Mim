@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import org.json.JSONArray;
@@ -41,7 +42,7 @@ public class courses_list_fragment extends Fragment {
     JSONObject jsonobject = null;
     JSONArray jsonArray;
     GridView gv;
-
+    ProgressBar progressBar;
 
 
     public courses_list_fragment() {
@@ -69,8 +70,8 @@ public class courses_list_fragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
 
-        //floating action bar
-
+        //progress bar bar
+        //progressBar = (ProgressBar) getView().findViewById(R.id.PB_fragment_coursesListview);
 
 
         lv = (ListView) getView().findViewById(R.id.LV_fragment_coursesListView);
@@ -96,9 +97,12 @@ public class courses_list_fragment extends Fragment {
                // ((ImageView) view.findViewById(R.id.IV_proffIamge)).buildDrawingCache();
                // Bitmap profimage = ((ImageView) view.findViewById(R.id.IV_proffIamge)).getDrawingCache();
               //  Toast.makeText(getContext(),"قراره اسم استادای  "+((TextView) view.findViewById(R.id.TV_Course_Name)).getText().toString() +" رو نشون بده", Toast.LENGTH_SHORT).show();
-                String courseID = ((TextView) view.findViewById(R.id.TV_Course_Name)).getText().toString();
 
+             // lv.setVisibility(View.INVISIBLE);
+                String courseID = ((TextView) view.findViewById(R.id.TV_courseID)).getText().toString();
 
+             //  progressBar.setVisibility(View.VISIBLE);
+            //    progressBar.setVisibility(View.GONE);
                 String url = "http://api.mim-app.ir/SelectValue_coursesList2profselect.php";
                 getJson= new GetJson(url);
                 getJson.execute("CourseToProf",courseID);
@@ -112,9 +116,12 @@ public class courses_list_fragment extends Fragment {
                 }
                 Intent i = new Intent(getContext() , CourseToProf_ListView.class);
                 i.putExtra("JSON_string_data",getJson.finalJson);
-                Log.i("in_mainactivity","intent ");
-                startActivity(i);
+                Log.i("in courseSelectFragment","intent ");
 
+               // progressBar.setVisibility(View.INVISIBLE);
+                startActivity(i);
+               // progressBar.setVisibility(View.GONE);
+              //  lv.setVisibility(View.VISIBLE);
                 //Intent item_intent = new Intent(getContext(), Courses_Activity_ListView.class);
               // Bundle extras = new Bundle();
               // extras.putParcelable("profimage", profimage);
@@ -170,8 +177,7 @@ public class courses_list_fragment extends Fragment {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+               // progressBar.setVisibility(View.VISIBLE);
             }
         });
 

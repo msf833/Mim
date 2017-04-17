@@ -76,12 +76,13 @@ public class Prof_listview_Fragment extends Fragment {
         progBar = (ProgressBar) getView().findViewById(R.id.Fragment_prof_progressBar);
 
         progBar.setVisibility(View.VISIBLE);
-        progBar.setVisibility(View.GONE);
+
         lv = (ListView) getView().findViewById(R.id.LV_fragment_prfoListView);
         //gv = (GridView) getView().findViewById(R.id.ProfFragment_gridview);
         //gv.setVisibility(View.INVISIBLE);
        // lv.setVisibility(View.VISIBLE);
         plvad = new Professors_Listview_ArrayAdabter(getContext(),R.layout.row_profflist);
+      //  progBar.setVisibility(View.VISIBLE);
         try {
             getJson.get();
         } catch (InterruptedException e) {
@@ -151,7 +152,7 @@ public class Prof_listview_Fragment extends Fragment {
 
 
             }
-            progBar.setVisibility(View.INVISIBLE);
+           // progBar.setVisibility(View.GONE);
             //gv.setVisibility(View.VISIBLE);
 
 

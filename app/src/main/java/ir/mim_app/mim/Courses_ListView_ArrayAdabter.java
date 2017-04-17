@@ -61,7 +61,7 @@ public class Courses_ListView_ArrayAdabter  extends ArrayAdapter{
         TextView tv_crsfName = (TextView) row.findViewById(R.id.TV_Course_Name);
         tv_crsfName.setText(crs.getCourseName());
         TextView tv_courseID = (TextView) row.findViewById(R.id.TV_courseID);
-        tv_crsfName.setText(crs.getCourseID());
+        tv_courseID.setText(crs.getCourseID());
         return row;
 
     }

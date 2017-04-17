@@ -1,8 +1,5 @@
 package ir.mim_app.mim;
 
-import android.content.Context;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.AsyncTask;
 
 import org.json.JSONException;
@@ -123,6 +120,69 @@ public class GetJson extends AsyncTask<String ,Void, String> {
             }
 
         }
+
+
+        if(method.equals("CourseToProf")){
+
+            String courseID = params[1];
+
+            try {
+                URL url= new URL(StrURl);
+//                HttpURLConnection httpURLConnection= (HttpURLConnection) url.openConnection();
+//                httpURLConnection.setRequestMethod("POST");
+//                httpURLConnection.setDoOutput(true);
+//                httpURLConnection.setDoInput(true);
+//                httpURLConnection.setRequestProperty( "charset", "utf-8");
+//                OutputStream os= httpURLConnection.getOutputStream();
+//
+//                BufferedWriter bufferedWriter= new BufferedWriter(new OutputStreamWriter(os,"UTF-8"));
+
+                URLConnection conn = url.openConnection();
+                conn.setDoOutput(true);
+                conn.setRequestProperty("charset", "utf-8");
+                OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream(),"UTF-8");
+
+                String data= URLEncoder.encode("courseID", "UTF-8")+"="+ URLEncoder.encode(courseID,"UTF-8");
+
+                wr.write( data );
+                wr.flush();
+                wr.close();
+
+                //Charset.forName("UTF-8").encode(data);
+//                bufferedWriter.write(data);
+//                bufferedWriter.flush();
+//                bufferedWriter.close();
+//                os.close();
+                BufferedReader reader = new BufferedReader(new
+                        InputStreamReader(conn.getInputStream(), "UTF-8"));
+
+                StringBuilder sb = new StringBuilder();
+                String line = null;
+
+                // Read Server Response
+                while((line = reader.readLine()) != null) {
+                    sb.append(line);
+
+                }
+                finalJson = sb.toString();
+                Recieved = true;
+                try {
+                    jsonobj = new JSONObject(finalJson);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                return sb.toString();
+//                InputStream IS= httpURLConnection.getInputStream();
+//                IS.close();
+                // return "Registration success";
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        }
+
         return null;
     }
 

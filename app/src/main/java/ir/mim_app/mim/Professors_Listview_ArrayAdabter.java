@@ -4,17 +4,15 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
-import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
@@ -23,7 +21,6 @@ import java.io.InputStream;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 /**
  * Created by MSF on 4/9/2017.
@@ -77,14 +74,21 @@ public class Professors_Listview_ArrayAdabter extends ArrayAdapter {
 
             professor prf = (professor) getItem(position);
 
-            TextView tv_profName = (TextView) row.findViewById(R.id.TV_proffname);
-        tv_profName.setText(prf.getProfName());
 
-            TextView tv_profFamily = (TextView) row.findViewById(R.id.TV_ProffFamily);
+        TextView tv_profName = (TextView) row.findViewById(R.id.TV_proffname);
+        //tv_profName.setText(prf.getProfName());
+
+        TextView tv_profFamily = (TextView) row.findViewById(R.id.TV_ProffFamily);
+
         tv_profFamily.setText(prf.getProfFamily());
 
 
-            ImageView iv_profPic  = (ImageView) row.findViewById(R.id.IV_proffIamge);
+        String pName = prf.getProfName() + " " + prf.getProfFamily();
+        tv_profFamily.setText(pName);
+
+
+
+        ImageView iv_profPic  = (ImageView) row.findViewById(R.id.IV_proffIamge);
             String url = prf.getProfPic();
 
             Picasso.with(getContext()).load(url).into( iv_profPic );
@@ -92,9 +96,8 @@ public class Professors_Listview_ArrayAdabter extends ArrayAdapter {
             //professorHolderobj.ali = (AsyncTaskLoadImage) new AsyncTaskLoadImage( professorHolderobj.iv_profPic  ).execute(url);
 
             // professorHolderobj.tv_profPic = (TextView) row.findViewById(R.id.tv_profPic);
-            TextView tv_profRate = (TextView) row.findViewById(R.id.TV_ProfRate);
-        tv_profRate.setText(prf.getProfRate()+"");
-
+            RatingBar tv_profRate = (RatingBar) row.findViewById(R.id.TV_ProfRate);
+            tv_profRate.setRating(prf.getProfRate());
         return row;
 
     }

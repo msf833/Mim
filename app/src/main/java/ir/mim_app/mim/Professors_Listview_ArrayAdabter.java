@@ -74,6 +74,7 @@ public class Professors_Listview_ArrayAdabter extends ArrayAdapter {
 
             professor prf = (professor) getItem(position);
 
+   /* seetings up profs atributes */
 
         TextView tv_profName = (TextView) row.findViewById(R.id.TV_proffname);
         //tv_profName.setText(prf.getProfName());
@@ -85,7 +86,7 @@ public class Professors_Listview_ArrayAdabter extends ArrayAdapter {
        // TV_ProfessorsID
         TextView TV_ProfessorsID = (TextView) row.findViewById(R.id.TV_ProfessorsID);
 
-        tv_profFamily.setText(prf.getProfessorsID());
+        TV_ProfessorsID.setText(prf.getProfessorsID());
 
         String pName = prf.getProfName() + " " + prf.getProfFamily();
         tv_profFamily.setText(pName);

@@ -61,11 +61,12 @@ public class CourseToProf_ListView extends  AppCompatActivity {
                 String family = ((TextView) view.findViewById(R.id.TV_ProffFamily)).getText().toString();
                 ((ImageView) view.findViewById(R.id.IV_proffIamge)).buildDrawingCache();
                 Bitmap profimage = ((ImageView) view.findViewById(R.id.IV_proffIamge)).getDrawingCache();
-
+                String ProfessorsID = ((TextView) view.findViewById(R.id.TV_ProfessorsID)).getText().toString();
                 //        Toast.makeText(getApplicationContext(),name,Toast.LENGTH_LONG).show();
 
                 Intent item_intent = new Intent(getApplicationContext(), proff_detail_activity.class);
                 Bundle extras = new Bundle();
+                item_intent.putExtra("ProfessorsID",ProfessorsID);
                 extras.putParcelable("profimage", profimage);
                 item_intent.putExtras(extras);
                 item_intent.putExtra("name",name);
@@ -85,6 +86,7 @@ public class CourseToProf_ListView extends  AppCompatActivity {
         String profFamily;
         String profPic;
         String profRate;
+        String professorsID;
 
         try {
 
@@ -97,6 +99,8 @@ public class CourseToProf_ListView extends  AppCompatActivity {
 
             while (count < jsonArray.length()){
                 JSONObject jo = jsonArray.getJSONObject(count);
+
+                professorsID = jo.getString("ProfessorsID");
                 profName = jo.getString("name");
                 profFamily = jo.getString("family");
                 profPic = jo.getString("pic");
@@ -107,7 +111,7 @@ public class CourseToProf_ListView extends  AppCompatActivity {
 
 
 
-                professor professorOBJ = new professor(profName,profFamily,profPic,Float.parseFloat(profRate));
+                professor professorOBJ = new professor(profName, profFamily, profPic, Float.parseFloat(profRate), professorsID);
                 plvad.add(professorOBJ);
                 count++;
 

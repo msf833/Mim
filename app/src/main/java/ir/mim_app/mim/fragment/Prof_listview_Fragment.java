@@ -17,6 +17,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -102,14 +103,17 @@ public class Prof_listview_Fragment extends Fragment {
                 String name = ((TextView) view.findViewById(R.id.TV_proffname)).getText().toString();
                 String family = ((TextView) view.findViewById(R.id.TV_ProffFamily)).getText().toString();
                 ((ImageView) view.findViewById(R.id.IV_proffIamge)).buildDrawingCache();
+                String ProfessorsID = ((TextView) view.findViewById(R.id.TV_ProfessorsID)).getText().toString();
                 Bitmap profimage = ((ImageView) view.findViewById(R.id.IV_proffIamge)).getDrawingCache();
 
-                //        Toast.makeText(getApplicationContext(),name,Toast.LENGTH_LONG).show();
+                      //  Toast.makeText(getContext(),name,Toast.LENGTH_LONG).show();
 
                 Intent item_intent = new Intent(getContext(), proff_detail_activity.class);
                 Bundle extras = new Bundle();
                 extras.putParcelable("profimage", profimage);
                 item_intent.putExtras(extras);
+                item_intent.putExtra("ProfessorsID",ProfessorsID);
+
                 item_intent.putExtra("name",name);
                 item_intent.putExtra("family",family);
 
@@ -127,7 +131,7 @@ public class Prof_listview_Fragment extends Fragment {
         String profFamily;
         String profPic;
         String profRate;
-        String ProfessorsID;
+        String professorsID;
 
         try {
 
@@ -141,8 +145,7 @@ public class Prof_listview_Fragment extends Fragment {
             while (count < jsonArray.length()){
                 JSONObject jo = jsonArray.getJSONObject(count);
 
-                ProfessorsID = jo.getString("ProfessorsID");
-
+                professorsID = jo.getString("ProfessorsID");
                 profName = jo.getString("name");
                 profFamily = jo.getString("family");
                 profPic = jo.getString("pic");
@@ -150,7 +153,7 @@ public class Prof_listview_Fragment extends Fragment {
 
 
                // professor professorOBJ = new professor(profName,profFamily,profPic,Float.parseFloat(profRate),ProfessorsID);
-                professor professorOBJ = new professor(profName, profFamily, profPic, Float.parseFloat(profRate), ProfessorsID);
+                professor professorOBJ = new professor(profName, profFamily, profPic, Float.parseFloat(profRate), professorsID);
                 plvad.add(professorOBJ);
                 count++;
 

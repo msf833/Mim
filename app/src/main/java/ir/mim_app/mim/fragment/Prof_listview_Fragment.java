@@ -127,6 +127,7 @@ public class Prof_listview_Fragment extends Fragment {
         String profFamily;
         String profPic;
         String profRate;
+        String ProfessorsID;
 
         try {
 
@@ -139,13 +140,17 @@ public class Prof_listview_Fragment extends Fragment {
 
             while (count < jsonArray.length()){
                 JSONObject jo = jsonArray.getJSONObject(count);
+
+                ProfessorsID = jo.getString("ProfessorsID");
+
                 profName = jo.getString("name");
                 profFamily = jo.getString("family");
                 profPic = jo.getString("pic");
                 profRate = jo.getString("rate");
 
 
-                professor professorOBJ = new professor(profName,profFamily,profPic,Float.parseFloat(profRate));
+               // professor professorOBJ = new professor(profName,profFamily,profPic,Float.parseFloat(profRate),ProfessorsID);
+                professor professorOBJ = new professor(profName, profFamily, profPic, Float.parseFloat(profRate), ProfessorsID);
                 plvad.add(professorOBJ);
                 count++;
 

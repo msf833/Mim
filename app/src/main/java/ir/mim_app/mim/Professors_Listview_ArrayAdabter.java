@@ -82,6 +82,10 @@ public class Professors_Listview_ArrayAdabter extends ArrayAdapter {
 
         tv_profFamily.setText(prf.getProfFamily());
 
+       // TV_ProfessorsID
+        TextView TV_ProfessorsID = (TextView) row.findViewById(R.id.TV_ProfessorsID);
+
+        tv_profFamily.setText(prf.getProfessorsID());
 
         String pName = prf.getProfName() + " " + prf.getProfFamily();
         tv_profFamily.setText(pName);

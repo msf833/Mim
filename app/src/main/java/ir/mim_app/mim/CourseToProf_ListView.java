@@ -79,8 +79,8 @@ public class CourseToProf_ListView extends  AppCompatActivity {
         //gv.setAdapter(plvad);
         JsonString = getIntent().getExtras().getString("JSON_string_data");
        // Toast.makeText(getApplicationContext(), JsonString, Toast.LENGTH_SHORT).show();
-         TextView tv = (TextView) findViewById(R.id.textView2);
-        tv.setText(JsonString);
+       //  TextView tv = (TextView) findViewById(R.id.textView2);
+        //tv.setText(JsonString);
         String profName;
         String profFamily;
         String profPic;

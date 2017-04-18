@@ -73,9 +73,9 @@ public class Prof_listview_Fragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         //Bundle Fextras = getIntent().getExtras();
      //   progBar.setVisibility(View.VISIBLE);
-        progBar = (ProgressBar) getView().findViewById(R.id.Fragment_prof_progressBar);
+       // progBar = (ProgressBar) getView().findViewById(R.id.Fragment_prof_progressBar);
 
-        progBar.setVisibility(View.VISIBLE);
+    //    progBar.setVisibility(View.VISIBLE);
 
         lv = (ListView) getView().findViewById(R.id.LV_fragment_prfoListView);
         //gv = (GridView) getView().findViewById(R.id.ProfFragment_gridview);

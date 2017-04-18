@@ -51,6 +51,13 @@
             android:layout_marginRight="10dp"
             android:id="@+id/TV_proffname"
             android:layout_marginTop="5dp" />
+
+        <TextView
+            android:id="@+id/TV_ProfessorsID"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="TextView"
+            android:visibility="gone" />
     </LinearLayout>
 
 </LinearLayout>

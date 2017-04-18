@@ -15,6 +15,33 @@ public class professor {
     float profRate;
     Bitmap bmp;
 
+    public String getProfessorsID() {
+        return ProfessorsID;
+    }
+
+    public void setProfessorsID(String professorsID) {
+        ProfessorsID = professorsID;
+    }
+
+    String ProfessorsID;
+
+    public professor(String profName, String profFamily, String profPic, float profRate, Bitmap bmp, String professorsID) {
+        this.profName = profName;
+        this.profFamily = profFamily;
+        this.profPic = profPic;
+        this.profRate = profRate;
+        this.bmp = bmp;
+        ProfessorsID = professorsID;
+    }
+    public professor(String profName, String profFamily, String profPic, float profRate, String professorsID) {
+        this.profName = profName;
+        this.profFamily = profFamily;
+        this.profPic = profPic;
+        this.profRate = profRate;
+
+        ProfessorsID = professorsID;
+    }
+
     public professor(String profName, String profFamily, String profPic, float profRate, Bitmap bmp) {
         this.profName = profName;
         this.profFamily = profFamily;

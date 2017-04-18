@@ -23,10 +23,13 @@ public class proff_detail_activity extends AppCompatActivity {
         ImageView profimg =(ImageView) findViewById(R.id.IV_ProfDet_Profimg);
         profimg.setImageBitmap(bmp );
        TextView tv_name = ((TextView)findViewById(R.id.TV_ProfDet_NAME));
-        tv_name.setText (extras.getString("name"));
+       tv_name.setText (extras.getString("name"));
 
         TextView tv_family = ((TextView)findViewById(R.id.TV_ProfDet_FAMILY));
         tv_family.setText (extras.getString("family"));
+
+        TextView tvProfessorsID = ((TextView)findViewById(R.id.tv_profID_Detailview));
+        tvProfessorsID.setText (extras.getString("ProfessorsID"));
 
 
 

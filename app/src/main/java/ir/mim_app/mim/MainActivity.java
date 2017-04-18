@@ -76,8 +76,8 @@ public class MainActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
         inint();
         getWindow().getDecorView().setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
-        progBar = (ProgressBar) findViewById(R.id.progressBar);
-        progBar.setVisibility(View.INVISIBLE);
+     //   progBar = (ProgressBar) findViewById(R.id.progressBar);
+      //  progBar.setVisibility(View.INVISIBLE);
 //        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
 //       // final ImageView tev = (ImageView) findViewById(R.id.main_imgView);
 //

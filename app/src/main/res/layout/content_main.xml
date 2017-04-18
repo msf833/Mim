@@ -27,14 +27,4 @@ android:layoutDirection="rtl"
 
     </com.roughike.bottombar.BottomBar>
 
-    <ProgressBar
-        android:id="@+id/progressBar"
-        style="@android:style/Widget.DeviceDefault.Light.ProgressBar.Large"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentTop="true"
-        android:layout_gravity="center"
-        android:visibility="gone" />
-
 </RelativeLayout>

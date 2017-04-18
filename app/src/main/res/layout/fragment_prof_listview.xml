@@ -9,14 +9,6 @@
     >
 
     <!-- TODO: Update blank fragment layout -->
-    <ProgressBar
-        android:id="@+id/Fragment_prof_progressBar"
-        style="@android:style/Widget.DeviceDefault.Light.ProgressBar.Inverse"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:visibility="visible"
-        tools:visibility="visible" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"

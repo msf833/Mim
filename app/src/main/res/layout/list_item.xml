@@ -3,8 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="horizontal" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/list_item"
-    android:layoutDirection="ltr">
+    android:id="@+id/list_item">
 
 
     <ImageView
@@ -25,12 +24,24 @@
             android:text="فخاریان"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:id="@+id/TV_proffname"
+            android:textAlignment="viewEnd"
+            android:textSize="24sp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="5dp"
+            android:textColor="@color/colorPrimary" />
+
+        <TextView
+            android:text="فخاریان"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:id="@+id/TV_ProffFamily"
             android:textAlignment="viewEnd"
             android:textSize="24sp"
             android:layout_marginRight="15dp"
             android:layout_marginTop="5dp"
-            android:textColor="@color/bb_darkBackgroundColor" />
+            android:textColor="@color/colorPrimary"
+            android:visibility="invisible"/>
 
         <RatingBar
             android:layout_width="wrap_content"
@@ -49,7 +60,7 @@
             android:layout_height="wrap_content"
             android:textAlignment="viewEnd"
             android:layout_marginRight="10dp"
-            android:id="@+id/TV_proffname"
+            android:id="@+id/Pcourses"
             android:layout_marginTop="5dp" />
     </LinearLayout>
 

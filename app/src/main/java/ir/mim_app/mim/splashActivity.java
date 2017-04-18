@@ -22,7 +22,7 @@ public class splashActivity extends Activity {
 
                 try {
                     // Thread will sleep for 10 seconds
-                    sleep(5*1000);
+                    sleep(2*1000);
                     //Remove activity
                     Intent intent = new Intent(getBaseContext(), MainActivity.class);
                     startActivity(intent);

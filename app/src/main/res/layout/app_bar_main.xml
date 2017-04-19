@@ -11,31 +11,7 @@
         android:layout_height="wrap_content"
         android:theme="@style/AppTheme.AppBarOverlay">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
 
-            android:layoutDirection="rtl">
-
-
-            <ImageButton
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:padding="10dp"
-                android:background="@drawable/ic_dashboard_black_24dp"
-                android:backgroundTint="@color/colorAccent"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:padding="15dp"
-                android:text="مریم عزیزی خوش آمدید"
-                android:layoutDirection="rtl"
-                android:textSize="18sp"
-                android:textColor="#fff"/>
-
-
-        </LinearLayout>
 
 
 

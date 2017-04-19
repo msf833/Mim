@@ -38,13 +38,13 @@
         android:layout_marginTop="107dp" />
 
     <Button
-        android:id="@+id/btn_sendReauest"
+        android:id="@+id/btn_setTimeToSend"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:background="@color/myblue"
-        android:text="ثبت"
+        android:text="مشخص کردن زمان کلاس"
         android:textSize="30sp" />
 
     <TextView

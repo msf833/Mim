@@ -3,8 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".splashActivity"
-    android:background="?android:attr/colorControlHighlight">
+    tools:context="ir.mim_app.mim.splashActivity"
+    >
 
     <!--<TextView
         android:layout_width="match_parent"
@@ -14,7 +14,7 @@
         android:textSize="28dp"
         android:id="@+id/dudeId"/>-->
 
-    <ImageButton
+    <ImageView
         android:id="@+id/imageButton"
         android:background="@mipmap/img_btnmenu_profflist"
         android:layout_width="100dp"

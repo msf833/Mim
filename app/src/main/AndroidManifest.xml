@@ -59,7 +59,7 @@
         <activity
             android:name=".CourseToProf_ListView"
             android:label="@string/title_activity_course_to_prof__list_view"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".splashActivity"
             android:theme="@style/AppTheme.NoActionBar">
@@ -69,6 +69,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".SetTimeActivity"
+            android:label="@string/title_activity_set_time"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".time_picker_activity"
+            android:label="@string/title_activity_time_picker_activity"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

@@ -76,7 +76,8 @@
         <activity
             android:name=".time_picker_activity"
             android:label="@string/title_activity_time_picker_activity"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".progressBaractivity"></activity>
     </application>
 
 </manifest>

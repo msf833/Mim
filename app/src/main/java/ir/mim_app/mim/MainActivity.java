@@ -75,6 +75,13 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         inint();
+
+        ImageView appbar_img = (ImageView) findViewById(R.id.appbar_img);
+        appbar_img.setImageResource(R.mipmap.ic_mimlogo2);
+
+        TextView appbar_userName = (TextView) findViewById(R.id.appbar_userName);
+        appbar_userName.setText("میم مثل معلم");
+
         getWindow().getDecorView().setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
      //   progBar = (ProgressBar) findViewById(R.id.progressBar);
       //  progBar.setVisibility(View.INVISIBLE);

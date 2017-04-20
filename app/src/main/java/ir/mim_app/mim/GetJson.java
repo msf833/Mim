@@ -183,6 +183,79 @@ public class GetJson extends AsyncTask<String ,Void, String> {
 
         }
 
+
+
+
+
+        if(method.equals("sendClassSch")){
+            String proffID = params[0];
+            String coursID = params[1];
+            String studentID = params[2];
+            String coursdate = params[3];
+            String courstime = params[4];
+            String comments = params[5];
+
+            try {
+                URL url= new URL(StrURl);
+//                HttpURLConnection httpURLConnection= (HttpURLConnection) url.openConnection();
+//                httpURLConnection.setRequestMethod("POST");
+//                httpURLConnection.setDoOutput(true);
+//                httpURLConnection.setDoInput(true);
+//                httpURLConnection.setRequestProperty( "charset", "utf-8");
+//                OutputStream os= httpURLConnection.getOutputStream();
+//
+//                BufferedWriter bufferedWriter= new BufferedWriter(new OutputStreamWriter(os,"UTF-8"));
+
+                URLConnection conn = url.openConnection();
+                conn.setDoOutput(true);
+                conn.setRequestProperty("charset", "utf-8");
+                OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream(),"UTF-8");
+
+                String data= URLEncoder.encode("proffID", "UTF-8")+"="+ URLEncoder.encode(proffID,"UTF-8")+"&"+
+                        URLEncoder.encode("coursID","UTF-8")+"="+URLEncoder.encode(coursID,"UTF-8")+"&"+
+                        URLEncoder.encode("studentID","UTF-8")+"="+URLEncoder.encode(studentID,"UTF-8")+"&"+
+                        URLEncoder.encode("coursdate","UTF-8")+"="+URLEncoder.encode(coursdate,"UTF-8")+"&"+
+                        URLEncoder.encode("courstime","UTF-8")+"="+URLEncoder.encode(courstime,"UTF-8")+"&"+
+                        URLEncoder.encode("comments","UTF-8")+"="+URLEncoder.encode(comments,"UTF-8");
+
+                wr.write( data );
+                wr.flush();
+                wr.close();
+
+                //Charset.forName("UTF-8").encode(data);
+//                bufferedWriter.write(data);
+//                bufferedWriter.flush();
+//                bufferedWriter.close();
+//                os.close();
+                BufferedReader reader = new BufferedReader(new
+                        InputStreamReader(conn.getInputStream(), "UTF-8"));
+
+                StringBuilder sb = new StringBuilder();
+                String line = null;
+
+                // Read Server Response
+                while((line = reader.readLine()) != null) {
+                    sb.append(line);
+
+                }
+                finalJson = sb.toString();
+                Recieved = true;
+                try {
+                    jsonobj = new JSONObject(finalJson);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                return sb.toString();
+//                InputStream IS= httpURLConnection.getInputStream();
+//                IS.close();
+                // return "Registration success";
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        }
         return null;
     }
 

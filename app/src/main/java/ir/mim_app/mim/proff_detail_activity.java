@@ -39,12 +39,12 @@ public class proff_detail_activity extends AppCompatActivity {
             public void onClick(View v) {
 
                 Intent item_intent = new Intent(getApplicationContext(), SetTimeActivity.class);
-//                Bundle extras = new Bundle();
-//                item_intent.putExtra("ProfessorsID",extras.getString("ProfessorsID"));
-//
-//                item_intent.putExtras(extras);
-//                item_intent.putExtra("name",extras.getString("name"));
-//                item_intent.putExtra("family",extras.getString("family"));
+                Bundle extras = new Bundle();
+                item_intent.putExtra("ProfessorsID",extras.getString("ProfessorsID"));
+
+                item_intent.putExtras(extras);
+               item_intent.putExtra("name",extras.getString("name"));
+               item_intent.putExtra("family",extras.getString("family"));
 
                 startActivity(item_intent);
             }

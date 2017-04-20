@@ -71,9 +71,9 @@ public class courses_list_fragment extends Fragment {
 
 
         //progress bar bar
-        //progressBar = (ProgressBar) getView().findViewById(R.id.PB_fragment_coursesListview);
+        progressBar = (ProgressBar) getView().findViewById(R.id.progressBar2);
 
-
+        progressBar.setVisibility(View.VISIBLE);
         lv = (ListView) getView().findViewById(R.id.LV_fragment_coursesListView);
        // gv = (GridView) getView().findViewById(R.id.courseFragment_gridview);
         clvad = new  Courses_ListView_ArrayAdabter(getContext(),R.layout.row_courselist);
@@ -100,7 +100,7 @@ public class courses_list_fragment extends Fragment {
 
              // lv.setVisibility(View.INVISIBLE);
                 String courseID = ((TextView) view.findViewById(R.id.TV_courseID)).getText().toString();
-
+                progressBar.setVisibility(View.VISIBLE);
              //  progressBar.setVisibility(View.VISIBLE);
             //    progressBar.setVisibility(View.GONE);
                 String url = "http://api.mim-app.ir/SelectValue_coursesList2profselect.php";
@@ -119,6 +119,7 @@ public class courses_list_fragment extends Fragment {
                 Log.i("in courseSelectFragment","intent ");
 
                // progressBar.setVisibility(View.INVISIBLE);
+                progressBar.setVisibility(View.GONE);
                 startActivity(i);
                // progressBar.setVisibility(View.GONE);
               //  lv.setVisibility(View.VISIBLE);
@@ -163,7 +164,7 @@ public class courses_list_fragment extends Fragment {
 
             }
 
-
+            progressBar.setVisibility(View.GONE);
 
         } catch (JSONException e) {
 

@@ -44,7 +44,7 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:background="@color/myblue"
-        android:text="مشخص کردن زمان کلاس"
+        android:text="زمان کلاس"
         android:textSize="30sp" />
 
     <TextView

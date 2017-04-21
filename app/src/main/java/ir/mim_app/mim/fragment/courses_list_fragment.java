@@ -61,7 +61,7 @@ public class courses_list_fragment extends Fragment {
 
         String url = "http://api.mim-app.ir/SelectValue_coursesList.php";
         getJson= new GetJson(url);
-        getJson.execute("register","محمد","ایمیل","123654","پسورد");
+        getJson.execute("courseList","محمد","ایمیل","123654","پسورد");
         return view ;
     }
 
@@ -100,7 +100,7 @@ public class courses_list_fragment extends Fragment {
 
              // lv.setVisibility(View.INVISIBLE);
                 String courseID = ((TextView) view.findViewById(R.id.TV_courseID)).getText().toString();
-                progressBar.setVisibility(View.VISIBLE);
+
              //  progressBar.setVisibility(View.VISIBLE);
             //    progressBar.setVisibility(View.GONE);
                 String url = "http://api.mim-app.ir/SelectValue_coursesList2profselect.php";

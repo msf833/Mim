@@ -45,7 +45,7 @@
         android:layout_centerHorizontal="true"
         android:background="@color/myblue"
         android:text="زمان کلاس"
-        android:textSize="30sp" />
+        android:textSize="15sp" />
 
     <TextView
         android:id="@+id/tv_profID_Detailview"

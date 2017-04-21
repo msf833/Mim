@@ -63,7 +63,7 @@ public class Prof_listview_Fragment extends Fragment {
         Bundle bundle = this.getArguments();
         String url = "http://api.mim-app.ir/SelectValue_profList.php";
         getJson= new GetJson(url);
-        getJson.execute("register","محمد","ایمیل","123654","پسورد");
+        getJson.execute("courseList","محمد","ایمیل","123654","پسورد");
 
 
         return view ;

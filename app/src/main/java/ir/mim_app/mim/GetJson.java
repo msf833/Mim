@@ -54,7 +54,7 @@ public class GetJson extends AsyncTask<String ,Void, String> {
 
 
 
-        if(method.equals("register")){
+        if(method.equals("courseList")){
 
             String name = params[1];
             String email = params[2];
@@ -148,11 +148,7 @@ public class GetJson extends AsyncTask<String ,Void, String> {
                 wr.flush();
                 wr.close();
 
-                //Charset.forName("UTF-8").encode(data);
-//                bufferedWriter.write(data);
-//                bufferedWriter.flush();
-//                bufferedWriter.close();
-//                os.close();
+
                 BufferedReader reader = new BufferedReader(new
                         InputStreamReader(conn.getInputStream(), "UTF-8"));
 
@@ -173,9 +169,6 @@ public class GetJson extends AsyncTask<String ,Void, String> {
                 }
 
                 return sb.toString();
-//                InputStream IS= httpURLConnection.getInputStream();
-//                IS.close();
-                // return "Registration success";
 
             } catch (IOException e) {
                 e.printStackTrace();
@@ -188,45 +181,34 @@ public class GetJson extends AsyncTask<String ,Void, String> {
 
 
         if(method.equals("sendClassSch")){
-            String proffID = params[0];
-            String coursID = params[1];
-            String studentID = params[2];
-            String coursdate = params[3];
-            String courstime = params[4];
-            String comments = params[5];
+
+            String proffID = params[1];
+            String coursID = params[2];
+            String studentID = params[3];
+            String coursdate = params[4];
+            String courstime = params[5];
+            String comments = params[6];
 
             try {
                 URL url= new URL(StrURl);
-//                HttpURLConnection httpURLConnection= (HttpURLConnection) url.openConnection();
-//                httpURLConnection.setRequestMethod("POST");
-//                httpURLConnection.setDoOutput(true);
-//                httpURLConnection.setDoInput(true);
-//                httpURLConnection.setRequestProperty( "charset", "utf-8");
-//                OutputStream os= httpURLConnection.getOutputStream();
-//
-//                BufferedWriter bufferedWriter= new BufferedWriter(new OutputStreamWriter(os,"UTF-8"));
+
 
                 URLConnection conn = url.openConnection();
                 conn.setDoOutput(true);
                 conn.setRequestProperty("charset", "utf-8");
                 OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream(),"UTF-8");
 
-                String data= URLEncoder.encode("proffID", "UTF-8")+"="+ URLEncoder.encode(proffID,"UTF-8")+"&"+
-                        URLEncoder.encode("coursID","UTF-8")+"="+URLEncoder.encode(coursID,"UTF-8")+"&"+
+          String data = URLEncoder.encode("proffID", "UTF-8")+"="+ URLEncoder.encode(proffID,"UTF-8")+"&"+
+                        URLEncoder.encode("coursID","UTF-8")+"=" + URLEncoder.encode(coursID,"UTF-8")+"&"+
                         URLEncoder.encode("studentID","UTF-8")+"="+URLEncoder.encode(studentID,"UTF-8")+"&"+
                         URLEncoder.encode("coursdate","UTF-8")+"="+URLEncoder.encode(coursdate,"UTF-8")+"&"+
                         URLEncoder.encode("courstime","UTF-8")+"="+URLEncoder.encode(courstime,"UTF-8")+"&"+
-                        URLEncoder.encode("comments","UTF-8")+"="+URLEncoder.encode(comments,"UTF-8");
+                        URLEncoder.encode("comments","UTF-8")+"="+ URLEncoder.encode(comments,"UTF-8");
 
                 wr.write( data );
                 wr.flush();
                 wr.close();
 
-                //Charset.forName("UTF-8").encode(data);
-//                bufferedWriter.write(data);
-//                bufferedWriter.flush();
-//                bufferedWriter.close();
-//                os.close();
                 BufferedReader reader = new BufferedReader(new
                         InputStreamReader(conn.getInputStream(), "UTF-8"));
 

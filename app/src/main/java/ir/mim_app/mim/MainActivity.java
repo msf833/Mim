@@ -2,28 +2,22 @@ package ir.mim_app.mim;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
-import android.view.View;
-import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Button;
+import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -33,14 +27,10 @@ import android.widget.Toast;
 import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.OnTabSelectListener;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.URL;
 import java.util.concurrent.ExecutionException;
 
 import ir.mim_app.mim.fragment.Prof_listview_Fragment;
 import ir.mim_app.mim.fragment.courses_list_fragment;
-import ir.mim_app.mim.fragment.home_fragment;
 import ir.mim_app.mim.fragment.notification_fragment;
 import ir.mim_app.mim.fragment.search_fragment;
 
@@ -54,6 +44,7 @@ public class MainActivity extends AppCompatActivity
     ProgressBar progBar;
     Prof_listview_Fragment fragobj;
     courses_list_fragment clfobj;
+
     private boolean isNetworkAvailable() {
         ConnectivityManager connectivityManager
                 = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -115,14 +106,18 @@ public class MainActivity extends AppCompatActivity
         bottomBar.setOnTabSelectListener(new OnTabSelectListener() {
             @Override
             public void onTabSelected(@IdRes int tabId) {
-                if (tabId == R.id.home_tab){
+
+                //home fragment has been disabled for 1st version of the application but codes are still here
+                //notification fragment has been replaced!
+
+                /*if (tabId == R.id.home_tab){
                      Toast.makeText(MainActivity.this, "home", Toast.LENGTH_SHORT).show();
 
 
                     FragmentTransaction frm = fragmentManager.beginTransaction().replace(R.id.frameLayout_main_activity,new home_fragment());
                     frm.commit();
 
-                }
+                }*/
 
 
                 if (tabId == R.id.btn_profList_tab){

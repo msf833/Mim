@@ -6,8 +6,7 @@
         <tab
             id="@+id/notification_tab"
             icon="@drawable/ic_notifications_black_24dp"
-            barColorWhenSelected="#2DA7C7"
-
+            barColorWhenSelected="#101a1d"
             title="اطلاعیه ها" />
 
         <!--<tab
@@ -19,19 +18,19 @@
         <tab
             id="@+id/btn_profList_tab"
             icon="@drawable/ic_mentor_ind_black_24dp"
-            barColorWhenSelected="#98C4C9"
+            barColorWhenSelected="#22363d"
             title="لیست اساتید" />
 
         <tab
             id="@+id/courses_list_tab"
             icon="@drawable/ic_book_black_24dp"
-            barColorWhenSelected="#56ACBA"
+            barColorWhenSelected="#101a1d"
             title="لیست دروس " />
 
         <tab
             id="@+id/serach_tab"
             icon="@drawable/ic_search_black_24dp"
-            barColorWhenSelected="#1A2944"
+            barColorWhenSelected="#22363d"
             title="جستجو" />
 
     </tabs>

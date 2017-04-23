@@ -200,11 +200,11 @@ public class SetTimeActivity extends AppCompatActivity {
                 igetJson.execute("sendClassSch",profid,courseID+"", classDate,classtime,icoment);
                 //Toast.makeText(getApplicationContext(), profid, Toast.LENGTH_SHORT).show();
 
-                progBar.setVisibility(View.GONE);
+
 
 
                Toast.makeText(getApplicationContext(), "درخواست شما ارسال شد", Toast.LENGTH_SHORT).show();
-
+                progBar.setVisibility(View.GONE);
                 finish();
 
             }

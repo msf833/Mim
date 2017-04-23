@@ -106,6 +106,7 @@ public class MainActivity extends AppCompatActivity
             Toast.makeText(MainActivity.this, "network isn't connected", Toast.LENGTH_SHORT).show();
         }
 
+        bottomBar.setActiveTabColor(Color.parseColor("#ffffff"));
 
         bottomBar.setOnTabSelectListener(new OnTabSelectListener() {
             @Override

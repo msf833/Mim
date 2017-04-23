@@ -18,7 +18,7 @@
         <tab
             id="@+id/btn_profList_tab"
             icon="@drawable/ic_mentor_ind_black_24dp"
-            barColorWhenSelected="#22363e"
+            barColorWhenSelected="#22363d"
             title="لیست اساتید" />
 
         <tab

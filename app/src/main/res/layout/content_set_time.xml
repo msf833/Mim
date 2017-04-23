@@ -103,4 +103,12 @@
 
     </LinearLayout>
 
+    <Button
+        android:id="@+id/btn_register_settimeactivity"
+        android:layout_width="match_parent"
+        android:layout_height="46dp"
+        android:background="@color/colorPrimary"
+        android:text="ثبت"
+        android:textSize="18sp" />
+
 </LinearLayout>

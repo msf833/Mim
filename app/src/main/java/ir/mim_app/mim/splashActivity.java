@@ -26,6 +26,7 @@ public class splashActivity extends Activity {
                     //Remove activity
                     Intent intent = new Intent(getBaseContext(), MainActivity.class);
                     startActivity(intent);
+                    finish();
 
                 } catch (Exception e) {
 

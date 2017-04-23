@@ -63,7 +63,7 @@ public class SetTimeActivity extends AppCompatActivity {
     String classtime;
     String classDate;
     ProgressBar progBar;
-
+    String icoment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -119,6 +119,7 @@ public class SetTimeActivity extends AppCompatActivity {
                 .setNegativeButton("بیخیال")
                 .setTodayButton("امروز")
                 .setMinYear(1396)
+                .setMaxYear(1396)
                 .setTodayButtonVisible(true)
                .setActionTextColor(Color.GRAY)
                 .setListener(new Listener() {
@@ -126,7 +127,7 @@ public class SetTimeActivity extends AppCompatActivity {
                     public void onDateSelected(PersianCalendar persianCalendar) {
                         //Toast.makeText(getApplicationContext(), persianCalendar.getPersianYear() + "/" + persianCalendar.getPersianMonth() + "/" + persianCalendar.getPersianDay(), Toast.LENGTH_SHORT).show();
                         itv_date_settimeactivity.setText(persianCalendar.getPersianYear() + "/" + persianCalendar.getPersianMonth() + "/" + persianCalendar.getPersianDay());
-                        classDate = persianCalendar.getPersianYear() + "/" + persianCalendar.getPersianMonth() + "/" + persianCalendar.getPersianDay();
+                        classDate = persianCalendar.getPersianYear() + "_" + persianCalendar.getPersianMonth() + "_" + persianCalendar.getPersianDay();
 
                     }
 
@@ -177,7 +178,7 @@ public class SetTimeActivity extends AppCompatActivity {
                                                   int minute) {
 
                                itv_timeset.setText(hourOfDay + ":" + minute);
-                                classtime = hourOfDay + ":" + minute;
+                                classtime = hourOfDay + "_" + minute;
                             }
                         }, mHour, mMinute, false);
                 timePickerDialog.show();
@@ -187,28 +188,29 @@ public class SetTimeActivity extends AppCompatActivity {
             }
         });
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
+        Button btn_register = (Button) findViewById(R.id.btn_register_settimeactivity);
+        btn_register.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(View v) {
                 progBar.setVisibility(View.VISIBLE);
+              icoment = iTexT_Comments.getText().toString();
+
+               String url = "http://api.mim-app.ir/SelectValue_profList.php";
+                GetJson igetJson= new GetJson(url);
+                igetJson.execute("sendClassSch",profid,courseID+"", classDate,classtime,icoment);
+                //Toast.makeText(getApplicationContext(), profid, Toast.LENGTH_SHORT).show();
+
+                progBar.setVisibility(View.GONE);
 
 
+               Toast.makeText(getApplicationContext(), "درخواست شما ارسال شد", Toast.LENGTH_SHORT).show();
 
-
-             String icoment = iTexT_Comments.getText().toString();
-
-
-                String url = "http://api.mim-app.ir/SelectValue_profList.php";
-                getJson= new GetJson(url);
-                getJson.execute("sendClassSch",profid,(courseID+"").toString(), studentAttributes.studentID,classDate,classtime,icoment);
-
-                Toast.makeText(getApplicationContext(), "درخواست شما ارسال شد", Toast.LENGTH_SHORT).show();
-               // SetTimeActivity.this.finish();
-
+                finish();
 
             }
         });
+
+
 
         String courseName;
         String courseID;

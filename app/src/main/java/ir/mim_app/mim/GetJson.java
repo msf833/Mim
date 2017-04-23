@@ -13,6 +13,8 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
 
+import ir.mim_app.mim.assistClasses.studentAttributes;
+
 /**
  * Created by MSF on 4/9/2017.
  */
@@ -184,11 +186,13 @@ public class GetJson extends AsyncTask<String ,Void, String> {
 
             String proffID = params[1];
             String coursID = params[2];
-            String studentID = params[3];
-            String coursdate = params[4];
-            String courstime = params[5];
-            String comments = params[6];
 
+            String coursdate = params[3];
+            String courstime = params[4];
+            String comments = params[5];
+
+
+            String studentID = studentAttributes.studentID;
             try {
                 URL url= new URL(StrURl);
 

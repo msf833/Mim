@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 public class proff_detail_activity extends AppCompatActivity {
 
+    String temp ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,7 +33,7 @@ public class proff_detail_activity extends AppCompatActivity {
 
         TextView tvProfessorsID = ((TextView)findViewById(R.id.tv_profID_Detailview));
         tvProfessorsID.setText (extras.getString("ProfessorsID"));
-
+        temp =tvProfessorsID.getText().toString();
         Button btn_sabt = (Button) findViewById(R.id.btn_setTimeToSend);
         btn_sabt.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -40,13 +41,13 @@ public class proff_detail_activity extends AppCompatActivity {
 
                 Intent item_intent = new Intent(getApplicationContext(), SetTimeActivity.class);
                 Bundle extras = new Bundle();
-                item_intent.putExtra("ProfessorsID",extras.getString("ProfessorsID"));
 
-                item_intent.putExtras(extras);
                item_intent.putExtra("name",extras.getString("name"));
+               item_intent.putExtra("ProfessorsID",temp);
                item_intent.putExtra("family",extras.getString("family"));
 
                 startActivity(item_intent);
+                finish();
             }
         });
 

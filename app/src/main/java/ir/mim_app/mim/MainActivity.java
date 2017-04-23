@@ -110,7 +110,6 @@ public class MainActivity extends AppCompatActivity
         bottomBar.setOnTabSelectListener(new OnTabSelectListener() {
             @Override
             public void onTabSelected(@IdRes int tabId) {
-
                 //home fragment has been disabled for 1st version of the application but codes are still here
                 //notification fragment has been replaced!
 

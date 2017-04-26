@@ -12,6 +12,16 @@ public class course {
 
     String courseName;//$row[1]
     String courseID; //$row[0]
+    String profName;
+    String profID;
+
+    public course(String courseName, String profName, String courseID, String profID) {
+        this.courseName = courseName;
+        this.courseID = courseID;
+        this.profID = profID;
+        this.profName = profName;
+    }
+
 
     public String getCourseName() {
         return courseName;
@@ -36,4 +46,5 @@ public class course {
                 ", courseID='" + courseID + '\'' +
                 '}';
     }
+
 }

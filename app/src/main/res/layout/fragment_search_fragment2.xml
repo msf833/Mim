@@ -12,34 +12,95 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal"
-            android:id="@+id/formID">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-            <Spinner
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:id="@+id/formID"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/spinnerOstadDars">
-            </Spinner>
+                android:orientation="horizontal">
 
-            <Spinner
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/spinnerRetFromQuery">
-            </Spinner>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="15dp">
 
-            <Spinner
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/spinnerPaye">
-            </Spinner>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="جستجو بر اساس"
+                        android:textSize="18sp" />
+
+                    <Spinner
+                        android:id="@+id/spinnerOstadDars"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="10dp"></Spinner>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="15dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="نام درس را انتخاب کنید"
+                        android:textSize="18sp" />
+
+                    <Spinner
+                        android:id="@+id/spinnerRetFromQuery"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="10dp"></Spinner>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="15dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="کلاس خود را انتخاب کنید"
+                    android:textSize="18sp" />
+
+                <Spinner
+                    android:id="@+id/spinnerPaye"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"></Spinner>
+
+                <Button
+                    android:id="@+id/Btn_search"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="جستجو" />
+            </LinearLayout>
 
         </LinearLayout>
 
     </LinearLayout>
-
 </FrameLayout>
 
 

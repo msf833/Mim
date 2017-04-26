@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -23,6 +24,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
@@ -43,8 +45,12 @@ public class search_fragment extends Fragment {
     String JsonString;
     JSONObject jsonobject = null;
     JSONArray jsonArray;
+    boolean darsOstad = true;
 
-
+    List<String> profNameList = new ArrayList<>();
+    List<String> courseNameList = new ArrayList<>();
+    List<String> profIDList = new ArrayList<>();
+    List<String> courseIDList = new ArrayList<>();
 
     boolean maghta = false;
     boolean form_o_c = true;
@@ -53,6 +59,7 @@ public class search_fragment extends Fragment {
         // Required empty public constructor
     }
 
+    Spinner ostadDars;
     Spinner retListQuery;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -60,7 +67,7 @@ public class search_fragment extends Fragment {
 
         final View rootView = inflater.inflate(R.layout.fragment_search_fragment2, container, false);
 
-        Spinner ostadDars = (Spinner) rootView.findViewById(R.id.spinnerOstadDars);
+        ostadDars = (Spinner) rootView.findViewById(R.id.spinnerOstadDars);
         retListQuery = (Spinner) rootView.findViewById(R.id.spinnerRetFromQuery);
         Spinner paye = (Spinner) rootView.findViewById(R.id.spinnerPaye);
         Button searchBtn = (Button) rootView.findViewById(R.id.Btn_search);
@@ -78,15 +85,21 @@ public class search_fragment extends Fragment {
 
         ostadDars.setAdapter(adapter3);
 
+        ostadDars.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                onResume();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                onResume();
+            }
+        });
+
         searchFunc();
 
-        /*String[] stockArr = new String[stockList.size()];
-        stockArr = stockList.toArray(stockArr);*/
 
-        /*ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(),
-                android.R.layout.simple_spinner_item, stockArr);
-        retListQuery.setAdapter(adapter);
-*/
         searchBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -113,7 +126,7 @@ public class search_fragment extends Fragment {
             e.printStackTrace();
         }
 
-        String temp = getJson.finalJson;
+        JsonString = getJson.finalJson;
 
         String courseName;
         String courseID;
@@ -121,7 +134,7 @@ public class search_fragment extends Fragment {
         String profName;
 
 // in yek comment e deraaaaaaaaaaaaaaaz aaaaaaaaaaaaaaaaaaaaaastttttttttt
-
+        Toast.makeText(getContext(),"dude dare kos mige" , Toast.LENGTH_SHORT).show();
 
         try {
 
@@ -133,13 +146,18 @@ public class search_fragment extends Fragment {
 
             while (count < jsonArray.length()){
                 JSONObject jo = jsonArray.getJSONObject(count);
-                courseName = jo.getString("courseID");
-                courseID = jo.getString("courseName");
+                courseID = jo.getString("courseID");
+                courseName = jo.getString("courseName");
                 profID = jo.getString("ProfessorsID");
                 profName = jo.getString("family");
 
-                course courseobj = new course(courseName, profName, courseID, profID);
-                clvad.add(courseobj);
+                //course courseobj = new course(courseName, profName, courseID, profID);
+               // clvad.add(courseobj);
+
+                profNameList.add(profName);
+                courseNameList.add(courseName);
+                profIDList.add(profID);
+                courseIDList.add(courseID);
 
                 count++;
 
@@ -154,4 +172,19 @@ public class search_fragment extends Fragment {
     }
 
 
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        if (ostadDars.getSelectedItem().toString().equals("نام درس")){
+            ArrayAdapter<String> adapter6 = new ArrayAdapter<String>(getContext(),
+                    android.R.layout.simple_spinner_item,  courseNameList);
+            retListQuery.setAdapter(adapter6);
+        }else {
+            ArrayAdapter<String> adapter5 = new ArrayAdapter<String>(getContext(),
+                    android.R.layout.simple_spinner_item,  profNameList);
+            retListQuery.setAdapter(adapter5);
+        }
+
+    }
 }

@@ -119,7 +119,7 @@ public class courses_list_fragment extends Fragment {
                 Log.i("in courseSelectFragment","intent ");
 
                // progressBar.setVisibility(View.INVISIBLE);
-                progressBar.setVisibility(View.GONE);
+              //  progressBar.setVisibility(View.GONE);
                 startActivity(i);
                // progressBar.setVisibility(View.GONE);
               //  lv.setVisibility(View.VISIBLE);

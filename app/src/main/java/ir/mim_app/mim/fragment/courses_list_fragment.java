@@ -55,7 +55,6 @@ public class courses_list_fragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 
-
         View view =  inflater.inflate(R.layout.fragment_courses_list_fragment, container, false);
         Bundle bundle = this.getArguments();
 
@@ -119,7 +118,7 @@ public class courses_list_fragment extends Fragment {
                 Log.i("in courseSelectFragment","intent ");
 
                // progressBar.setVisibility(View.INVISIBLE);
-                progressBar.setVisibility(View.GONE);
+              //  progressBar.setVisibility(View.GONE);
                 startActivity(i);
                // progressBar.setVisibility(View.GONE);
               //  lv.setVisibility(View.VISIBLE);

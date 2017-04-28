@@ -16,6 +16,7 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -101,12 +102,13 @@ public class Prof_listview_Fragment extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 int itemposition = position ;
                 String name = ((TextView) view.findViewById(R.id.TV_proffname)).getText().toString();
+                float rb = ((RatingBar) view.findViewById(R.id.TV_ProfRate)).getRating();
                 String family = ((TextView) view.findViewById(R.id.TV_ProffFamily)).getText().toString();
                 ((ImageView) view.findViewById(R.id.IV_proffIamge)).buildDrawingCache();
                 String ProfessorsID = ((TextView) view.findViewById(R.id.TV_ProfessorsID)).getText().toString();
                 Bitmap profimage = ((ImageView) view.findViewById(R.id.IV_proffIamge)).getDrawingCache();
 
-                      //  Toast.makeText(getContext(),name,Toast.LENGTH_LONG).show();
+                //  Toast.makeText(getContext(),name,Toast.LENGTH_LONG).show();
 
                 Intent item_intent = new Intent(getContext(), proff_detail_activity.class);
                 Bundle extras = new Bundle();
@@ -115,6 +117,7 @@ public class Prof_listview_Fragment extends Fragment {
                 item_intent.putExtra("ProfessorsID",ProfessorsID);
 
                 item_intent.putExtra("name",name);
+                item_intent.putExtra("rate",rb);
                 item_intent.putExtra("family",family);
 
                 startActivity(item_intent);

@@ -2,15 +2,37 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layoutDirection="rtl"
+    android:textDirection="rtl"
     tools:context="ir.mim_app.mim.fragment.notification_fragment">
 
     <!-- TODO: Update blank fragment layout -->
 
-    <com.daimajia.slider.library.SliderLayout
-        android:id="@+id/slider"
-        android:layout_width="match_parent"
-        android:layout_height="250dp"
-        />
+    <ProgressBar
+        android:id="@+id/progreessbar_notifi_fragment"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center" />
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.daimajia.slider.library.SliderLayout
+            android:id="@+id/slider"
+            android:layout_width="match_parent"
+            android:layout_height="250dp" />
+
+        <ListView
+            android:id="@+id/ListView_eventfragmen"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentStart="true"
+            android:visibility="visible"
+            android:layout_below="@+id/slider"></ListView>
+
+    </RelativeLayout>
 
 </FrameLayout>

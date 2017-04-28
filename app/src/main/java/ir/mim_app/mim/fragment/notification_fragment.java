@@ -7,6 +7,9 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.GridView;
+import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.daimajia.slider.library.SliderLayout;
@@ -14,14 +17,39 @@ import com.daimajia.slider.library.SliderTypes.BaseSliderView;
 import com.daimajia.slider.library.SliderTypes.TextSliderView;
 import com.daimajia.slider.library.Tricks.ViewPagerEx;
 
-import java.util.HashMap;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
+import java.util.ArrayList;
+import java.util.EventListener;
+import java.util.HashMap;
+import java.util.List;
+import java.util.concurrent.ExecutionException;
+
+import ir.mim_app.mim.Courses_ListView_ArrayAdabter;
+import ir.mim_app.mim.GetJson;
 import ir.mim_app.mim.R;
+import ir.mim_app.mim.course;
+import ir.mim_app.mim.event;
+import ir.mim_app.mim.event_listview_arrayAdapter;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class notification_fragment extends Fragment implements BaseSliderView.OnSliderClickListener, ViewPagerEx.OnPageChangeListener{
+
+    ListView lv;
+    event_listview_arrayAdapter elvad;
+    GetJson getJson;
+    String url;
+    String JsonString;
+    JSONObject jsonobject = null;
+    JSONArray jsonArray;
+    GridView gv;
+    ProgressBar progressBar;
+Thread eeventloaderThread;
+
 
     SliderLayout mDemoSlider;
     public notification_fragment() {
@@ -44,6 +72,23 @@ public class notification_fragment extends Fragment implements BaseSliderView.On
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         mDemoSlider = (SliderLayout)getView().findViewById(R.id.slider);
+        String url = "http://api.mim-app.ir/select_events.php";
+        getJson= new GetJson(url);
+        getJson.execute("eventget","12");
+
+        lv = (ListView) getView().findViewById(R.id.ListView_eventfragmen);
+
+        elvad = new event_listview_arrayAdapter(getContext(),R.layout.row_event);
+
+
+        eeventloaderThread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                forthread();
+            }
+        });
+        eeventloaderThread.run();
+        progressBar = (ProgressBar) getView().findViewById(R.id.progreessbar_notifi_fragment);
 
         HashMap<String,String> url_maps = new HashMap<String, String>();
         url_maps.put("Hannibal", "http://static2.hypable.com/wp-content/uploads/2013/12/hannibal-season-2-release-date.jpg");
@@ -90,4 +135,59 @@ public class notification_fragment extends Fragment implements BaseSliderView.On
     public void onPageScrollStateChanged(int state) {
 
     }
+
+    void forthread(){
+        String sendtimeStamp="";
+        String mainContent="";
+        String ActiveFlag="";
+        String seeStatus="";
+        String pic="";
+        try {
+            getJson.get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+
+        JsonString = getJson.finalJson;
+        lv.setAdapter(elvad);
+
+        try {
+
+
+            jsonobject = new JSONObject(JsonString);
+
+            int count =0;
+            jsonArray = jsonobject.getJSONArray("eventList");
+            int a =  jsonArray.length();
+
+            while (count < jsonArray.length()){
+                JSONObject jo = jsonArray.getJSONObject(count);
+                mainContent= jo.getString("mainContent");
+               /// sendtimeStamp = jo.getString("sendtimeStamp");
+                ActiveFlag = jo.getString("ActiveFlag");
+                seeStatus = jo.getString("seeStatus");
+
+
+
+                event eventobj = new event(sendtimeStamp,mainContent,ActiveFlag,seeStatus);
+                elvad.add(eventobj);
+                count++;
+
+
+
+            }
+
+
+
+        } catch (JSONException e) {
+
+            e.printStackTrace();
+        }
+
+        Toast.makeText(getContext(),"done", Toast.LENGTH_SHORT).show();
+    }
+
+
 }

@@ -14,12 +14,23 @@ public class course {
     String courseID; //$row[0]
     String profName;
     String profID;
+    String pic;
+    String rate;
 
     public course(String courseName, String profName, String courseID, String profID) {
         this.courseName = courseName;
         this.courseID = courseID;
         this.profID = profID;
         this.profName = profName;
+    }
+
+    public course(String courseID, String courseName, String profID, String profName, String pic, String rate) {
+        this.courseName = courseName;
+        this.courseID = courseID;
+        this.profID = profID;
+        this.profName = profName;
+        this.pic = pic;
+        this.rate = rate;
     }
 
 

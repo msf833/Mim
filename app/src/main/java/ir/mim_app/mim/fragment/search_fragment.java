@@ -30,6 +30,7 @@ import java.util.concurrent.ExecutionException;
 
 import ir.mim_app.mim.Courses_ListView_ArrayAdabter;
 import ir.mim_app.mim.GetJson;
+import ir.mim_app.mim.Professors_Listview_ArrayAdabter;
 import ir.mim_app.mim.R;
 import ir.mim_app.mim.course;
 
@@ -37,6 +38,10 @@ import ir.mim_app.mim.course;
  * A simple {@link Fragment} subclass.
  */
 public class search_fragment extends Fragment {
+
+    //making result of the search
+    Professors_Listview_ArrayAdabter plvad;
+    ListView lv;
 
     //getting listview and json
     Courses_ListView_ArrayAdabter clvad;
@@ -61,6 +66,7 @@ public class search_fragment extends Fragment {
 
     Spinner ostadDars;
     Spinner retListQuery;
+    Spinner paye;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -69,7 +75,7 @@ public class search_fragment extends Fragment {
 
         ostadDars = (Spinner) rootView.findViewById(R.id.spinnerOstadDars);
         retListQuery = (Spinner) rootView.findViewById(R.id.spinnerRetFromQuery);
-        Spinner paye = (Spinner) rootView.findViewById(R.id.spinnerPaye);
+        paye = (Spinner) rootView.findViewById(R.id.spinnerPaye);
         Button searchBtn = (Button) rootView.findViewById(R.id.Btn_search);
 
         String[] ostadDars_items = new String[] {"نام استاد", "نام درس"};
@@ -103,12 +109,79 @@ public class search_fragment extends Fragment {
         searchBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                searchingFunction();
             }
         });
 
         // Inflate the layout for this fragment
         return rootView;
+    }
+
+    private void searchingFunction() {
+
+        int od = ostadDars.getSelectedItemPosition();
+        String li = retListQuery.getSelectedItem().toString();
+        String p = paye.getSelectedItem().toString();
+        String odA = profIDList.get(od);
+        String odB = courseIDList.get(od);
+
+        url = "http://api.mim-app.ir/SelectValue_viewMaker_search.php";
+
+        getJson= new GetJson(url);
+        getJson.execute("listViewSearch","kk");
+
+        try {
+            getJson.get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+
+        JsonString = getJson.finalJson;
+
+        String courseName;
+        String courseID;
+        String profID;
+        String profName;
+        String rate;
+        String pic;
+
+// in yek comment e deraaaaaaaaaaaaaaaz aaaaaaaaaaaaaaaaaaaaaastttttttttt
+
+        try {
+
+
+            jsonobject = new JSONObject(JsonString);
+
+            int count =0;
+            jsonArray = jsonobject.getJSONArray("search_resp");
+
+            while (count < jsonArray.length()){
+                JSONObject jo = jsonArray.getJSONObject(count);
+                courseID = jo.getString("courseID");
+                courseName = jo.getString("courseName");
+                profID = jo.getString("ProfessorsID");
+                profName = jo.getString("family");
+                pic = jo.getString("pic");
+                rate = jo.getString("rate");
+
+                course course = new course(courseID, courseName, profID, profName, pic, rate);
+                plvad.add(course);
+
+                count++;
+
+            }
+
+
+        } catch (JSONException e) {
+
+            e.printStackTrace();
+        }
+
+        lv = (ListView) getView().findViewById(R.id.LV_fragment_prfoListView);
+        plvad = new Professors_Listview_ArrayAdabter(getContext(),R.layout.row_profflist);
+
     }
 
     private void searchFunc() {
@@ -133,9 +206,6 @@ public class search_fragment extends Fragment {
         String profID;
         String profName;
 
-// in yek comment e deraaaaaaaaaaaaaaaz aaaaaaaaaaaaaaaaaaaaaastttttttttt
-        Toast.makeText(getContext(),"dude dare kos mige" , Toast.LENGTH_SHORT).show();
-
         try {
 
 
@@ -150,9 +220,6 @@ public class search_fragment extends Fragment {
                 courseName = jo.getString("courseName");
                 profID = jo.getString("ProfessorsID");
                 profName = jo.getString("family");
-
-                //course courseobj = new course(courseName, profName, courseID, profID);
-               // clvad.add(courseobj);
 
                 profNameList.add(profName);
                 courseNameList.add(courseName);

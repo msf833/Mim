@@ -13,10 +13,12 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -26,7 +28,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.DateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 import ir.hamsaa.persiandatepicker.Listener;
@@ -37,10 +41,14 @@ import ir.mim_app.mim.assistClasses.studentAttributes;
 
 import ir.mim_app.mim.assistClasses.studentAttributes;
 
+import static java.security.AccessController.getContext;
+
 public class SetTimeActivity extends AppCompatActivity {
 
-    ListView lv;
-    Courses_ListView_ArrayAdabter clvad;
+    List<String> courseNameList = new ArrayList<>();
+    List<String> courseIDList = new ArrayList<>();
+
+    Spinner lv;
     GetJson getJson;
     String url;
     String JsonString;
@@ -69,8 +77,6 @@ public class SetTimeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_set_time);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
         progBar = (ProgressBar) findViewById(R.id.progressBar3);
         progBar.setVisibility(View.VISIBLE);
         Bundle extras = getIntent().getExtras();
@@ -83,8 +89,8 @@ public class SetTimeActivity extends AppCompatActivity {
         getJson= new GetJson(url);
         getJson.execute("courseList","محمد","ایمیل","123654","پسورد");
 
-        lv= (ListView) findViewById(R.id.LV_Settime_courseListview);
-        clvad = new  Courses_ListView_ArrayAdabter(getApplicationContext(),R.layout.row_courselist);
+        lv= (Spinner) findViewById(R.id.LV_Settime_courseListview);
+
         try {
             getJson.get();
         } catch (InterruptedException e) {
@@ -95,24 +101,9 @@ public class SetTimeActivity extends AppCompatActivity {
 
         JsonString = getJson.finalJson;
         //gv.setAdapter(clvad);
-        lv.setAdapter(clvad);
-
-        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                int itemposition = position ;
-                courseID = Integer.parseInt(((TextView) findViewById(R.id.TV_courseID)).getText().toString());
-                itv_selectedCours_setTimeactivity  = (TextView) findViewById(R.id.tv_selectedCours_setTimeactivity);
-                String coursename = ((TextView) findViewById(R.id.TV_Course_Name)).getText().toString();
-                itv_selectedCours_setTimeactivity.setText(coursename);
-            }
-        });
-
 
         final TextView itv_date_settimeactivity = (TextView) findViewById(R.id.tv_date_settimeactivity);
-         itv_timeset = (TextView) findViewById(R.id.tv_timeset);
-       Button ibtn_setdate_settimeactivvity = (Button) findViewById(R.id.btn_setdate_settimeactivvity);
-        Button ibtn_settime_settimeactivity = (Button) findViewById(R.id.btn_settime_settimeactivity);
+        itv_timeset = (TextView) findViewById(R.id.tv_timeset);
 
         picker = new PersianDatePickerDialog(this)
                 .setPositiveButtonString("باشه")
@@ -149,17 +140,56 @@ public class SetTimeActivity extends AppCompatActivity {
             }
         };
 
+        //I replaced button click with textView click so the button can be cahanged to another textView
 
-        ibtn_setdate_settimeactivvity.setOnClickListener(new View.OnClickListener() {
+        itv_date_settimeactivity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 picker.show();
             }
         });
 
+        /*
+        ibtn_setdate_settimeactivvity.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                picker.show();
+            }
+        });
+        */
 
 
 
+        //I replaced button click with textView click so the button can be cahanged to another textView
+        itv_timeset.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Toast.makeText(getApplicationContext(), "this is me ", Toast.LENGTH_SHORT).show();
+
+                final Calendar c = Calendar.getInstance();
+                mHour = c.get(Calendar.HOUR_OF_DAY);
+                mMinute = c.get(Calendar.MINUTE);
+
+                // Launch Time Picker Dialog
+                TimePickerDialog timePickerDialog = new TimePickerDialog( SetTimeActivity.this,
+                        new TimePickerDialog.OnTimeSetListener() {
+
+                            @Override
+                            public void onTimeSet(TimePicker view, int hourOfDay,
+                                                  int minute) {
+
+                                itv_timeset.setText(hourOfDay + ":" + minute);
+                                classtime = hourOfDay + "_" + minute;
+                            }
+                        }, mHour, mMinute, false);
+                timePickerDialog.show();
+
+
+
+            }
+        });
+
+        /*
         ibtn_settime_settimeactivity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -183,10 +213,9 @@ public class SetTimeActivity extends AppCompatActivity {
                         }, mHour, mMinute, false);
                 timePickerDialog.show();
 
-
-
             }
         });
+        */
 
         Button btn_register = (Button) findViewById(R.id.btn_register_settimeactivity);
         btn_register.setOnClickListener(new View.OnClickListener() {
@@ -228,17 +257,11 @@ public class SetTimeActivity extends AppCompatActivity {
 
             while (count < jsonArray.length()){
                 JSONObject jo = jsonArray.getJSONObject(count);
-                courseName = jo.getString("courseName");
-                courseID = jo.getString("courseID");
 
+                courseNameList.add(jo.getString("courseName"));
+                courseIDList.add(jo.getString("courseID"));
 
-
-                course courseobj = new course(courseName,courseID);
-                clvad.add(courseobj);
                 count++;
-
-
-
             }
 
             progBar.setVisibility(View.GONE);
@@ -247,6 +270,10 @@ public class SetTimeActivity extends AppCompatActivity {
 
             e.printStackTrace();
         }
+
+        ArrayAdapter<String> adapter3 = new ArrayAdapter<String>(SetTimeActivity.this,
+                android.R.layout.simple_spinner_item, courseNameList);
+        lv.setAdapter(adapter3);
 
     }
 

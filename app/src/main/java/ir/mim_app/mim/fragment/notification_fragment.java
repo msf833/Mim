@@ -7,10 +7,12 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.daimajia.slider.library.SliderLayout;
 import com.daimajia.slider.library.SliderTypes.BaseSliderView;
 import com.daimajia.slider.library.SliderTypes.TextSliderView;
+import com.daimajia.slider.library.Tricks.ViewPagerEx;
 
 import java.util.HashMap;
 
@@ -19,7 +21,7 @@ import ir.mim_app.mim.R;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class notification_fragment extends Fragment {
+public class notification_fragment extends Fragment implements BaseSliderView.OnSliderClickListener, ViewPagerEx.OnPageChangeListener{
 
     SliderLayout mDemoSlider;
     public notification_fragment() {
@@ -55,8 +57,8 @@ public class notification_fragment extends Fragment {
             textSliderView
                     .description(name)
                     .image(url_maps.get(name))
-                    .setScaleType(BaseSliderView.ScaleType.Fit);
-
+                    .setScaleType(BaseSliderView.ScaleType.Fit)
+                    .setOnSliderClickListener(this);
 
             //add your extra information
             textSliderView.bundle(new Bundle());
@@ -66,6 +68,26 @@ public class notification_fragment extends Fragment {
             mDemoSlider.addSlider(textSliderView);
         }
 
+
+    }
+
+    @Override
+    public void onSliderClick(BaseSliderView slider) {
+        Toast.makeText(getActivity(),slider.getBundle().get("extra") + "",Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+    }
+
+    @Override
+    public void onPageSelected(int position) {
+
+    }
+
+    @Override
+    public void onPageScrollStateChanged(int state) {
 
     }
 }

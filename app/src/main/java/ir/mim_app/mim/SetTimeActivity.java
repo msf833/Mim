@@ -11,6 +11,8 @@ import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.KeyEvent;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -48,6 +50,7 @@ public class SetTimeActivity extends AppCompatActivity {
     List<String> courseNameList = new ArrayList<>();
     List<String> courseIDList = new ArrayList<>();
 
+    boolean falseBashe;
     Spinner lv;
     GetJson getJson;
     String url;
@@ -56,7 +59,7 @@ public class SetTimeActivity extends AppCompatActivity {
     JSONArray jsonArray;
 
     EditText iTexT_Comments;
-    TextView itv_selectedCours_setTimeactivity;
+    TextView tv_selectedCours_setTimeactivity;
 
     PersianDatePickerDialog picker;
     TextView itv_timeset;
@@ -275,6 +278,40 @@ public class SetTimeActivity extends AppCompatActivity {
                 android.R.layout.simple_spinner_item, courseNameList);
         lv.setAdapter(adapter3);
 
+        String courseNameText = getIntent().getExtras().getString("courseNameText");
+
+        tv_selectedCours_setTimeactivity = (TextView) findViewById(R.id.tv_selectedCours_setTimeactivity);
+
+        falseBashe = false;
+
+        lv.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                if (falseBashe){
+                    tv_selectedCours_setTimeactivity.setText(lv.getSelectedItem().toString());
+                }else {
+                    falseBashe = true;
+                }
+
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+
+        tv_selectedCours_setTimeactivity.setText(courseNameText.toString());
+
+
+        Button btn_cancel = (Button) findViewById(R.id.Btn_cancel);
+        btn_cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
 }

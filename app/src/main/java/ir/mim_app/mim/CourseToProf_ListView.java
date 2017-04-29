@@ -23,6 +23,8 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+import static java.security.AccessController.getContext;
+
 public class CourseToProf_ListView extends  AppCompatActivity {
     GetJson getJson;
     String JsonString;
@@ -32,6 +34,8 @@ public class CourseToProf_ListView extends  AppCompatActivity {
     ListView lv;
     GridView gv;
     List piclist = new ArrayList();
+    String courseName;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,6 +75,7 @@ public class CourseToProf_ListView extends  AppCompatActivity {
                 item_intent.putExtras(extras);
                 item_intent.putExtra("name",name);
                 item_intent.putExtra("family",family);
+                item_intent.putExtra("courseNameText",courseName);
 
                 startActivity(item_intent);
 
@@ -105,6 +110,7 @@ public class CourseToProf_ListView extends  AppCompatActivity {
                 profFamily = jo.getString("family");
                 profPic = jo.getString("pic");
                 profRate = jo.getString("rate");
+                courseName = jo.getString("courseName");
 
                 piclist.add(profPic);
 

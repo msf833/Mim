@@ -22,6 +22,13 @@
         android:layout_gravity="right">
 
         <TextView
+            android:id="@+id/tv_courseName_alir"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="اسم درس"
+            android:visibility="gone" />
+
+        <TextView
             android:text="فخاریان"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -44,13 +51,13 @@
             android:layout_marginTop="5dp" />
 
         <TextView
-            android:text="ریاضی، هندسه"
+            android:id="@+id/TV_proffname"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textAlignment="viewEnd"
             android:layout_marginRight="10dp"
-            android:id="@+id/TV_proffname"
-            android:layout_marginTop="5dp" />
+            android:layout_marginTop="5dp"
+            android:textAlignment="viewEnd"
+            android:visibility="invisible" />
 
         <TextView
             android:id="@+id/TV_ProfessorsID"

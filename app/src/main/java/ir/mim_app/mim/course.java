@@ -33,6 +33,14 @@ public class course {
         this.rate = rate;
     }
 
+    public course(String courseID, String courseName, String profID, String profName, String pic) {
+        this.courseName = courseName;
+        this.courseID = courseID;
+        this.profID = profID;
+        this.profName = profName;
+        this.pic = pic;
+    }
+
 
     public String getCourseName() {
         return courseName;

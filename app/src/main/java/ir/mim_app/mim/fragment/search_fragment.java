@@ -1,6 +1,7 @@
 package ir.mim_app.mim.fragment;
 
 
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -33,6 +34,8 @@ import ir.mim_app.mim.GetJson;
 import ir.mim_app.mim.Professors_Listview_ArrayAdabter;
 import ir.mim_app.mim.R;
 import ir.mim_app.mim.course;
+import ir.mim_app.mim.holderClass;
+import ir.mim_app.mim.professor;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -44,21 +47,17 @@ public class search_fragment extends Fragment {
     ListView lv;
 
     //getting listview and json
-    Courses_ListView_ArrayAdabter clvad;
     GetJson getJson;
     String url;
     String JsonString;
     JSONObject jsonobject = null;
     JSONArray jsonArray;
-    boolean darsOstad = true;
 
     List<String> profNameList = new ArrayList<>();
     List<String> courseNameList = new ArrayList<>();
     List<String> profIDList = new ArrayList<>();
     List<String> courseIDList = new ArrayList<>();
-
-    boolean maghta = false;
-    boolean form_o_c = true;
+    List<holderClass> holderList = new ArrayList<>();
 
     public search_fragment() {
         // Required empty public constructor
@@ -117,18 +116,62 @@ public class search_fragment extends Fragment {
         return rootView;
     }
 
+
+    String queryString;
+
+    Thread mft = new Thread(new Runnable() {
+        @Override
+        public void run() {
+            //motherFthread();
+        }
+    });
+
     private void searchingFunction() {
 
+
         int od = ostadDars.getSelectedItemPosition();
-        String li = retListQuery.getSelectedItem().toString();
-        String p = paye.getSelectedItem().toString();
-        String odA = profIDList.get(od);
-        String odB = courseIDList.get(od);
+        int li = retListQuery.getSelectedItemPosition();
+        String retListString = retListQuery.getSelectedItem().toString();
+        String odA = ""; //= profIDList.get(li);
+        String odB = ""; //= courseIDList.get(li);
+        for (holderClass s : holderList) {
+            if (s.first().equals(retListString)){
+                odA = s.second();
+                odB = s.second();
+            }
+        }
+        String p = String.valueOf(paye.getSelectedItemPosition()+1);
 
-        url = "http://api.mim-app.ir/SelectValue_viewMaker_search.php";
 
-        getJson= new GetJson(url);
-        getJson.execute("listViewSearch","kk");
+
+        Toast.makeText(getContext(), "in: " + odA, Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(), "paye" + p, Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(), "profID" + odA, Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(), "profPos" + od, Toast.LENGTH_SHORT).show();
+
+
+        if (od == 0){
+            queryString = "SELECT courseInfoTable.courseID, courseName, ProfessorsID, family, coursePic " +
+                    "FROM professorsTable, coursesTable, courseInfoTable WHERE courseInfoTable.activeFlag = 1 " +
+                    " AND professorsTable.ActiveFlag = 1 " +
+                    " AND profID = " + odA +
+                    " AND professorsTable.ProfessorsID = coursesTable.profID" +
+                    " AND courseInfoTable.courseID = coursesTable.courseID" +
+                    " AND grade = " + p;
+        }else {
+            queryString = "SELECT courseInfoTable.courseID, courseName, ProfessorsID, family, coursePic " +
+                    "FROM professorsTable, coursesTable, courseInfoTable WHERE courseInfoTable.activeFlag = 1 " +
+                    " AND professorsTable.ActiveFlag = 1 " +
+                    " AND professorsTable.ProfessorsID = coursesTable.profID" +
+                    " AND courseInfoTable.courseID = " + odB +
+                    " AND courseInfoTable.courseID = coursesTable.courseID" +
+                    " AND grade = " + p;
+        }
+
+        url = "http://api.mim-app.ir/SelectValue_searchActivity.php";
+
+        getJson = new GetJson(url);
+        getJson.execute("listViewSearch", queryString);
 
         try {
             getJson.get();
@@ -140,11 +183,12 @@ public class search_fragment extends Fragment {
 
         JsonString = getJson.finalJson;
 
+        Toast.makeText(getContext(), "this: " + JsonString, Toast.LENGTH_SHORT).show();
+
         String courseName;
         String courseID;
         String profID;
         String profName;
-        String rate;
         String pic;
 
 // in yek comment e deraaaaaaaaaaaaaaaz aaaaaaaaaaaaaaaaaaaaaastttttttttt
@@ -155,7 +199,7 @@ public class search_fragment extends Fragment {
             jsonobject = new JSONObject(JsonString);
 
             int count =0;
-            jsonArray = jsonobject.getJSONArray("search_resp");
+            jsonArray = jsonobject.getJSONArray("search_resualt");
 
             while (count < jsonArray.length()){
                 JSONObject jo = jsonArray.getJSONObject(count);
@@ -163,11 +207,17 @@ public class search_fragment extends Fragment {
                 courseName = jo.getString("courseName");
                 profID = jo.getString("ProfessorsID");
                 profName = jo.getString("family");
-                pic = jo.getString("pic");
-                rate = jo.getString("rate");
+                pic = jo.getString("coursePic");
 
-                course course = new course(courseID, courseName, profID, profName, pic, rate);
-                plvad.add(course);
+                Toast.makeText(getContext(), courseID, Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), courseName, Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), profID, Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), profName, Toast.LENGTH_SHORT).show();
+
+
+                //course course = new course(courseID, courseName, profID, profName, pic);
+                //professor professorOBJ = new professor(courseID, courseName, profID, profName, "pic",true);
+                //plvad.add(professorOBJ);
 
                 count++;
 
@@ -179,15 +229,16 @@ public class search_fragment extends Fragment {
             e.printStackTrace();
         }
 
-        lv = (ListView) getView().findViewById(R.id.LV_fragment_prfoListView);
-        plvad = new Professors_Listview_ArrayAdabter(getContext(),R.layout.row_profflist);
 
+        lv = (ListView) getView().findViewById(R.id.listViewID);
+        plvad = new Professors_Listview_ArrayAdabter(getContext(),R.layout.row_profflist);
+        lv.setAdapter(plvad);
     }
+
 
     private void searchFunc() {
 
         url = "http://api.mim-app.ir/SelectValue_listMaker_search.php";
-
         getJson= new GetJson(url);
         getJson.execute("listSearch","kk");
 
@@ -221,10 +272,25 @@ public class search_fragment extends Fragment {
                 profID = jo.getString("ProfessorsID");
                 profName = jo.getString("family");
 
-                profNameList.add(profName);
-                courseNameList.add(courseName);
-                profIDList.add(profID);
-                courseIDList.add(courseID);
+
+                if (profNameList.contains(profName)){
+                    //do nothing
+                }else {
+                    holderClass holderObj = new holderClass(profName, profID);
+                    profNameList.add(profName);
+                    profIDList.add(profID);
+                    holderList.add(holderObj);
+                }
+
+
+                if (courseIDList.contains(courseID)){
+                    //do nothing
+                }else {
+                    holderClass holderObj = new holderClass(courseName, courseID);
+                    courseNameList.add(courseName);
+                    courseIDList.add(courseID);
+                    holderList.add(holderObj);
+                }
 
                 count++;
 

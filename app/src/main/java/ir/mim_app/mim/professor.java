@@ -9,11 +9,56 @@ import android.graphics.Bitmap;
 public class professor {
 
 
+    public Bitmap getBmp() {
+        return bmp;
+    }
+
+    public void setBmp(Bitmap bmp) {
+        this.bmp = bmp;
+    }
+
+    public String getCourseID() {
+        return courseID;
+    }
+
+    public void setCourseID(String courseID) {
+        this.courseID = courseID;
+    }
+
+    public String getCourseName() {
+        return courseName;
+    }
+
+    public void setCourseName(String courseName) {
+        this.courseName = courseName;
+    }
+
+    public boolean isAliRid() {
+        return aliRid;
+    }
+
+    public void setAliRid(boolean aliRid) {
+        this.aliRid = aliRid;
+    }
+
     String profName;
     String profFamily;
     String profPic;
     float profRate;
     Bitmap bmp;
+    String courseID;
+    String courseName;
+    boolean aliRid = false;
+
+    public professor(String courseID, String courseName, String profID, String profName, String pic,boolean aliRid) {
+        this.profName = profName;
+        this.profPic = pic;
+        this.profRate = 0;
+        this.ProfessorsID = profID;
+        this.courseID = courseID;
+        this.courseName = courseName;
+        this.aliRid=aliRid;
+    }
 
     public String getProfessorsID() {
         return ProfessorsID;
@@ -31,7 +76,7 @@ public class professor {
         this.profPic = profPic;
         this.profRate = profRate;
         this.bmp = bmp;
-        ProfessorsID = professorsID;
+        this.ProfessorsID = professorsID;
     }
     public professor(String profName, String profFamily, String profPic, float profRate, String professorsID) {
         this.profName = profName;
@@ -39,7 +84,7 @@ public class professor {
         this.profPic = profPic;
         this.profRate = profRate;
 
-        ProfessorsID = professorsID;
+        this.ProfessorsID = professorsID;
     }
 
     public professor(String profName, String profFamily, String profPic, float profRate, Bitmap bmp) {

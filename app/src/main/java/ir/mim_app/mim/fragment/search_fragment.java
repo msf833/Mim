@@ -3,6 +3,7 @@ package ir.mim_app.mim.fragment;
 
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -15,6 +16,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
@@ -41,6 +43,8 @@ import ir.mim_app.mim.professor;
  * A simple {@link Fragment} subclass.
  */
 public class search_fragment extends Fragment {
+    //making progress bar appear and disappear :)
+    ProgressBar progressBar;
 
     //making result of the search
     Professors_Listview_ArrayAdabter plvad;
@@ -71,6 +75,9 @@ public class search_fragment extends Fragment {
                              Bundle savedInstanceState) {
 
         final View rootView = inflater.inflate(R.layout.fragment_search_fragment2, container, false);
+
+        progressBar = (ProgressBar) rootView.findViewById(R.id.Search_progressBar);
+        progressBar.setVisibility(View.INVISIBLE);
 
         ostadDars = (Spinner) rootView.findViewById(R.id.spinnerOstadDars);
         retListQuery = (Spinner) rootView.findViewById(R.id.spinnerRetFromQuery);
@@ -108,6 +115,7 @@ public class search_fragment extends Fragment {
         searchBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 searchingFunction();
             }
         });
@@ -119,15 +127,7 @@ public class search_fragment extends Fragment {
 
     String queryString;
 
-    Thread mft = new Thread(new Runnable() {
-        @Override
-        public void run() {
-            //motherFthread();
-        }
-    });
-
     private void searchingFunction() {
-
 
         int od = ostadDars.getSelectedItemPosition();
         int li = retListQuery.getSelectedItemPosition();
@@ -185,54 +185,78 @@ public class search_fragment extends Fragment {
 
         Toast.makeText(getContext(), "this: " + JsonString, Toast.LENGTH_SHORT).show();
 
-        String courseName;
-        String courseID;
-        String profID;
-        String profName;
-        String pic;
+
+
+        //above part is time consuming part which need to be surrounded by async task!
+        //fragments can be loaded whitout any delay by using async task but there will be needed to notify array adapteres & ...
+
+        AsyncTask task = new AsyncTask() {
+            @Override
+            protected Object doInBackground(Object[] params) {
+
+                String courseName;
+                String courseID;
+                String profID;
+                String profName;
+                String pic;
 
 // in yek comment e deraaaaaaaaaaaaaaaz aaaaaaaaaaaaaaaaaaaaaastttttttttt
 
-        try {
+                try {
 
 
-            jsonobject = new JSONObject(JsonString);
+                    jsonobject = new JSONObject(JsonString);
 
-            int count =0;
-            jsonArray = jsonobject.getJSONArray("search_resualt");
+                    int count =0;
+                    jsonArray = jsonobject.getJSONArray("search_resualt");
 
-            while (count < jsonArray.length()){
-                JSONObject jo = jsonArray.getJSONObject(count);
-                courseID = jo.getString("courseID");
-                courseName = jo.getString("courseName");
-                profID = jo.getString("ProfessorsID");
-                profName = jo.getString("family");
-                pic = jo.getString("coursePic");
+                    while (count < jsonArray.length()){
+                        JSONObject jo = jsonArray.getJSONObject(count);
+                        courseID = jo.getString("courseID");
+                        courseName = jo.getString("courseName");
+                        profID = jo.getString("ProfessorsID");
+                        profName = jo.getString("family");
+                        pic = jo.getString("coursePic");
 
-                Toast.makeText(getContext(), courseID, Toast.LENGTH_SHORT).show();
-                Toast.makeText(getContext(), courseName, Toast.LENGTH_SHORT).show();
-                Toast.makeText(getContext(), profID, Toast.LENGTH_SHORT).show();
-                Toast.makeText(getContext(), profName, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), courseID, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), courseName, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), profID, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), profName, Toast.LENGTH_SHORT).show();
 
 
-                //course course = new course(courseID, courseName, profID, profName, pic);
-                //professor professorOBJ = new professor(courseID, courseName, profID, profName, "pic",true);
-                //plvad.add(professorOBJ);
+                        //course course = new course(courseID, courseName, profID, profName, pic);
+                        //professor professorOBJ = new professor(courseID, courseName, profID, profName, "pic",true);
+                        //plvad.add(professorOBJ);
 
-                count++;
+                        count++;
 
+                    }
+
+
+                } catch (JSONException e) {
+
+                    e.printStackTrace();
+                }
+
+
+                plvad = new Professors_Listview_ArrayAdabter(getContext(),R.layout.row_profflist);
+                //lv.setAdapter(plvad);
+
+                Toast.makeText(getContext(), "everything's working. be happy :)", Toast.LENGTH_SHORT).show();
+
+                return null;
             }
 
 
-        } catch (JSONException e) {
+            @Override
+            protected void onPostExecute(Object o) {
+                super.onPostExecute(o);
+                progressBar.setVisibility(View.INVISIBLE);
 
-            e.printStackTrace();
-        }
+            }
+        };
 
 
-        lv = (ListView) getView().findViewById(R.id.listViewID);
-        plvad = new Professors_Listview_ArrayAdabter(getContext(),R.layout.row_profflist);
-        lv.setAdapter(plvad);
     }
 
 
@@ -320,4 +344,6 @@ public class search_fragment extends Fragment {
         }
 
     }
+
+
 }

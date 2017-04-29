@@ -1,11 +1,17 @@
 package ir.mim_app.mim;
 
+import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RatingBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONArray;
@@ -34,8 +40,37 @@ public class searchResultActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.search_result_activity);
+        ListView lv = (ListView) findViewById(R.id.search_result_list);
+        plvad = new Professors_Listview_ArrayAdabter(getApplicationContext(),R.layout.row_profflist);
+        lv.setAdapter(plvad);
 
+        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                int itemposition = position ;
+                String name = ((TextView) view.findViewById(R.id.TV_proffname)).getText().toString();
+                float rb = ((RatingBar) view.findViewById(R.id.TV_ProfRate)).getRating();
+                String family = ((TextView) view.findViewById(R.id.TV_ProffFamily)).getText().toString();
+                ((ImageView) view.findViewById(R.id.IV_proffIamge)).buildDrawingCache();
+                String ProfessorsID = ((TextView) view.findViewById(R.id.TV_ProfessorsID)).getText().toString();
+                Bitmap profimage = ((ImageView) view.findViewById(R.id.IV_proffIamge)).getDrawingCache();
 
+                //  Toast.makeText(getContext(),name,Toast.LENGTH_LONG).show();
+
+                Intent item_intent = new Intent(getApplicationContext(), proff_detail_activity.class);
+                Bundle extras = new Bundle();
+                extras.putParcelable("profimage", profimage);
+                item_intent.putExtras(extras);
+                item_intent.putExtra("ProfessorsID",ProfessorsID);
+
+                item_intent.putExtra("name",name);
+                item_intent.putExtra("rate",rb);
+                item_intent.putExtra("family",family);
+
+                startActivity(item_intent);
+
+            }
+        });
         String queryString = getIntent().getStringExtra("queryString");
 
 
@@ -54,7 +89,7 @@ public class searchResultActivity extends AppCompatActivity {
 
         JsonString =getJson.finalJson;
 
-        Toast.makeText( getApplicationContext(), "this: "+JsonString,Toast.LENGTH_SHORT).show();
+      //  Toast.makeText( getApplicationContext(), "this: "+JsonString,Toast.LENGTH_SHORT).show();
 
 
         //above part is time consuming part which need to be surrounded by async task!
@@ -84,15 +119,15 @@ public class searchResultActivity extends AppCompatActivity {
                 profName = jo.getString("family");
                 pic = jo.getString("coursePic");
 
-                Toast.makeText(getApplicationContext(), courseID, Toast.LENGTH_SHORT).show();
-                Toast.makeText(getApplicationContext(), courseName, Toast.LENGTH_SHORT).show();
-                Toast.makeText(getApplicationContext(), profID, Toast.LENGTH_SHORT).show();
-                Toast.makeText(getApplicationContext(), profName, Toast.LENGTH_SHORT).show();
-
+//                Toast.makeText(getApplicationContext(), courseID, Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getApplicationContext(), courseName, Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getApplicationContext(), profID, Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getApplicationContext(), profName, Toast.LENGTH_SHORT).show();
+//
 
                 //course course = new course(courseID, courseName, profID, profName, pic);
-                //professor professorOBJ = new professor(courseID, courseName, profID, profName, "pic",true);
-                //plvad.add(professorOBJ);
+                professor professorOBJ = new professor(courseID, courseName, profID, profName, pic,true);
+                plvad.add(professorOBJ);
 
                 count++;
 
@@ -107,9 +142,8 @@ public class searchResultActivity extends AppCompatActivity {
 
         plvad = new Professors_Listview_ArrayAdabter(getApplicationContext(), R.layout.row_profflist);
 
-        ListView lv = (ListView) findViewById(R.id.search_result_list);
-        lv.setAdapter(plvad);
-        Toast.makeText(getApplicationContext(), "everything's working. be happy :)", Toast.LENGTH_SHORT).show();
+
+      //  Toast.makeText(getApplicationContext(), "everything's working. be happy :)", Toast.LENGTH_SHORT).show();
 
     }
 }

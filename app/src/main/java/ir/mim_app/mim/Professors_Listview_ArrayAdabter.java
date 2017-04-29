@@ -78,11 +78,14 @@ public class Professors_Listview_ArrayAdabter extends ArrayAdapter {
    /* seetings up profs atributes */
 
             TextView tv_profName = (TextView) row.findViewById(R.id.TV_proffname);
-            //tv_profName.setText(prf.getProfName());
+            tv_profName.setText(prf.getExpertise());
 
             TextView tv_profFamily = (TextView) row.findViewById(R.id.TV_ProffFamily);
 
             tv_profFamily.setText(prf.getProfFamily());
+
+
+
 
             // TV_ProfessorsID
             TextView TV_ProfessorsID = (TextView) row.findViewById(R.id.TV_ProfessorsID);
@@ -105,29 +108,27 @@ public class Professors_Listview_ArrayAdabter extends ArrayAdapter {
             tv_profRate.setRating(prf.getProfRate());
             return row;
         } else {
-          //  TextView tv_profName = (TextView) row.findViewById(R.id.TV_proffname);
-            //tv_profName.setText(prf.getProfName());
 
-            //TextView tv_profFamily = (TextView) row.findViewById(R.id.TV_ProffFamily);
-            TextView tv_courseName_alir = (TextView) row.findViewById(R.id.tv_courseName_alir);
-            tv_courseName_alir.setVisibility(View.VISIBLE);
-            tv_courseName_alir.setText(prf.getCourseName());
+            TextView TV_alir_courseID = (TextView) row.findViewById(R.id.TV_alir_courseID);
+            TV_alir_courseID.setText(prf.getCourseID());
 
-          //  tv_profFamily.setText(prf.getProfFamily());
+            TextView tv_profName = (TextView) row.findViewById(R.id.TV_proffname);
+            tv_profName.setText(prf.getCourseName());
+
 
             // TV_ProfessorsID
-         //   TextView TV_ProfessorsID = (TextView) row.findViewById(R.id.TV_ProfessorsID);
+            TextView TV_ProfessorsID = (TextView) row.findViewById(R.id.TV_ProfessorsID);
 
-         //   TV_ProfessorsID.setText(prf.getProfessorsID());
+            TV_ProfessorsID.setText(prf.getProfessorsID());
 
-          //  String pName = prf.getProfName() + " " + prf.getProfFamily();
-         //   tv_profFamily.setText(pName);
+            TextView TV_ProffFamily = (TextView) row.findViewById(R.id.TV_ProffFamily);
+            TV_ProffFamily.setText(prf.getProfName());
 
 
-           // ImageView iv_profPic = (ImageView) row.findViewById(R.id.IV_proffIamge);
-           // String url = prf.getProfPic();
+           ImageView iv_profPic = (ImageView) row.findViewById(R.id.IV_proffIamge);
+            String url = prf.getProfPic();
 
-           // Picasso.with(getContext()).load(url).into(iv_profPic);
+            Picasso.with(getContext()).load(url).into(iv_profPic);
 
             //professorHolderobj.ali = (AsyncTaskLoadImage) new AsyncTaskLoadImage( professorHolderobj.iv_profPic  ).execute(url);
 

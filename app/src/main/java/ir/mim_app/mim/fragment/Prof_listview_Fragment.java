@@ -135,6 +135,7 @@ public class Prof_listview_Fragment extends Fragment {
         String profPic;
         String profRate;
         String professorsID;
+        String expertise;
 
         try {
 
@@ -153,10 +154,10 @@ public class Prof_listview_Fragment extends Fragment {
                 profFamily = jo.getString("family");
                 profPic = jo.getString("pic");
                 profRate = jo.getString("rate");
-
+                expertise = jo.getString("expertise");
 
                // professor professorOBJ = new professor(profName,profFamily,profPic,Float.parseFloat(profRate),ProfessorsID);
-                professor professorOBJ = new professor(profName, profFamily, profPic, Float.parseFloat(profRate), professorsID);
+                professor professorOBJ = new professor(profName, profFamily, profPic, Float.parseFloat(profRate), professorsID,expertise);
                 plvad.add(professorOBJ);
                 count++;
 

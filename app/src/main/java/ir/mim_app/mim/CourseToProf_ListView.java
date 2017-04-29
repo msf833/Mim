@@ -106,6 +106,7 @@ public class CourseToProf_ListView extends  AppCompatActivity {
                 profPic = jo.getString("pic");
                 profRate = jo.getString("rate");
 
+
                 piclist.add(profPic);
 
 

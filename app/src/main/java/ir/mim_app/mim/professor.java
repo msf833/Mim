@@ -49,6 +49,21 @@ public class professor {
     String courseID;
     String courseName;
     boolean aliRid = false;
+    String ProfessorsID;
+
+
+    String expertise ;
+
+
+
+
+    public String getExpertise() {
+        return expertise;
+    }
+
+    public void setExpertise(String expertise) {
+        this.expertise = expertise;
+    }
 
     public professor(String courseID, String courseName, String profID, String profName, String pic,boolean aliRid) {
         this.profName = profName;
@@ -68,7 +83,7 @@ public class professor {
         ProfessorsID = professorsID;
     }
 
-    String ProfessorsID;
+
 
     public professor(String profName, String profFamily, String profPic, float profRate, Bitmap bmp, String professorsID) {
         this.profName = profName;
@@ -76,6 +91,14 @@ public class professor {
         this.profPic = profPic;
         this.profRate = profRate;
         this.bmp = bmp;
+        this.ProfessorsID = professorsID;
+    }
+    public professor(String profName, String profFamily, String profPic, float profRate, String professorsID,String expertise) {
+        this.profName = profName;
+        this.profFamily = profFamily;
+        this.profPic = profPic;
+        this.profRate = profRate;
+        this.expertise = expertise;
         this.ProfessorsID = professorsID;
     }
     public professor(String profName, String profFamily, String profPic, float profRate, String professorsID) {

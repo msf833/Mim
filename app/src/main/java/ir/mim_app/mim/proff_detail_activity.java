@@ -3,8 +3,6 @@ package ir.mim_app.mim;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -15,7 +13,6 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.RatingBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -36,6 +33,7 @@ public class proff_detail_activity extends AppCompatActivity {
     List piclist = new ArrayList();
     String proffidfrombundle ;
     String profresume="";
+    ProgressBar ProgBarprofDetail;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,6 +41,8 @@ public class proff_detail_activity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         Bundle extras = getIntent().getExtras();
+        ProgBarprofDetail = (ProgressBar) findViewById(R.id.ProgBarprofDetail);
+
         Bitmap bmp = (Bitmap) extras.getParcelable("profimage");
         ImageView profimg = (ImageView) findViewById(R.id.IV_ProfDet_Profimg);
         profimg.setImageBitmap(bmp);
@@ -67,6 +67,7 @@ public class proff_detail_activity extends AppCompatActivity {
         getJson.execute("proffresume", proffidfrombundle);
 
         try {
+            ProgBarprofDetail.setVisibility(View.VISIBLE);
             getJson.get();
 
         } catch (InterruptedException e) {
@@ -122,7 +123,7 @@ public class proff_detail_activity extends AppCompatActivity {
 
             TextView TV_ProffResume = ((TextView) findViewById(R.id.TV_ProffResume));
             TV_ProffResume.setText(profresume);
-
+            ProgBarprofDetail.setVisibility(View.GONE);
 
         }
     }
@@ -133,7 +134,7 @@ public class proff_detail_activity extends AppCompatActivity {
         super.onResume();
 
 
-        ProgressBar progressBar4 = ((ProgressBar) findViewById(R.id.progressBar4));
+        ProgressBar progressBar4 = ((ProgressBar) findViewById(R.id.ProgBarprofDetail));
         progressBar4.setVisibility(View.GONE);
     }
 }

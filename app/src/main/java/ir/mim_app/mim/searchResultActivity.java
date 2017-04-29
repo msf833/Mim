@@ -54,7 +54,7 @@ public class searchResultActivity extends AppCompatActivity {
                 ((ImageView) view.findViewById(R.id.IV_proffIamge)).buildDrawingCache();
                 String ProfessorsID = ((TextView) view.findViewById(R.id.TV_ProfessorsID)).getText().toString();
                 Bitmap profimage = ((ImageView) view.findViewById(R.id.IV_proffIamge)).getDrawingCache();
-
+                String  tcourseName= ((TextView) view.findViewById(R.id.tv_courseName_alir)).getText().toString();
                 //  Toast.makeText(getContext(),name,Toast.LENGTH_LONG).show();
 
                 Intent item_intent = new Intent(getApplicationContext(), proff_detail_activity.class);
@@ -66,7 +66,7 @@ public class searchResultActivity extends AppCompatActivity {
                 item_intent.putExtra("name",name);
                 item_intent.putExtra("rate",rb);
                 item_intent.putExtra("family",family);
-
+                item_intent.putExtra("courseNameText",tcourseName);
                 startActivity(item_intent);
 
             }

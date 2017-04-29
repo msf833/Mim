@@ -151,10 +151,10 @@ public class search_fragment extends Fragment {
 
 
 
-        Toast.makeText(getContext(), "in: " + odA, Toast.LENGTH_SHORT).show();
-        Toast.makeText(getContext(), "paye" + p, Toast.LENGTH_SHORT).show();
-        Toast.makeText(getContext(), "profID" + odA, Toast.LENGTH_SHORT).show();
-        Toast.makeText(getContext(), "profPos" + od, Toast.LENGTH_SHORT).show();
+//        Toast.makeText(getContext(), "in: " + odA, Toast.LENGTH_SHORT).show();
+//        Toast.makeText(getContext(), "paye" + p, Toast.LENGTH_SHORT).show();
+//        Toast.makeText(getContext(), "profID" + odA, Toast.LENGTH_SHORT).show();
+//        Toast.makeText(getContext(), "profPos" + od, Toast.LENGTH_SHORT).show();
 
 
         if (od == 0){

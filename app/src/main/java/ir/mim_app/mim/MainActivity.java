@@ -161,13 +161,13 @@ public class MainActivity extends AppCompatActivity
 
                 }
                 if (tabId == R.id.notification_tab){
-                     Toast.makeText(MainActivity.this, "notifications", Toast.LENGTH_SHORT).show();
+                    // Toast.makeText(MainActivity.this, "notifications", Toast.LENGTH_SHORT).show();
 
                     FragmentTransaction frm = fragmentManager.beginTransaction().replace(R.id.frameLayout_main_activity,new notification_fragment());
                     frm.commit();
                 }
                 if (tabId == R.id.serach_tab){
-                     Toast.makeText(MainActivity.this, "search", Toast.LENGTH_SHORT).show();
+                    // Toast.makeText(MainActivity.this, "search", Toast.LENGTH_SHORT).show();
                 //    progBar.setVisibility(View.INVISIBLE);
                     FragmentTransaction frm = fragmentManager.beginTransaction().replace(R.id.frameLayout_main_activity,new search_fragment());
                     frm.commit();

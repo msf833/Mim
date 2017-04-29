@@ -130,6 +130,8 @@ public class Professors_Listview_ArrayAdabter extends ArrayAdapter {
 
             Picasso.with(getContext()).load(url).into(iv_profPic);
 
+            TextView tv_courseName_alir = (TextView) row.findViewById(R.id.tv_courseName_alir);
+            tv_courseName_alir.setText(prf.getCourseName());
             //professorHolderobj.ali = (AsyncTaskLoadImage) new AsyncTaskLoadImage( professorHolderobj.iv_profPic  ).execute(url);
 
             // professorHolderobj.tv_profPic = (TextView) row.findViewById(R.id.tv_profPic);

@@ -174,13 +174,7 @@ public class courses_list_fragment extends Fragment {
         //Toast.makeText(getApplicationContext(), "prof_list", Toast.LENGTH_LONG).show();
 
 
-        FloatingActionButton fab = (FloatingActionButton) getView().findViewById(R.id.fab_Fragment_coursesList);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-               // progressBar.setVisibility(View.VISIBLE);
-            }
-        });
+
 
 
         //  JsonString = getJson.finalJson;

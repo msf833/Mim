@@ -14,14 +14,6 @@
         android:layout_height="match_parent"
         android:visibility="visible" />
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab_Fragment_coursesList"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/fab_margin"
-        app:srcCompat="@android:drawable/ic_menu_search" />
-
     <ProgressBar
         android:id="@+id/progressBar2"
         style="?android:attr/progressBarStyle"

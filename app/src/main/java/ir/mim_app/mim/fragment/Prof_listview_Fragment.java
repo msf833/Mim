@@ -119,7 +119,7 @@ public class Prof_listview_Fragment extends Fragment {
                 item_intent.putExtra("name",name);
                 item_intent.putExtra("rate",rb);
                 item_intent.putExtra("family",family);
-
+                item_intent.putExtra("courseNameText","");
                 startActivity(item_intent);
 
             }

@@ -8,7 +8,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -56,6 +58,23 @@ public class event_listview_arrayAdapter extends ArrayAdapter {
 
         TextView Tv_maincontent = (TextView) row.findViewById(R.id.Tv_maincontent);
         Tv_maincontent.setText(Oevent.getMainContent());
+        ImageView istarGold = (ImageView) row.findViewById(R.id.image_goldenStar);
+        ImageView istarGray = (ImageView) row.findViewById(R.id.Imge_grayStar);
+        ImageView image_qatre = (ImageView) row.findViewById(R.id.image_qatre);
+
+       // Toast.makeText(getContext(), Oevent.getActiveFlag(), Toast.LENGTH_SHORT).show();
+        if (Oevent.getSeeStatus().equals("1")  ){
+            istarGold.setVisibility(View.INVISIBLE);
+            istarGray.setVisibility(View.VISIBLE);
+
+
+        }else {
+            istarGold.setVisibility(View.VISIBLE);
+            istarGray.setVisibility(View.INVISIBLE);
+        }
+        if (Oevent.getActiveFlag().equals("0")){
+            image_qatre.setVisibility(View.INVISIBLE);
+        }
 
         return row;
     }

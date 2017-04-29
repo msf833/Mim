@@ -78,7 +78,7 @@ public class MainActivity extends AppCompatActivity
         appbar_userName.setText("میم مثل معلم");
 
         getWindow().getDecorView().setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
-     //   progBar = (ProgressBar) findViewById(R.id.progressBar);
+        progBar = (ProgressBar) findViewById(R.id.progressBar);
       //  progBar.setVisibility(View.INVISIBLE);
 //        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
 //       // final ImageView tev = (ImageView) findViewById(R.id.main_imgView);
@@ -126,16 +126,17 @@ public class MainActivity extends AppCompatActivity
 
                 if (tabId == R.id.btn_profList_tab){
                    // Toast.makeText(MainActivity.this, "home", Toast.LENGTH_SHORT).show();
+                    progBar.setVisibility(View.VISIBLE);
                     if (isNetworkAvailable()){
                        // Prof_listview_Fragment fragobj = new Prof_listview_Fragment();
                         if(fragobj == null) fragobj = new Prof_listview_Fragment();
                       //  framelayout.setVisibility(View.INVISIBLE);
 
-                        //progBar.setVisibility(View.GONE);
+
                         FragmentTransaction frm = fragmentManager.beginTransaction().replace(R.id.frameLayout_main_activity,fragobj);
                         frm.commit();
                         //progBar.setVisibility(View.VISIBLE);
-                     //  progBar.setVisibility(View.GONE);
+                      progBar.setVisibility(View.GONE);
                         //progBar.setVisibility(View.INVISIBLE);
 
                     }else {

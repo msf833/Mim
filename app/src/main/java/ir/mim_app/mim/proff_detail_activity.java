@@ -74,6 +74,9 @@ public class proff_detail_activity extends AppCompatActivity {
         } catch (ExecutionException e) {
             e.printStackTrace();
         }
+
+        final String courseNameText = getIntent().getExtras().getString("courseNameText");
+
         Button btn_sabt = (Button) findViewById(R.id.btn_setTimeToSend);
         btn_sabt.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -85,6 +88,8 @@ public class proff_detail_activity extends AppCompatActivity {
                 item_intent.putExtra("name", extras.getString("name"));
                 item_intent.putExtra("ProfessorsID", proffidfrombundle);
                 item_intent.putExtra("family", extras.getString("family"));
+                item_intent.putExtra("courseNameText",courseNameText);
+
 
                 startActivity(item_intent);
                 finish();

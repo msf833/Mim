@@ -1,6 +1,9 @@
 package ir.mim_app.mim.fragment;
 
 
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -52,6 +55,7 @@ Thread eeventloaderThread;
 
 
     SliderLayout mDemoSlider;
+
     public notification_fragment() {
         // Required empty public constructor
     }
@@ -186,7 +190,7 @@ Thread eeventloaderThread;
             e.printStackTrace();
         }
 
-        Toast.makeText(getContext(),"done", Toast.LENGTH_SHORT).show();
+       // progressBar.setVisibility(View.GONE);
     }
 
 

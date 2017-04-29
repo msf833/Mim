@@ -96,6 +96,11 @@
             android:screenOrientation="portrait"
             android:configChanges="orientation|keyboardHidden"/>
         <activity android:name=".progressBaractivity"></activity>
+        <activity
+            android:name=".searchResultActivity"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|keyboardHidden"/>
     </application>
 
 </manifest>

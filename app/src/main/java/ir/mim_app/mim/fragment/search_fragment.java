@@ -1,6 +1,7 @@
 package ir.mim_app.mim.fragment;
 
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.AsyncTask;
@@ -38,6 +39,8 @@ import ir.mim_app.mim.R;
 import ir.mim_app.mim.course;
 import ir.mim_app.mim.holderClass;
 import ir.mim_app.mim.professor;
+import ir.mim_app.mim.proff_detail_activity;
+import ir.mim_app.mim.searchResultActivity;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -117,6 +120,10 @@ public class search_fragment extends Fragment {
             public void onClick(View v) {
 
                 searchingFunction();
+                Intent item_intent = new Intent(getContext(), searchResultActivity.class);
+                item_intent.putExtra("queryString",queryString);
+                startActivity(item_intent);
+
             }
         });
 
@@ -168,6 +175,7 @@ public class search_fragment extends Fragment {
                     " AND grade = " + p;
         }
 
+        /*
         url = "http://api.mim-app.ir/SelectValue_searchActivity.php";
 
         getJson = new GetJson(url);
@@ -255,7 +263,7 @@ public class search_fragment extends Fragment {
 
             }
         };
-
+        */
 
     }
 

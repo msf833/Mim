@@ -22,9 +22,10 @@ import ir.mim_app.mim.assistClasses.studentAttributes;
 public class GetJson extends AsyncTask<String ,Void, String> {
 
     String StrURl;
-  public   String finalJson;
+    public   String finalJson;
     boolean Recieved = false;
     JSONObject jsonobj;
+
     public GetJson(String strURl) {
         this.StrURl = strURl;
 

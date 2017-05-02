@@ -282,8 +282,8 @@ Thread eeventloaderThread;
             SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
             String username = sharedPreferences.getString("Username", "");
             String password = sharedPreferences.getString("Password", "");
-            Toast.makeText(getContext(), "this is: " + username , Toast.LENGTH_SHORT).show();
-            Toast.makeText(getContext(), "pass is: " + password , Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), "this is: " + username , Toast.LENGTH_LONG).show();
+            Toast.makeText(getContext(), "pass is: " + password , Toast.LENGTH_LONG).show();
         }
     }//onActivityResult
 }

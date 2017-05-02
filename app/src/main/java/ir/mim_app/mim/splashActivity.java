@@ -59,30 +59,38 @@ public class splashActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.splash_layout);
-        background = new Thread() {
-            public void run() {
-                if (isNetworkAvailable()){
-                    try {
-                        // Thread will sleep for 10 seconds
-                        AsyncTaskupdate updater = new AsyncTaskupdate();
-                        updater.execute();
+       if (isNetworkAvailable()){
+                    background = new Thread() {
+                        public void run() {
+                            if (isNetworkAvailable()){
+                                try {
+                                    // Thread will sleep for 10 seconds
+                                    AsyncTaskupdate updater = new AsyncTaskupdate();
 
-                        Toast.makeText(splashActivity.this, "slm", Toast.LENGTH_SHORT).show();
+                                    updater.execute();
+
+                                   // Toast.makeText(splashActivity.this, "slm", Toast.LENGTH_SHORT).show();
 
 
-                    } catch (Exception e) {
+                                } catch (Exception e) {
 
-                    }
-                }else {
-                    Toast.makeText(getApplicationContext(), " مشکل در اتصال به اینترنت ", Toast.LENGTH_SHORT).show();
-                    android.os.Process.killProcess(android.os.Process.myPid());
-                }
+                                }
+                            }else {
+                                Toast.makeText(getApplicationContext(), " مشکل در اتصال به اینترنت ", Toast.LENGTH_SHORT).show();
+                               // android.os.Process.killProcess(android.os.Process.myPid());
+                                finish();
+                            }
 
-            }
-        };
+                        }
+                    };
 
-        // start thread
-        background.start();
+                    // start thread
+                    background.start();
+       }else {
+           Toast.makeText(getApplicationContext(), " مشکل در اتصال به اینترنت ", Toast.LENGTH_SHORT).show();
+       }
+
+
     }
 
     @Override
@@ -118,7 +126,7 @@ public class splashActivity extends Activity {
             super.onPostExecute(aVoid);
 
             if (appversion > studentAttributes.appversion){
-                // Toast.makeText(splashActivity.this, "need to update ", Toast.LENGTH_SHORT).show();
+                 Toast.makeText(splashActivity.this, "need to update ", Toast.LENGTH_SHORT).show();
 
                 TextView Tv_updateText = (TextView) findViewById(R.id.Tv_updateText);
                 Intent intent = new Intent(Intent.ACTION_VIEW , Uri.parse(DownloadupdateLink));

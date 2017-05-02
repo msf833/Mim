@@ -1,13 +1,16 @@
 package ir.mim_app.mim;
 
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.DialogFragment;
+
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -70,12 +73,19 @@ public class SetTimeActivity extends AppCompatActivity {
     String profid;
 
 
-    int courseID=0;
-    String classtime;
-    String classDate;
+    String classtime="";
+    String classDate="";
     ProgressBar progBar;
-    String icoment;
+    String icoment="";
 
+    String courseName;
+    String courseID="";
+    String profPic;
+    String profRate;
+
+
+
+    boolean readytosendReq = true;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -225,29 +235,63 @@ public class SetTimeActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 progBar.setVisibility(View.VISIBLE);
+             //   String
               icoment = iTexT_Comments.getText().toString();
 
-               String url = "http://api.mim-app.ir/SelectValue_profList.php";
-                GetJson igetJson= new GetJson(url);
-                igetJson.execute("sendClassSch",profid,courseID+"", classDate,classtime,icoment);
-                //Toast.makeText(getApplicationContext(), profid, Toast.LENGTH_SHORT).show();
+
+
+
+              if (courseID.equals("")){
+                  Toast.makeText(getApplicationContext(), "یک درس انتخاب کنید ", Toast.LENGTH_SHORT).show();
+                  readytosendReq = false;
+              }
+              else {
+                  readytosendReq=true;
+              }
+              if (classDate.equals("")){
+                  Toast.makeText(getApplicationContext(), "یک تاریخ انتخاب کنید ", Toast.LENGTH_SHORT).show();
+                  readytosendReq = false;
+              }
+              else {
+                  readytosendReq=true;
+              }
+              if (classtime.equals("")){
+                    Toast.makeText(getApplicationContext(), "یک زمان انتخاب کنید ", Toast.LENGTH_SHORT).show();
+                  readytosendReq = false;
+              }
+              else {
+                  readytosendReq=true;
+              }
+                if (icoment.equals("")){
+                    Toast.makeText(getApplicationContext(), "مباحث مورد نظر خود را بنویسید ", Toast.LENGTH_SHORT).show();
+                    readytosendReq = false;
+                }
+                else {
+                    readytosendReq=true;
+                }
+                if (readytosendReq == true){
+
+                  //  Toast.makeText(getApplicationContext(), courseID + " " + classDate +" "+classtime +" "+ icoment, Toast.LENGTH_SHORT).show();
+                    String url = "http://api.mim-app.ir/reserve_classTime.php";
+                    GetJson igetJson= new GetJson(url);
+                    igetJson.execute("sendClassSch",profid,courseID+"", classDate,classtime,icoment);
+                    Toast.makeText(getApplicationContext(), "درخواست شما ارسال شد", Toast.LENGTH_SHORT).show();
+                    progBar.setVisibility(View.GONE);
+                    finish();
+                }
 
 
 
 
-               Toast.makeText(getApplicationContext(), "درخواست شما ارسال شد", Toast.LENGTH_SHORT).show();
-                progBar.setVisibility(View.GONE);
-                finish();
+
+
 
             }
         });
 
 
 
-        String courseName;
-        String courseID;
-        String profPic;
-        String profRate;
+
 
         try {
 
@@ -278,7 +322,8 @@ public class SetTimeActivity extends AppCompatActivity {
                 android.R.layout.simple_spinner_item, courseNameList);
         lv.setAdapter(adapter3);
 
-        String courseNameText = getIntent().getExtras().getString("courseNameText");
+        //String courseNameText = getIntent().getExtras().getString("courseNameText");
+        String courseNameText = " از بالا یک درس انتخاب کنید";
 
         tv_selectedCours_setTimeactivity = (TextView) findViewById(R.id.tv_selectedCours_setTimeactivity);
 
@@ -288,17 +333,19 @@ public class SetTimeActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
-                if (falseBashe){
-                    tv_selectedCours_setTimeactivity.setText(lv.getSelectedItem().toString());
-                }else {
-                    falseBashe = true;
-                }
 
+                    String temp =lv.getSelectedItem().toString();
+                    tv_selectedCours_setTimeactivity.setText(temp);
+                    int a = courseNameList.indexOf(temp);
+                    courseID = courseIDList.get(a);
+
+              
 
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
+                Toast.makeText(SetTimeActivity.this, "یک درس انتهاب کنید ", Toast.LENGTH_SHORT).show();
             }
         });
 

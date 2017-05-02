@@ -1,12 +1,15 @@
 package ir.mim_app.mim.fragment;
 
 
+import android.app.Notification;
+import android.app.NotificationManager;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.NotificationCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +17,8 @@ import android.widget.GridView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
-
+import android.app.Notification;
+import android.app.NotificationManager;
 import com.daimajia.slider.library.SliderLayout;
 import com.daimajia.slider.library.SliderTypes.BaseSliderView;
 import com.daimajia.slider.library.SliderTypes.TextSliderView;
@@ -33,6 +37,7 @@ import java.util.concurrent.ExecutionException;
 import ir.mim_app.mim.Courses_ListView_ArrayAdabter;
 import ir.mim_app.mim.GetJson;
 import ir.mim_app.mim.R;
+import ir.mim_app.mim.assistClasses.studentAttributes;
 import ir.mim_app.mim.course;
 import ir.mim_app.mim.event;
 import ir.mim_app.mim.event_listview_arrayAdapter;
@@ -76,9 +81,10 @@ Thread eeventloaderThread;
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         mDemoSlider = (SliderLayout)getView().findViewById(R.id.slider);
+
         String url = "http://api.mim-app.ir/select_events.php";
         getJson= new GetJson(url);
-        getJson.execute("eventget","12");
+        getJson.execute("eventget", studentAttributes.studentID);
 
         lv = (ListView) getView().findViewById(R.id.ListView_eventfragmen);
 
@@ -140,6 +146,10 @@ Thread eeventloaderThread;
 
     }
 
+
+    void notification(){
+
+    }
     void forthread(){
         String sendtimeStamp="";
         String mainContent="";

@@ -192,8 +192,9 @@ public class GetJson extends AsyncTask<String ,Void, String> {
             String courstime = params[4];
             String comments = params[5];
 
-
             String studentID = studentAttributes.studentID;
+
+
             try {
                 URL url= new URL(StrURl);
 

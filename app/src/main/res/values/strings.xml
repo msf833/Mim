@@ -20,4 +20,5 @@
     <string name="title_activity_course_to_prof__list_view">CourseToProf_ListView</string>
     <string name="title_activity_set_time">SetTimeActivity</string>
     <string name="title_activity_time_picker_activity">time_picker_activity</string>
+    <string name="title_activity_pay">payActivity</string>
 </resources>

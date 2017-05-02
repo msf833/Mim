@@ -20,4 +20,11 @@
     <string name="title_activity_course_to_prof__list_view">CourseToProf_ListView</string>
     <string name="title_activity_set_time">SetTimeActivity</string>
     <string name="title_activity_time_picker_activity">time_picker_activity</string>
+    <string name="title_activity_login">ثبت نام</string>
+
+    <!-- Strings related to login -->
+    <string name="prompt_email">Email</string>
+    <string name="prompt_username">نام کاربری(شماره موبایل شما)</string>
+    <string name="prompt_password">پسورد</string>
+    <string name="action_sign_in">ثبت نام</string>
 </resources>

@@ -42,6 +42,8 @@ import ir.mim_app.mim.fragment.courses_list_fragment;
 import ir.mim_app.mim.fragment.notification_fragment;
 import ir.mim_app.mim.fragment.search_fragment;
 
+import static java.security.AccessController.getContext;
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -182,9 +184,6 @@ public class MainActivity extends AppCompatActivity
 
             }
         });
-
-
-
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(

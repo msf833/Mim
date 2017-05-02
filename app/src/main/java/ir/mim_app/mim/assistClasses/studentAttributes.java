@@ -7,8 +7,8 @@ package ir.mim_app.mim.assistClasses;
 public class studentAttributes {
 
    public static String studentID = "12";
-   public  static  String studentName = "student1";
-   public  static  String studentFamily = "family";
+   public static String studentName = "student1";
+   public static String studentFamily = "family";
    public static final int appversion = 2;
 
 }

@@ -77,6 +77,7 @@ public class courses_list_fragment extends Fragment {
         lv = (ListView) getView().findViewById(R.id.LV_fragment_coursesListView);
        // gv = (GridView) getView().findViewById(R.id.courseFragment_gridview);
         clvad = new  Courses_ListView_ArrayAdabter(getContext(),R.layout.row_courselist);
+
         try {
             getJson.get();
         } catch (InterruptedException e) {

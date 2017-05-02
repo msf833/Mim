@@ -57,8 +57,8 @@ public class splashActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.splash_layout);
+       super.onCreate(savedInstanceState);
+       setContentView(R.layout.splash_layout);
        if (isNetworkAvailable()){
                     background = new Thread() {
                         public void run() {
@@ -110,7 +110,7 @@ public class splashActivity extends Activity {
             Toast.makeText(getApplicationContext(), "بودی حالا :)", Toast.LENGTH_LONG).show();
         }
     }
-    public   int appversion;
+    public int appversion;
 
     class AsyncTaskupdate  extends AsyncTask<Void, Void, Void> {
         String DownloadupdateLink="http://mim-app.ir/app/mim-app.apk";

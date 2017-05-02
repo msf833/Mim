@@ -1,12 +1,17 @@
 package ir.mim_app.mim.fragment;
 
 
+import android.app.Activity;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.preference.Preference;
+import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.NotificationCompat;
@@ -36,6 +41,7 @@ import java.util.concurrent.ExecutionException;
 
 import ir.mim_app.mim.Courses_ListView_ArrayAdabter;
 import ir.mim_app.mim.GetJson;
+import ir.mim_app.mim.LoginActivity;
 import ir.mim_app.mim.R;
 import ir.mim_app.mim.assistClasses.studentAttributes;
 import ir.mim_app.mim.course;
@@ -46,6 +52,8 @@ import ir.mim_app.mim.event_listview_arrayAdapter;
  * A simple {@link Fragment} subclass.
  */
 public class notification_fragment extends Fragment implements BaseSliderView.OnSliderClickListener, ViewPagerEx.OnPageChangeListener{
+
+    SharedPreferences sharedPreferences;
 
     ListView lv;
     event_listview_arrayAdapter elvad;
@@ -81,7 +89,16 @@ Thread eeventloaderThread;
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         mDemoSlider = (SliderLayout)getView().findViewById(R.id.slider);
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
 
+        boolean Registered = sharedPreferences.getBoolean("Registered", false);
+
+        if (Registered == false){
+            Intent item_intent = new Intent(getContext(), LoginActivity.class);
+            startActivityForResult(item_intent, 1);
+        }
+
+        /*
         String url = "http://api.mim-app.ir/select_events.php";
         getJson= new GetJson(url);
         getJson.execute("eventget", studentAttributes.studentID);
@@ -123,7 +140,12 @@ Thread eeventloaderThread;
             mDemoSlider.addSlider(textSliderView);
         }
 
-
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
+        String username = sharedPreferences.getString("Username", "");
+        String password = sharedPreferences.getString("Password", "");
+        Toast.makeText(getContext(), "this is: " + username , Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(), "pass is: " + password , Toast.LENGTH_SHORT).show();
+*/
     }
 
     @Override
@@ -204,4 +226,64 @@ Thread eeventloaderThread;
     }
 
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        mDemoSlider = (SliderLayout)getView().findViewById(R.id.slider);
+
+        String url = "http://api.mim-app.ir/select_events.php";
+        getJson= new GetJson(url);
+        getJson.execute("eventget", studentAttributes.studentID);
+
+        lv = (ListView) getView().findViewById(R.id.ListView_eventfragmen);
+
+        elvad = new event_listview_arrayAdapter(getContext(),R.layout.row_event);
+
+
+        eeventloaderThread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                forthread();
+            }
+        });
+        eeventloaderThread.run();
+        progressBar = (ProgressBar) getView().findViewById(R.id.progreessbar_notifi_fragment);
+
+        HashMap<String,String> url_maps = new HashMap<String, String>();
+        url_maps.put("Hannibal", "http://static2.hypable.com/wp-content/uploads/2013/12/hannibal-season-2-release-date.jpg");
+        url_maps.put("ویندوز 10", "http://shop.p30download.com/images/extra/1438624039_wind.10.jpg");
+        url_maps.put("House of Cards", "http://cdn3.nflximg.net/images/3093/2043093.jpg");
+        url_maps.put("Game of Thrones", "http://images.boomsbeat.com/data/images/full/19640/game-of-thrones-season-4-jpg.jpg");
+
+        for(String name : url_maps.keySet()){
+            TextSliderView textSliderView = new TextSliderView(getContext());
+            // initialize a SliderLayout
+            textSliderView
+                    .description(name)
+                    .image(url_maps.get(name))
+                    .setScaleType(BaseSliderView.ScaleType.Fit)
+                    .setOnSliderClickListener(this);
+
+            //add your extra information
+            textSliderView.bundle(new Bundle());
+            textSliderView.getBundle()
+                    .putString("extra",name);
+
+            mDemoSlider.addSlider(textSliderView);
+        }
+
+    }
+
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        if (requestCode == 1) {
+            SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
+            String username = sharedPreferences.getString("Username", "");
+            String password = sharedPreferences.getString("Password", "");
+            Toast.makeText(getContext(), "this is: " + username , Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), "pass is: " + password , Toast.LENGTH_SHORT).show();
+        }
+    }//onActivityResult
 }

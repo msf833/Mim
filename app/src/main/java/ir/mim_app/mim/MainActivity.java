@@ -41,6 +41,11 @@ import ir.mim_app.mim.fragment.Prof_listview_Fragment;
 import ir.mim_app.mim.fragment.courses_list_fragment;
 import ir.mim_app.mim.fragment.notification_fragment;
 import ir.mim_app.mim.fragment.search_fragment;
+import ir.moslem_deris.apps.zarinpal.PaymentBuilder;
+import ir.moslem_deris.apps.zarinpal.ZarinPal;
+import ir.moslem_deris.apps.zarinpal.enums.ZarinPalError;
+import ir.moslem_deris.apps.zarinpal.listeners.OnPaymentListener;
+import ir.moslem_deris.apps.zarinpal.models.Payment;
 
 import static java.security.AccessController.getContext;
 
@@ -235,21 +240,47 @@ public class MainActivity extends AppCompatActivity
 
         if (id == R.id.Menu_btn_profList) {
             // Handle the camera action
-            String url = "http://api.mim-app.ir/SelectValue_profList.php";
-            getJson= new GetJson(url);
-            getJson.execute("register","محمد","ایمیل","123654","پسورد");
+//            String url = "http://api.mim-app.ir/SelectValue_profList.php";
+//            getJson= new GetJson(url);
+//            getJson.execute("register","محمد","ایمیل","123654","پسورد");
+//
+//            try {
+//                getJson.get();
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            } catch (ExecutionException e) {
+//                e.printStackTrace();
+//            }
+//            Intent i = new Intent(getApplicationContext() , Activity_proffListView.class);
+//            i.putExtra("JSON_string_data",getJson.finalJson);
+//            Log.i("in_mainactivity","intent ");
+//            startActivity(i);
 
-            try {
-                getJson.get();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            } catch (ExecutionException e) {
-                e.printStackTrace();
-            }
-            Intent i = new Intent(getApplicationContext() , Activity_proffListView.class);
-            i.putExtra("JSON_string_data",getJson.finalJson);
-            Log.i("in_mainactivity","intent ");
-            startActivity(i);
+
+            Payment payment = new PaymentBuilder()
+                    .setMerchantID("5201f796-43f4-4f6b-9015-493e5ee8a9d4")  //  This is an example, put your own merchantID here.
+                    .setAmount(10000)                                         //  Amount in Toman
+                    .setDescription("اهدا کمک هزینه برای طراحی برنامه ")
+                    .create();
+
+            ZarinPal.pay(this, payment, new OnPaymentListener() {
+                @Override
+                public void onSuccess(String refID) {
+                    Log.wtf("TAG", "HOOOORAAAY!!! your refID is: " + refID);
+                }
+
+                @Override
+                public void onFailure(ZarinPalError error) {
+                    String errorMessage = "";
+                    switch (error){
+                        case INVALID_PAYMENT: errorMessage = "پرداخت تایید نشد"; break;
+                        case USER_CANCELED:   errorMessage = "پرداخت توسط کاربر متوقف شد"; break;
+                        case NOT_ENOUGH_DATA: errorMessage = "اطلاعات پرداخت کافی نیست"; break;
+                        case UNKNOWN:         errorMessage = "خطای ناشناخته"; break;
+                    }
+                    Log.wtf("TAG", "ERROR: " + errorMessage);
+                }
+            });
         } else if (id == R.id.nav_courses_list) {
 
         } else if (id == R.id.nav_search) {

@@ -23,17 +23,16 @@ android {
 
 
 
+
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile fileTree(include: ['*.jar'], dir: 'libs')
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-
-
-
+    compile files('ZarinPal-Android-0.1.0.jar')
+    compile 'com.squareup.okhttp3:okhttp:3.5.0'
     compile 'com.nineoldandroids:library:2.4.0'
     compile 'com.daimajia.slider:library:1.1.5'
-
     compile 'com.github.hamsaadev:Persian-Date-Picker-Dialog:V1.0'
     compile 'com.squareup.picasso:picasso:2.5.0'
     compile 'com.roughike:bottom-bar:2.2.0'
@@ -43,6 +42,4 @@ dependencies {
     compile 'com.android.support:support-vector-drawable:25.2.0'
     compile 'com.android.support:support-v4:25.2.0'
     testCompile 'junit:junit:4.12'
-
-
 }

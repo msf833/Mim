@@ -18,10 +18,10 @@
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
 
-    <style name="AppBaseTheme" parent="android:Theme.Light">  </style>
+    <style name="AppBaseTheme" parent="android:Theme.Light"></style>
 
 
-        <style name="TransparentProgressDialog" parent="android:Theme.Dialog">
+    <style name="TransparentProgressDialog" parent="android:Theme.Dialog">
         <item name="android:windowFrame">@null</item>
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:windowIsFloating">true</item>

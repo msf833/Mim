@@ -11,4 +11,5 @@ public class studentAttributes {
    public static String studentFamily = "family";
    public static final int appversion = 2;
 
+
 }

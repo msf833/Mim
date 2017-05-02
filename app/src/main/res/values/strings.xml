@@ -27,4 +27,5 @@
     <string name="prompt_username">نام کاربری(شماره موبایل شما)</string>
     <string name="prompt_password">پسورد</string>
     <string name="action_sign_in">ثبت نام</string>
+    <string name="title_activity_pay">payActivity</string>
 </resources>

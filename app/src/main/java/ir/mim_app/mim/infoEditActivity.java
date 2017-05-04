@@ -175,11 +175,11 @@ public class infoEditActivity extends AppCompatActivity {
     public void onBackPressed() {
         //do nothing :)
         if (eCounter == 1){
-            this.finishAffinity();
+            finish();
 
         }else {
             eCounter ++;
-            Toast.makeText(getApplicationContext(), "برای خارج شدن از برنامه مجددا کلیک کنید", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "با خارج شدن از این صفحه تغییرات ذخیره نخواهد شد!", Toast.LENGTH_SHORT).show();
         }
 
     }

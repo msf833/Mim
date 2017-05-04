@@ -36,8 +36,13 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 import static android.Manifest.permission.READ_CONTACTS;
 
@@ -55,6 +60,13 @@ public class LoginActivity extends AppCompatActivity {
     private EditText mPhoneNum;
     private EditText mPassword;
     ProgressBar progressBar;
+
+    String queryString;
+    GetJson getJson;
+    String url;
+    String JsonString;
+    JSONObject jsonobject;
+    JSONArray jsonArray;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,28 +91,86 @@ public class LoginActivity extends AppCompatActivity {
                 if (isPasswordValid(mPassword.getText().toString()) == true && isPhoneNumValid(mPhoneNum.getText().toString().trim()) == true){
                     progressBar.setVisibility(View.VISIBLE);
 
-                    Runnable r = new Runnable() {
-                        @Override
-                        public void run(){
-                            //to check if this is the first time user is opening the app
-                            //if so, user need to signup first!
-                            SharedPreferences.Editor editor = sharedPreferences.edit();
-                            editor.putString("Username", mPhoneNum.getText().toString().trim());
-                            editor.putString("Password", mPassword.getText().toString());
-                            editor.putBoolean("Registered", true);
-                            editor.putString("name", "");
-                            editor.putString("family", "");
-                            editor.putString("schoolName", "");
-                            editor.putInt("field", 1);
-                            editor.putInt("sex", 1);
-                            editor.apply();
-                            setResult(1);
-                            finish();
-                        }
-                    };
+                    boolean userExist = false;
 
-                    Handler h = new Handler();
-                    h.postDelayed(r, 5000); // <-- the "1000" is the delay time in miliseconds.
+
+                    queryString = "SELECT `username` FROM `idsTable` WHERE `username` = " + mPhoneNum.getText().toString().trim() + ";";
+
+                    url ="http://api.mim-app.ir/SelectValue_lookForUserExistance.php";
+
+                    getJson =new GetJson(url);
+                    getJson.execute("listViewSearch",queryString);
+
+                    try {
+                        getJson.get();
+                        //Toast.makeText(getApplicationContext(), "q: " + getJson.get(), Toast.LENGTH_SHORT).show();
+                    } catch(InterruptedException e) {
+                        e.printStackTrace();
+                    } catch(ExecutionException e) {
+                        e.printStackTrace();
+                    }
+
+                    JsonString = getJson.finalJson;
+
+                    try {
+                        jsonobject = new JSONObject(JsonString);
+
+                        jsonArray = jsonobject.getJSONArray("search_resualt");
+
+                        if (0 < jsonArray.length()) {
+                            userExist = true;
+                        }
+
+
+                    } catch (JSONException e) {
+
+                        e.printStackTrace();
+                    }
+
+                    if (userExist){
+                        Toast.makeText(getApplicationContext(), "این شماره تلفن قبلا ثبت شده است!", Toast.LENGTH_SHORT).show();
+                        progressBar.setVisibility(View.GONE);
+                    }else {
+
+                        Runnable r = new Runnable() {
+                            @Override
+                            public void run() {
+                                //to check if this is the first time user is opening the app
+                                //if so, user need to signup first!
+                                SharedPreferences.Editor editor = sharedPreferences.edit();
+                                editor.putString("Username", mPhoneNum.getText().toString().trim());
+                                editor.putString("Password", mPassword.getText().toString());
+                                editor.putBoolean("Registered", true);
+                                editor.putString("name", "");
+                                editor.putString("family", "");
+                                editor.putString("schoolName", "");
+                                editor.putInt("field", 1);
+                                editor.putInt("sex", 1);
+                                editor.apply();
+
+                                //inserting into database
+                                queryString = "INSERT INTO studentTable (StudentID) VALUES" +
+                                        " (" + mPhoneNum.getText().toString().trim() + " )";
+                                url = "http://api.mim-app.ir/InsertValue_SignupActivity.php";
+                                getJson = new GetJson(url);
+                                getJson.execute("signupReq", queryString);
+
+                                queryString = "INSERT INTO idsTable (username, password, type) VALUES (" + mPhoneNum.getText().toString().trim() +
+                                        ", " + mPassword.getText().toString() + ", 1)";
+                                url = "http://api.mim-app.ir/InsertValue_SignupActivity.php";
+                                getJson = new GetJson(url);
+                                getJson.execute("signupReq", queryString);
+
+                                //Toast.makeText(getApplicationContext(), "done :)", Toast.LENGTH_SHORT).show();
+                                setResult(1);
+                                finish();
+                            }
+                        };
+
+                        Handler h = new Handler();
+                        h.postDelayed(r, 5000); // <-- the "1000" is the delay time in miliseconds.
+
+                    }
                 }
             }
         });
@@ -124,11 +194,11 @@ public class LoginActivity extends AppCompatActivity {
 
     private boolean isPhoneNumValid(String phoneNum) {
         //TODO: Replace this with your own logic
-        if (phoneNum.length() == 13 & phoneNum.startsWith("+989")){
+        if (phoneNum.length() == 10 & phoneNum.startsWith("9")){
             return true;
         }else {
-            if (!(phoneNum.startsWith("+989"))){
-                Toast.makeText(getApplicationContext(), "شماره تلفن باید با فرمت +989xxxxxxx وارد شود", Toast.LENGTH_SHORT).show();
+            if (!(phoneNum.startsWith("9"))){
+                Toast.makeText(getApplicationContext(), "شماره تلفن باید با فرمت 9xxxxxxx وارد شود", Toast.LENGTH_SHORT).show();
             }else {
                 Toast.makeText(getApplicationContext(), "شماره تلفن وارد شده نامعتبر است", Toast.LENGTH_SHORT).show();
             }

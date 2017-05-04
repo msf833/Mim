@@ -24,7 +24,7 @@
 
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
-    <string name="prompt_username">نام کاربری(شماره موبایل شما)</string>
+    <string name="prompt_username">نام کاربری(شماره موبایل شما) مثل: 9120000000</string>
     <string name="prompt_password">پسورد</string>
     <string name="prompt_name">نام</string>
     <string name="prompt_Fname">نام خانوادگی</string>

@@ -38,6 +38,7 @@
                     android:id="@+id/info_phoneNum"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:editable="false"
                     android:hint="@string/prompt_username"
                     android:inputType="textEmailAddress"
                     android:maxLines="1"

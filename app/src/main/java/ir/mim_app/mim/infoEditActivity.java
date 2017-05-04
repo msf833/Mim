@@ -60,6 +60,11 @@ public class infoEditActivity extends AppCompatActivity {
 
     ProgressBar progressBar;
 
+
+    String queryString;
+    GetJson getJson;
+    String url;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -125,9 +130,24 @@ public class infoEditActivity extends AppCompatActivity {
                             editor.putString("family", fname.getText().toString());
                             editor.putString("schoolName", schoolName.getText().toString());
                             editor.putInt("field", paye.getSelectedItemPosition()+1);
+                            int p = paye.getSelectedItemPosition()+1;
                             editor.putInt("sex", spinner_sex.getSelectedItemPosition()+1);
+                            int s = spinner_sex.getSelectedItemPosition()+1;
                             editor.putBoolean("Registered", true);
                             editor.apply();
+
+                            queryString = "UPDATE studentTable SET name =" + name.getText().toString() + ", family = " + fname.getText().toString() +
+                                    ", Sfield = " + p + ", Sex = "+ s +", schoolname = " + schoolName.getText().toString() + " WHERE " +
+                                    " StudentID = 2147483647";
+                            url = "http://api.mim-app.ir/InsertValue_SignupActivity.php";
+                            getJson = new GetJson(url);
+                            getJson.execute("signupReq", queryString);
+
+                            queryString = "UPDATE idsTable SET password= " + mPassword.getText().toString() + " WHERE username = " + mPhoneNum.getText().toString().trim() + ";";
+
+                            getJson = new GetJson(url);
+                            getJson.execute("signupReq", queryString);
+
                             finish();
                         }
                     };
@@ -158,11 +178,11 @@ public class infoEditActivity extends AppCompatActivity {
 
     private boolean isPhoneNumValid(String phoneNum) {
         //TODO: Replace this with your own logic
-        if (phoneNum.length() == 13 & phoneNum.startsWith("+989")){
+        if (phoneNum.length() == 10 & phoneNum.startsWith("9")){
             return true;
         }else {
-            if (!(phoneNum.startsWith("+989"))){
-                Toast.makeText(getApplicationContext(), "شماره تلفن باید با فرمت +989xxxxxxx وارد شود", Toast.LENGTH_SHORT).show();
+            if (!(phoneNum.startsWith("9"))){
+                Toast.makeText(getApplicationContext(), "شماره تلفن باید با فرمت 9xxxxxxx وارد شود", Toast.LENGTH_SHORT).show();
             }else {
                 Toast.makeText(getApplicationContext(), "شماره تلفن وارد شده نامعتبر است", Toast.LENGTH_SHORT).show();
             }

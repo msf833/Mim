@@ -406,10 +406,6 @@ public class GetJson extends AsyncTask<String ,Void, String> {
 
             String query = params[1];
 
-
-
-            String studentID = studentAttributes.studentID;
-
             try {
                 URL url= new URL(StrURl);
 
@@ -451,6 +447,58 @@ public class GetJson extends AsyncTask<String ,Void, String> {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+
+        }
+
+        if(method.equals("signupReq")){
+
+            String query = params[1];
+
+            try {
+                URL url= new URL(StrURl);
+
+                URLConnection conn = url.openConnection();
+                conn.setDoOutput(true);
+                conn.setRequestProperty("charset", "utf-8");
+                OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream(),"UTF-8");
+
+                String data = URLEncoder.encode("queryString", "UTF-8")+"="+ URLEncoder.encode(query,"UTF-8");
+
+                wr.write( data );
+                wr.flush();
+                wr.close();
+
+
+                BufferedReader reader = new BufferedReader(new
+                        InputStreamReader(conn.getInputStream(), "UTF-8"));
+
+                StringBuilder sb = new StringBuilder();
+                String line = null;
+
+                // Read Server Response
+                while((line = reader.readLine()) != null) {
+                    sb.append(line);
+
+                }
+                finalJson = sb.toString();
+                Recieved = true;
+                try {
+                    jsonobj = new JSONObject(finalJson);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                return sb.toString();
+//                InputStream IS= httpURLConnection.getInputStream();
+//                IS.close();
+                // return "Registration success";
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+//                InputStream IS= httpURLConnection.getInputStream();
+//                IS.close();
+                // return "Registration success";
 
         }
         return null;

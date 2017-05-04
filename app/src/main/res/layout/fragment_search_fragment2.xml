@@ -57,9 +57,10 @@
                         android:padding="15dp">
 
                         <TextView
+                            android:id="@+id/Txt_searchBy"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="نام درس را انتخاب کنید"
+                            android:text="نام استاد را انتخاب کنید"
                             android:textSize="18sp" />
 
                         <Spinner

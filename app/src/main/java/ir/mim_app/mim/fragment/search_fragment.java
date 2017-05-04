@@ -70,6 +70,7 @@ public class search_fragment extends Fragment {
         // Required empty public constructor
     }
 
+    TextView Txt_searchBy;
     Spinner ostadDars;
     Spinner retListQuery;
     Spinner paye;
@@ -81,6 +82,8 @@ public class search_fragment extends Fragment {
 
         progressBar = (ProgressBar) rootView.findViewById(R.id.Search_progressBar);
         progressBar.setVisibility(View.INVISIBLE);
+
+        Txt_searchBy = (TextView) rootView.findViewById(R.id.Txt_searchBy);
 
         ostadDars = (Spinner) rootView.findViewById(R.id.spinnerOstadDars);
         retListQuery = (Spinner) rootView.findViewById(R.id.spinnerRetFromQuery);
@@ -104,6 +107,12 @@ public class search_fragment extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 onResume();
+                if (position == 0){
+                    Txt_searchBy.setText("نام استاد را انتخاب کنید");
+                }else {
+                    Txt_searchBy.setText("نام درس را انتخاب کنید");
+                }
+
             }
 
             @Override

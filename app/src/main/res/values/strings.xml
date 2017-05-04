@@ -26,6 +26,23 @@
     <string name="prompt_email">Email</string>
     <string name="prompt_username">نام کاربری(شماره موبایل شما)</string>
     <string name="prompt_password">پسورد</string>
+    <string name="prompt_name">نام</string>
+    <string name="prompt_Fname">نام خانوادگی</string>
+    <string name="prompt_field">رشته</string>
+    <string name="prompt_degree">پایه تحصیلی</string>
+    <string name="prompt_age">سال تولد</string>
+    <string name="prompt_schoolName">نام مدرسه</string>
     <string name="action_sign_in">ثبت نام</string>
+    <string name="action_infoEdit">ثبت تغییرات</string>
+    <string name="action_infoEditCancel">لغو</string>
     <string name="title_activity_pay">payActivity</string>
+    <string name="title_activity_info_edit">ویرایش اطلاعات</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="error_invalid_email">This email address is invalid</string>
+    <string name="error_invalid_password">This password is too short</string>
+    <string name="error_incorrect_password">This password is incorrect</string>
+    <string name="error_field_required">This field is required</string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email
+        completions."
+    </string>
 </resources>

@@ -85,6 +85,13 @@ public class MainActivity extends AppCompatActivity
 
         ImageView appbar_img = (ImageView) findViewById(R.id.appbar_img);
         appbar_img.setImageResource(R.mipmap.ic_mimlogo2);
+        appbar_img.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent pInfoMenuActivity = new Intent(getApplicationContext(), pInfoMenuActivity.class);
+                startActivity(pInfoMenuActivity);
+            }
+        });
 
         TextView appbar_userName = (TextView) findViewById(R.id.appbar_userName);
         appbar_userName.setText("میم مثل معلم");

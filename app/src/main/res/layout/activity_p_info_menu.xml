@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="ir.mim_app.mim.pInfoMenuActivity"
+    android:layoutDirection="rtl">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        tools:layout_editor_absoluteX="8dp"
+        tools:layout_editor_absoluteY="0dp">
+
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_weight="1"
+            app:srcCompat="@mipmap/img_btnmenu_profflist" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            tools:layout_editor_absoluteX="8dp"
+            tools:layout_editor_absoluteY="0dp"
+            android:textDirection="rtl">
+
+            <TextView
+                android:id="@+id/nameFamily"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="علی قاسم زاد"
+                android:textSize="18dp"
+                android:paddingTop="30dp"
+                android:paddingRight="30dp"/>
+
+            <TextView
+                android:id="@+id/Txt_more"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="..."
+                android:textSize="16dp"
+                android:paddingRight="50dp"/>
+        </LinearLayout>
+    </LinearLayout>
+
+
+
+</ScrollView>

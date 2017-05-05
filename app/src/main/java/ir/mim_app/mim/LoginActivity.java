@@ -150,9 +150,17 @@ public class LoginActivity extends AppCompatActivity {
                                 //inserting into database
                                 queryString = "INSERT INTO idsTable (username, password, type) VALUES (" + mPhoneNum.getText().toString().trim() +
                                         ", " + mPassword.getText().toString() + ", 1)";
+                                Toast.makeText(getApplicationContext(), "query is : " + queryString, Toast.LENGTH_LONG).show();
                                 url = "http://api.mim-app.ir/InsertValue_SignupActivity.php";
                                 getJson = new GetJson(url);
                                 getJson.execute("signupReq", queryString);
+                                try {
+                                    getJson.get();
+                                } catch(InterruptedException e) {
+                                    e.printStackTrace();
+                                } catch(ExecutionException e) {
+                                    e.printStackTrace();
+                                }
 
                                 //SELECT ID FROM idsTable WHERE ----------------------------------------------
                                 queryString = "SELECT ID FROM idsTable WHERE username = " +
@@ -169,7 +177,7 @@ public class LoginActivity extends AppCompatActivity {
                                     e.printStackTrace();
                                 }
 
-                                JsonString =getJson.finalJson;
+                                JsonString = getJson.finalJson;
 
                                 //  Toast.makeText( getApplicationContext(), "this: "+JsonString,Toast.LENGTH_SHORT).show();
 
@@ -179,7 +187,7 @@ public class LoginActivity extends AppCompatActivity {
 
                                 String retID = "";
 
-// in yek comment e deraaaaaaaaaaaaaaaz aaaaaaaaaaaaaaaaaaaaaastttttttttt
+
 
                                 try {
 

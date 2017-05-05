@@ -110,6 +110,7 @@ public class infoEditActivity extends AppCompatActivity {
         spinner_sex.setSelection(x-1);
         final String stdID = sharedPreferences.getString("stdID","");
 
+        Toast.makeText(getApplicationContext(), "stdID: " + stdID, Toast.LENGTH_SHORT).show();
 
 
         Button mPhoneNumSignInButton = (Button) findViewById(R.id.info_phoneNum_sign_in_button);
@@ -141,6 +142,7 @@ public class infoEditActivity extends AppCompatActivity {
                             queryString = "UPDATE studentTable SET name =" + name.getText().toString() + ", family = " + fname.getText().toString() +
                                     ", Sfield = " + p + ", Sex = "+ s +", schoolname = " + schoolName.getText().toString() + " WHERE " +
                                     " StudentID = " + stdID + ";";
+                            Toast.makeText(getApplicationContext(), "query: " + queryString, Toast.LENGTH_SHORT).show();
                             url = "http://api.mim-app.ir/InsertValue_SignupActivity.php";
                             getJson = new GetJson(url);
                             getJson.execute("signupReq", queryString);

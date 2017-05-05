@@ -146,17 +146,69 @@ public class LoginActivity extends AppCompatActivity {
                                 editor.putString("schoolName", "");
                                 editor.putInt("field", 1);
                                 editor.putInt("sex", 1);
-                                editor.apply();
 
                                 //inserting into database
-                                queryString = "INSERT INTO studentTable (StudentID) VALUES" +
-                                        " (" + mPhoneNum.getText().toString().trim() + " )";
+                                queryString = "INSERT INTO idsTable (username, password, type) VALUES (" + mPhoneNum.getText().toString().trim() +
+                                        ", " + mPassword.getText().toString() + ", 1)";
                                 url = "http://api.mim-app.ir/InsertValue_SignupActivity.php";
                                 getJson = new GetJson(url);
                                 getJson.execute("signupReq", queryString);
 
-                                queryString = "INSERT INTO idsTable (username, password, type) VALUES (" + mPhoneNum.getText().toString().trim() +
-                                        ", " + mPassword.getText().toString() + ", 1)";
+                                //SELECT ID FROM idsTable WHERE ----------------------------------------------
+                                queryString = "SELECT ID FROM idsTable WHERE username = " +
+                                        mPhoneNum.getText().toString().trim() + ";";
+                                url = "http://api.mim-app.ir/SelectValue_lookForUserExistance.php";
+                                getJson = new GetJson(url);
+                                getJson.execute("signupReq", queryString);
+
+                                try {
+                                    getJson.get();
+                                } catch(InterruptedException e) {
+                                    e.printStackTrace();
+                                } catch(ExecutionException e) {
+                                    e.printStackTrace();
+                                }
+
+                                JsonString =getJson.finalJson;
+
+                                //  Toast.makeText( getApplicationContext(), "this: "+JsonString,Toast.LENGTH_SHORT).show();
+
+
+                                //above part is time consuming part which need to be surrounded by async task!
+                                //fragments can be loaded whitout any delay by using async task but there will be needed to notify array adapteres & ...
+
+                                String retID = "";
+
+// in yek comment e deraaaaaaaaaaaaaaaz aaaaaaaaaaaaaaaaaaaaaastttttttttt
+
+                                try {
+
+                                    jsonobject = new JSONObject(JsonString);
+
+                                    int count = 0;
+                                    jsonArray = jsonobject.getJSONArray("search_resualt");
+
+                                    while (count < jsonArray.length()) {
+                                        JSONObject jo = jsonArray.getJSONObject(count);
+                                        retID = jo.getString("ID");
+                                        count++;
+                                    }
+
+
+                                } catch (JSONException e) {
+
+                                    e.printStackTrace();
+                                }
+
+                                Toast.makeText(getApplicationContext(), "retID: " + retID, Toast.LENGTH_SHORT).show();
+
+                                //saving sharedPreferences
+                                editor.putString("stdID", retID);
+                                editor.apply();
+
+                                ////////
+                                queryString = "INSERT INTO studentTable (StudentID) VALUES" +
+                                        " (" + retID + " )";
                                 url = "http://api.mim-app.ir/InsertValue_SignupActivity.php";
                                 getJson = new GetJson(url);
                                 getJson.execute("signupReq", queryString);

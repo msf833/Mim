@@ -462,7 +462,7 @@ public class GetJson extends AsyncTask<String ,Void, String> {
                 conn.setRequestProperty("charset", "utf-8");
                 OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream(),"UTF-8");
 
-                String data = URLEncoder.encode("queryString", "UTF-8")+"="+ URLEncoder.encode(query,"UTF-8");
+                String data = URLEncoder.encode("queryString", "UTF-8")+"="+ URLEncoder.encode(query,"UTF-8")+"&";
 
                 wr.write( data );
                 wr.flush();

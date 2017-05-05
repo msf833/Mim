@@ -74,7 +74,7 @@ public class infoEditActivity extends AppCompatActivity {
         final Spinner spinner_sex = (Spinner) findViewById(R.id.spinner_sex);
 
         final String[] sex = new String[] {"زن", "مرد"};
-        String[] paye_items  = new String[] {"ریاضی-فیریک", "تجربی", "علوم انسانی", "فنی و حرفه ای"};
+        String[] paye_items  = new String[] {"ریاضی - فیریک", "تجربی", "علوم انسانی", "فنی و حرفه ای"};
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(),
                 android.R.layout.simple_spinner_item, sex);
@@ -108,6 +108,8 @@ public class infoEditActivity extends AppCompatActivity {
         paye.setSelection(y-1);
         int x = sharedPreferences.getInt("sex", 0);
         spinner_sex.setSelection(x-1);
+        final String stdID = sharedPreferences.getString("stdID","");
+
 
 
         Button mPhoneNumSignInButton = (Button) findViewById(R.id.info_phoneNum_sign_in_button);
@@ -138,7 +140,7 @@ public class infoEditActivity extends AppCompatActivity {
 
                             queryString = "UPDATE studentTable SET name =" + name.getText().toString() + ", family = " + fname.getText().toString() +
                                     ", Sfield = " + p + ", Sex = "+ s +", schoolname = " + schoolName.getText().toString() + " WHERE " +
-                                    " StudentID = 2147483647";
+                                    " StudentID = " + stdID + ";";
                             url = "http://api.mim-app.ir/InsertValue_SignupActivity.php";
                             getJson = new GetJson(url);
                             getJson.execute("signupReq", queryString);

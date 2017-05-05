@@ -9,6 +9,7 @@
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
+        android:background="#43C0F6"
         android:theme="@style/AppTheme.AppBarOverlay">
 
         <LinearLayout
@@ -21,18 +22,18 @@
                 android:id="@+id/appbar_img"
                 android:layout_width="40dp"
                 android:layout_height="match_parent"
-                android:background="#3357cc"
-                android:padding="5dp"/>
+                android:background="#43C0F6"
+                android:padding="5dp" />
 
             <TextView
                 android:id="@+id/appbar_userName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="duuuudeeee"
-                android:textSize="18dp"
                 android:layout_gravity="right"
+                android:paddingRight="10dp"
                 android:paddingTop="5dp"
-                android:paddingRight="10dp"/>
+                android:text="duuuudeeee"
+                android:textSize="18dp" />
 
 
         </LinearLayout>

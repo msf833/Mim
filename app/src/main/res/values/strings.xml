@@ -32,7 +32,7 @@
     <string name="prompt_degree">پایه تحصیلی</string>
     <string name="prompt_age">سال تولد</string>
     <string name="prompt_schoolName">نام مدرسه</string>
-    <string name="action_sign_in">ثبت نام</string>
+    <string name="action_sign_in">ورود</string>
     <string name="action_infoEdit">ثبت تغییرات</string>
     <string name="action_infoEditCancel">لغو</string>
     <string name="title_activity_pay">payActivity</string>

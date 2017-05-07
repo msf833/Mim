@@ -501,6 +501,68 @@ public class GetJson extends AsyncTask<String ,Void, String> {
                 // return "Registration success";
 
         }
+
+        //signupRequest
+
+        if(method.equals("signupRequest")){
+
+            String phoneNumber = params[1];
+            String password = params[2];
+            String name = params[3];
+            String family = params[4];
+
+            try {
+                URL url= new URL(StrURl);
+
+                URLConnection conn = url.openConnection();
+                conn.setDoOutput(true);
+                conn.setRequestProperty("charset", "utf-8");
+                OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream(),"UTF-8");
+
+                String data =
+                        URLEncoder.encode("phoneNum", "UTF-8")+"="+ URLEncoder.encode(phoneNumber,"UTF-8")+"&"+
+                        URLEncoder.encode("password","UTF-8")+"="+URLEncoder.encode(password,"UTF-8")+"&"+
+                        URLEncoder.encode("name","UTF-8")+"="+URLEncoder.encode(name,"UTF-8")+"&"+
+                        URLEncoder.encode("family","UTF-8")+"="+URLEncoder.encode(family,"UTF-8");
+
+                wr.write( data );
+                wr.flush();
+                wr.close();
+
+
+                BufferedReader reader = new BufferedReader(new
+                        InputStreamReader(conn.getInputStream(), "UTF-8"));
+
+                StringBuilder sb = new StringBuilder();
+                String line = null;
+
+                // Read Server Response
+                while((line = reader.readLine()) != null) {
+                    sb.append(line);
+
+                }
+                finalJson = sb.toString();
+                Recieved = true;
+                try {
+                    jsonobj = new JSONObject(finalJson);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                return sb.toString();
+//                InputStream IS= httpURLConnection.getInputStream();
+//                IS.close();
+                // return "Registration success";
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+//                InputStream IS= httpURLConnection.getInputStream();
+//                IS.close();
+            // return "Registration success";
+
+        }
+
         return null;
     }
 

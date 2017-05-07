@@ -59,6 +59,8 @@ public class LoginActivity extends AppCompatActivity {
     // UI references.
     private EditText mPhoneNum;
     private EditText mPassword;
+    private EditText mName;
+    private EditText mFamily;
     ProgressBar progressBar;
 
     String queryString;
@@ -83,6 +85,11 @@ public class LoginActivity extends AppCompatActivity {
 
         mPassword = (EditText) findViewById(R.id.password);
 
+        mName = (EditText) findViewById(R.id.nameTxt);
+
+        mFamily = (EditText) findViewById(R.id.fnameTxt);
+
+
         Button mPhoneNumSignInButton = (Button) findViewById(R.id.phoneNum_sign_in_button);
 
         mPhoneNumSignInButton.setOnClickListener(new OnClickListener() {
@@ -94,7 +101,46 @@ public class LoginActivity extends AppCompatActivity {
                     boolean userExist = false;
 
 
-                    queryString = "SELECT `username` FROM `idsTable` WHERE `username` = " + mPhoneNum.getText().toString().trim() + ";";
+                    url = "http://api.mim-app.ir/InsertValue_UserSignupActivity.php";
+                    getJson = new GetJson(url);
+                    getJson.execute("signupRequest", mPhoneNum.getText().toString().trim(),
+                            mPassword.getText().toString(), mName.getText().toString(),
+                            mFamily.getText().toString());
+
+                    try {
+                        getJson.get();
+                        //Toast.makeText(getApplicationContext(), "q: " + getJson.get(), Toast.LENGTH_SHORT).show();
+                    } catch(InterruptedException e) {
+                        e.printStackTrace();
+                    } catch(ExecutionException e) {
+                        e.printStackTrace();
+                    }
+
+                    JsonString = getJson.finalJson;
+
+                    try {
+                        jsonobject = new JSONObject(JsonString);
+
+                        jsonArray = jsonobject.getJSONArray("search_resualt");
+
+                        int count = 0;
+
+                        if (0 < jsonArray.length()) {
+                            JSONObject jo = jsonArray.getJSONObject(count);
+                            String checker = jo.getString("flag");
+                            if (checker != "done"){
+                                userExist = true;
+                            }
+                            count++;
+                        }
+
+
+                    } catch (JSONException e) {
+
+                        e.printStackTrace();
+                    }
+
+                    /*queryString = "SELECT `username` FROM `idsTable` WHERE `username` = " + mPhoneNum.getText().toString().trim() + ";";
 
                     url ="http://api.mim-app.ir/SelectValue_lookForUserExistance.php";
 
@@ -126,6 +172,7 @@ public class LoginActivity extends AppCompatActivity {
 
                         e.printStackTrace();
                     }
+                    */
 
                     if (userExist){
                         Toast.makeText(getApplicationContext(), "این شماره تلفن قبلا ثبت شده است!", Toast.LENGTH_SHORT).show();
@@ -141,12 +188,13 @@ public class LoginActivity extends AppCompatActivity {
                                 editor.putString("Username", mPhoneNum.getText().toString().trim());
                                 editor.putString("Password", mPassword.getText().toString());
                                 editor.putBoolean("Registered", true);
-                                editor.putString("name", "");
-                                editor.putString("family", "");
+                                editor.putString("name", mName.getText().toString());
+                                editor.putString("family", mFamily.getText().toString());
                                 editor.putString("schoolName", "");
                                 editor.putInt("field", 1);
                                 editor.putInt("sex", 1);
 
+                                /*
                                 //inserting into database
                                 queryString = "INSERT INTO idsTable (username, password, type) VALUES (" + mPhoneNum.getText().toString().trim() +
                                         ", " + mPassword.getText().toString() + ", 1)";
@@ -220,6 +268,8 @@ public class LoginActivity extends AppCompatActivity {
                                 url = "http://api.mim-app.ir/InsertValue_SignupActivity.php";
                                 getJson = new GetJson(url);
                                 getJson.execute("signupReq", queryString);
+
+                                */
 
                                 //Toast.makeText(getApplicationContext(), "done :)", Toast.LENGTH_SHORT).show();
                                 setResult(1);

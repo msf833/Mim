@@ -24,6 +24,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -66,7 +67,7 @@ public class LoginActivity extends AppCompatActivity {
     String queryString;
     GetJson getJson;
     String url;
-    String JsonString;
+    String JsonString="";
     JSONObject jsonobject;
     JSONArray jsonArray;
 
@@ -107,9 +108,13 @@ public class LoginActivity extends AppCompatActivity {
                             mPassword.getText().toString(), mName.getText().toString(),
                             mFamily.getText().toString());
 
+
+                    Log.i("MSF"," " + mPhoneNum.getText().toString().trim() + " " +
+                            mPassword.getText().toString() + " " + mName.getText().toString() + " "+
+                            mFamily.getText().toString());
                     try {
                         getJson.get();
-                        //Toast.makeText(getApplicationContext(), "q: " + getJson.get(), Toast.LENGTH_SHORT).show();
+
                     } catch(InterruptedException e) {
                         e.printStackTrace();
                     } catch(ExecutionException e) {
@@ -117,6 +122,8 @@ public class LoginActivity extends AppCompatActivity {
                     }
 
                     JsonString = getJson.finalJson;
+                    Toast.makeText(getApplicationContext(), "q: " + getJson.finalJson, Toast.LENGTH_SHORT).show();
+                    Log.i("MSF","string json is : "+ JsonString);
 
                     try {
                         jsonobject = new JSONObject(JsonString);
@@ -128,7 +135,7 @@ public class LoginActivity extends AppCompatActivity {
                         if (0 < jsonArray.length()) {
                             JSONObject jo = jsonArray.getJSONObject(count);
                             String checker = jo.getString("flag");
-                            if (checker != "done"){
+                            if (checker.equals("done") ){
                                 userExist = true;
                             }
                             count++;

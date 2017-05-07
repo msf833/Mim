@@ -122,7 +122,7 @@ public class LoginActivity extends AppCompatActivity {
                     }
 
                     JsonString = getJson.finalJson;
-                    Toast.makeText(getApplicationContext(), "q: " + getJson.finalJson, Toast.LENGTH_SHORT).show();
+                   /// Toast.makeText(getApplicationContext(), "q: " + getJson.finalJson, Toast.LENGTH_SHORT).show();
                     Log.i("MSF","string json is : "+ JsonString);
 
                     try {

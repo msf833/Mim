@@ -550,16 +550,10 @@ public class GetJson extends AsyncTask<String ,Void, String> {
                 }
 
                 return sb.toString();
-//                InputStream IS= httpURLConnection.getInputStream();
-//                IS.close();
-                // return "Registration success";
 
             } catch (IOException e) {
                 e.printStackTrace();
             }
-//                InputStream IS= httpURLConnection.getInputStream();
-//                IS.close();
-            // return "Registration success";
 
         }
 

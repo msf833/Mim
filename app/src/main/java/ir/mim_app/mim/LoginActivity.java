@@ -99,7 +99,7 @@ public class LoginActivity extends AppCompatActivity {
                 if (isPasswordValid(mPassword.getText().toString()) == true && isPhoneNumValid(mPhoneNum.getText().toString().trim()) == true){
                     progressBar.setVisibility(View.VISIBLE);
 
-                    boolean userExist = false;
+                    boolean userExist = true;
 
 
                     url = "http://api.mim-app.ir/InsertValue_UserSignupActivity.php";
@@ -136,8 +136,10 @@ public class LoginActivity extends AppCompatActivity {
                             JSONObject jo = jsonArray.getJSONObject(count);
                             String checker = jo.getString("flag");
                             if (checker.equals("done") ){
-                                userExist = true;
+                                userExist = false;
                             }
+                            Toast.makeText(getApplicationContext(), "answ: " + checker, Toast.LENGTH_LONG).show();
+
                             count++;
                         }
 
@@ -185,7 +187,7 @@ public class LoginActivity extends AppCompatActivity {
                         Toast.makeText(getApplicationContext(), "این شماره تلفن قبلا ثبت شده است!", Toast.LENGTH_SHORT).show();
                         progressBar.setVisibility(View.GONE);
                     }else {
-
+                        Toast.makeText(getApplicationContext(), "shodeeeee ^_^", Toast.LENGTH_SHORT).show();
                         Runnable r = new Runnable() {
                             @Override
                             public void run() {

@@ -102,7 +102,7 @@ public class LoginActivity extends AppCompatActivity {
                     boolean userExist = true;
 
 
-                    url = "http://api.mim-app.ir/InsertValue_UserSignupActivity.php";
+                    url = "http://api.mim-app.ir/InsertValue_SignupActivity.php";
                     getJson = new GetJson(url);
                     getJson.execute("signupRequest", mPhoneNum.getText().toString().trim(),
                             mPassword.getText().toString(), mName.getText().toString(),

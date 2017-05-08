@@ -100,15 +100,15 @@
                         android:padding="10dp"
                         android:spinnerMode="dialog"></Spinner>
 
-                    <Button
-                        android:id="@+id/Btn_search"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="جستجو" />
-
                 </LinearLayout>
 
             </LinearLayout>
+
+            <Button
+                android:id="@+id/Btn_search"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="جستجو" />
 
             <ProgressBar
                 android:id="@+id/Search_progressBar"

@@ -113,10 +113,15 @@ public class infoEditActivity extends AppCompatActivity {
         name.setText(sharedPreferences.getString("name",""));
         fname.setText(sharedPreferences.getString("family",""));
         schoolName.setText(sharedPreferences.getString("schoolName",""));
-        int y = sharedPreferences.getInt("field", 0);
-        reshte.setSelection(y-1);
-        int x = sharedPreferences.getInt("sex", 0);
-        spinner_sex.setSelection(x-1);
+//        String y = sharedPreferences.getString("field", "0");
+//        int yy = Integer.valueOf(y);
+//        reshte.setSelection(yy-1);
+        String x = sharedPreferences.getString("sex", "0");
+        if (x.equals("1")){
+            spinner_sex.setSelection(0);
+        }else {
+            spinner_sex.setSelection(1);
+        }
         final String stdID = sharedPreferences.getString("stdID","");
 
         Toast.makeText(getApplicationContext(), "stdID: " + stdID, Toast.LENGTH_SHORT).show();
@@ -128,7 +133,9 @@ public class infoEditActivity extends AppCompatActivity {
         mPhoneNumSignInButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (isPasswordValid(mPassword.getText().toString()) == true && isPhoneNumValid(mPhoneNum.getText().toString().trim()) == true ){
+                if (isPasswordValid(mPassword.getText().toString()) == true &&
+                    isPhoneNumValid(mPhoneNum.getText().toString().trim()) == true &&
+                    isNameValid(name.getText().toString()) == true && isfamilyValid(fname.getText().toString())==true){
                     progressBar.setVisibility(View.VISIBLE);
 
                     Runnable r = new Runnable() {
@@ -141,12 +148,12 @@ public class infoEditActivity extends AppCompatActivity {
                             editor.putString("name", name.getText().toString());
                             editor.putString("family", fname.getText().toString());
                             editor.putString("schoolName", schoolName.getText().toString());
-                            editor.putInt("field", reshte.getSelectedItemPosition()+1);
                             int p = reshte.getSelectedItemPosition()+1;
                             String pp = p + "";
-                            editor.putInt("sex", spinner_sex.getSelectedItemPosition()+1);
+                            editor.putString("field", pp);
                             int s = spinner_sex.getSelectedItemPosition()+1;
                             String ss = s + "";
+                            editor.putString("sex", ss);
                             editor.putBoolean("Registered", true);
                             editor.apply();
 
@@ -211,6 +218,24 @@ public class infoEditActivity extends AppCompatActivity {
                 finish();
             }
         });
+    }
+
+    private boolean isNameValid(String name) {
+        if (name.length() > 2){
+            return true;
+        }else {
+            Toast.makeText(getApplicationContext(), "نام خود را وارد کنید", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+    }
+
+    private boolean isfamilyValid(String name) {
+        if (name.length() > 2){
+            return true;
+        }else {
+            Toast.makeText(getApplicationContext(), "نام خانوادگی خود را وارد کنید", Toast.LENGTH_SHORT).show();
+            return false;
+        }
     }
 
     private boolean isPasswordValid(String password) {

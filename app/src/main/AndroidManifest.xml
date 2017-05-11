@@ -117,7 +117,10 @@
         <activity android:name=".pInfoMenuActivity" />
         <activity
             android:name=".infoEditActivity"
-            android:label="@string/title_activity_info_edit"></activity>
+            android:label="@string/title_activity_info_edit" />
+        <activity
+            android:name=".loginActivity"
+            android:label="@string/title_activity_login"></activity>
     </application>
 
 </manifest>

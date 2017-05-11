@@ -22,6 +22,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -35,8 +36,13 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 import static android.Manifest.permission.READ_CONTACTS;
 import static ir.mim_app.mim.R.id.progressBar;
@@ -64,6 +70,9 @@ public class infoEditActivity extends AppCompatActivity {
     String queryString;
     GetJson getJson;
     String url;
+    String JsonString="";
+    JSONObject jsonobject;
+    JSONArray jsonArray;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,12 +90,12 @@ public class infoEditActivity extends AppCompatActivity {
 
         spinner_sex.setAdapter(adapter);
 
-        final Spinner paye = (Spinner) findViewById(R.id.spinner_field);
+        final Spinner reshte = (Spinner) findViewById(R.id.spinner_field);
 
         ArrayAdapter<String> adapter1 = new ArrayAdapter<String>(getApplicationContext(),
                 android.R.layout.simple_spinner_item, paye_items);
 
-        paye.setAdapter(adapter1);
+        reshte.setAdapter(adapter1);
 
         progressBar = (ProgressBar) findViewById(R.id.edit_progress);
 
@@ -105,7 +114,7 @@ public class infoEditActivity extends AppCompatActivity {
         fname.setText(sharedPreferences.getString("family",""));
         schoolName.setText(sharedPreferences.getString("schoolName",""));
         int y = sharedPreferences.getInt("field", 0);
-        paye.setSelection(y-1);
+        reshte.setSelection(y-1);
         int x = sharedPreferences.getInt("sex", 0);
         spinner_sex.setSelection(x-1);
         final String stdID = sharedPreferences.getString("stdID","");
@@ -132,27 +141,61 @@ public class infoEditActivity extends AppCompatActivity {
                             editor.putString("name", name.getText().toString());
                             editor.putString("family", fname.getText().toString());
                             editor.putString("schoolName", schoolName.getText().toString());
-                            editor.putInt("field", paye.getSelectedItemPosition()+1);
-                            int p = paye.getSelectedItemPosition()+1;
+                            editor.putInt("field", reshte.getSelectedItemPosition()+1);
+                            int p = reshte.getSelectedItemPosition()+1;
+                            String pp = p + "";
                             editor.putInt("sex", spinner_sex.getSelectedItemPosition()+1);
                             int s = spinner_sex.getSelectedItemPosition()+1;
+                            String ss = s + "";
                             editor.putBoolean("Registered", true);
                             editor.apply();
 
-                            queryString = "UPDATE studentTable SET name =" + name.getText().toString() + ", family = " + fname.getText().toString() +
-                                    ", Sfield = " + p + ", Sex = "+ s +", schoolname = " + schoolName.getText().toString() + " WHERE " +
-                                    " StudentID = " + stdID + ";";
-                            Toast.makeText(getApplicationContext(), "query: " + queryString, Toast.LENGTH_SHORT).show();
-                            url = "http://api.mim-app.ir/InsertValue_SignupActivity.php";
+                            String nam = name.getText().toString().trim();
+                            String fam = fname.getText().toString();
+                            String u_f = schoolName.getText().toString();
+
+                            url = "http://api.mim-app.ir/UpdateValue_EditInfoActivity.php";
                             getJson = new GetJson(url);
-                            getJson.execute("signupReq", queryString);
+                            getJson.execute("editInfoReq",nam,fam,u_f,pp,ss,stdID);
 
-                            queryString = "UPDATE idsTable SET password= " + mPassword.getText().toString() + " WHERE username = " + mPhoneNum.getText().toString().trim() + ";";
+                            try {
+                                getJson.get();
 
-                            getJson = new GetJson(url);
-                            getJson.execute("signupReq", queryString);
+                            } catch(InterruptedException e) {
+                                e.printStackTrace();
+                            } catch(ExecutionException e) {
+                                e.printStackTrace();
+                            }
 
-                            finish();
+                            JsonString = getJson.finalJson;
+                            /// Toast.makeText(getApplicationContext(), "q: " + getJson.finalJson, Toast.LENGTH_SHORT).show();
+                            Log.i("MSF","string json is : "+ JsonString);
+
+                            try {
+                                jsonobject = new JSONObject(JsonString);
+
+                                jsonArray = jsonobject.getJSONArray("search_resualt");
+
+                                int count = 0;
+
+                                if (0 < jsonArray.length()) {
+                                    JSONObject jo = jsonArray.getJSONObject(count);
+                                    String checker = jo.getString("flag");
+                                    if (checker.equals("done") ){
+                                        Toast.makeText(getApplicationContext(), "تغییرات اعمال شد", Toast.LENGTH_SHORT).show();
+                                        finish();
+                                    }else {
+                                        Toast.makeText(getApplicationContext(), "something went wrong :(", Toast.LENGTH_SHORT).show();
+                                    }
+                                    count++;
+                                }
+
+
+                            } catch (JSONException e) {
+
+                                e.printStackTrace();
+                            }
+
                         }
                     };
 

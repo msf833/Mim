@@ -12,7 +12,7 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:layoutDirection="rtl"
     android:textDirection="rtl"
-    tools:context="ir.mim_app.mim.LoginActivity">
+    tools:context="ir.mim_app.mim.SignupActivity">
 
     <!-- Login progress -->
     <TextView

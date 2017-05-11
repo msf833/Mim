@@ -50,7 +50,7 @@ import static android.Manifest.permission.READ_CONTACTS;
 /**
  * A login screen that offers login via phoneNum/password.
  */
-public class LoginActivity extends AppCompatActivity {
+public class SignupActivity extends AppCompatActivity {
 
     SharedPreferences sharedPreferences;
 
@@ -101,12 +101,14 @@ public class LoginActivity extends AppCompatActivity {
 
                     boolean userExist = true;
 
+                    final String user = mPhoneNum.getText().toString().trim();
+                    final String pass = mPassword.getText().toString();
+                    final String usern = mName.getText().toString();
+                    final String u_f = mFamily.getText().toString();
 
                     url = "http://api.mim-app.ir/InsertValue_SignupActivity.php";
                     getJson = new GetJson(url);
-                    getJson.execute("signupRequest", mPhoneNum.getText().toString().trim(),
-                            mPassword.getText().toString(), mName.getText().toString(),
-                            mFamily.getText().toString());
+                    getJson.execute("signupRequest",user,pass,usern,u_f);
 
 
                     Log.i("MSF"," " + mPhoneNum.getText().toString().trim() + " " +
@@ -124,6 +126,7 @@ public class LoginActivity extends AppCompatActivity {
                     JsonString = getJson.finalJson;
                    /// Toast.makeText(getApplicationContext(), "q: " + getJson.finalJson, Toast.LENGTH_SHORT).show();
                     Log.i("MSF","string json is : "+ JsonString);
+                    String std_ID = "";
 
                     try {
                         jsonobject = new JSONObject(JsonString);
@@ -131,10 +134,10 @@ public class LoginActivity extends AppCompatActivity {
                         jsonArray = jsonobject.getJSONArray("search_resualt");
 
                         int count = 0;
-
                         if (0 < jsonArray.length()) {
                             JSONObject jo = jsonArray.getJSONObject(count);
                             String checker = jo.getString("flag");
+                            std_ID = jo.getString("studentID");
                             if (checker.equals("done") ){
                                 userExist = false;
                             }
@@ -149,138 +152,29 @@ public class LoginActivity extends AppCompatActivity {
                         e.printStackTrace();
                     }
 
-                    /*queryString = "SELECT `username` FROM `idsTable` WHERE `username` = " + mPhoneNum.getText().toString().trim() + ";";
-
-                    url ="http://api.mim-app.ir/SelectValue_lookForUserExistance.php";
-
-                    getJson =new GetJson(url);
-                    getJson.execute("listViewSearch",queryString);
-
-                    try {
-                        getJson.get();
-                        //Toast.makeText(getApplicationContext(), "q: " + getJson.get(), Toast.LENGTH_SHORT).show();
-                    } catch(InterruptedException e) {
-                        e.printStackTrace();
-                    } catch(ExecutionException e) {
-                        e.printStackTrace();
-                    }
-
-                    JsonString = getJson.finalJson;
-
-                    try {
-                        jsonobject = new JSONObject(JsonString);
-
-                        jsonArray = jsonobject.getJSONArray("search_resualt");
-
-                        if (0 < jsonArray.length()) {
-                            userExist = true;
-                        }
-
-
-                    } catch (JSONException e) {
-
-                        e.printStackTrace();
-                    }
-                    */
-
                     if (userExist){
                         Toast.makeText(getApplicationContext(), "این شماره تلفن قبلا ثبت شده است!", Toast.LENGTH_SHORT).show();
                         progressBar.setVisibility(View.GONE);
                     }else {
-                        Toast.makeText(getApplicationContext(), "shodeeeee ^_^", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "std: " + std_ID, Toast.LENGTH_SHORT).show();
+                        final String finalStd_ID = std_ID;
                         Runnable r = new Runnable() {
                             @Override
                             public void run() {
                                 //to check if this is the first time user is opening the app
                                 //if so, user need to signup first!
                                 SharedPreferences.Editor editor = sharedPreferences.edit();
-                                editor.putString("Username", mPhoneNum.getText().toString().trim());
-                                editor.putString("Password", mPassword.getText().toString());
+                                editor.putString("Username", user);
+                                editor.putString("Password", pass);
                                 editor.putBoolean("Registered", true);
-                                editor.putString("name", mName.getText().toString());
-                                editor.putString("family", mFamily.getText().toString());
+                                editor.putString("name", usern);
+                                editor.putString("family", u_f);
                                 editor.putString("schoolName", "");
                                 editor.putInt("field", 1);
                                 editor.putInt("sex", 1);
-
-                                /*
-                                //inserting into database
-                                queryString = "INSERT INTO idsTable (username, password, type) VALUES (" + mPhoneNum.getText().toString().trim() +
-                                        ", " + mPassword.getText().toString() + ", 1)";
-                                Toast.makeText(getApplicationContext(), "query is : " + queryString, Toast.LENGTH_LONG).show();
-                                url = "http://api.mim-app.ir/InsertValue_SignupActivity.php";
-                                getJson = new GetJson(url);
-                                getJson.execute("signupReq", queryString);
-                                try {
-                                    getJson.get();
-                                } catch(InterruptedException e) {
-                                    e.printStackTrace();
-                                } catch(ExecutionException e) {
-                                    e.printStackTrace();
-                                }
-
-                                //SELECT ID FROM idsTable WHERE ----------------------------------------------
-                                queryString = "SELECT ID FROM idsTable WHERE username = " +
-                                        mPhoneNum.getText().toString().trim() + ";";
-                                url = "http://api.mim-app.ir/SelectValue_lookForUserExistance.php";
-                                getJson = new GetJson(url);
-                                getJson.execute("signupReq", queryString);
-
-                                try {
-                                    getJson.get();
-                                } catch(InterruptedException e) {
-                                    e.printStackTrace();
-                                } catch(ExecutionException e) {
-                                    e.printStackTrace();
-                                }
-
-                                JsonString = getJson.finalJson;
-
-                                //  Toast.makeText( getApplicationContext(), "this: "+JsonString,Toast.LENGTH_SHORT).show();
-
-
-                                //above part is time consuming part which need to be surrounded by async task!
-                                //fragments can be loaded whitout any delay by using async task but there will be needed to notify array adapteres & ...
-
-                                String retID = "";
-
-
-
-                                try {
-
-                                    jsonobject = new JSONObject(JsonString);
-
-                                    int count = 0;
-                                    jsonArray = jsonobject.getJSONArray("search_resualt");
-
-                                    while (count < jsonArray.length()) {
-                                        JSONObject jo = jsonArray.getJSONObject(count);
-                                        retID = jo.getString("ID");
-                                        count++;
-                                    }
-
-
-                                } catch (JSONException e) {
-
-                                    e.printStackTrace();
-                                }
-
-                                Toast.makeText(getApplicationContext(), "retID: " + retID, Toast.LENGTH_SHORT).show();
-
-                                //saving sharedPreferences
-                                editor.putString("stdID", retID);
+                                editor.putString("stdID", finalStd_ID);
                                 editor.apply();
 
-                                ////////
-                                queryString = "INSERT INTO studentTable (StudentID) VALUES" +
-                                        " (" + retID + " )";
-                                url = "http://api.mim-app.ir/InsertValue_SignupActivity.php";
-                                getJson = new GetJson(url);
-                                getJson.execute("signupReq", queryString);
-
-                                */
-
-                                //Toast.makeText(getApplicationContext(), "done :)", Toast.LENGTH_SHORT).show();
                                 setResult(1);
                                 finish();
                             }

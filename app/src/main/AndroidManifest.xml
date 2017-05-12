@@ -107,6 +107,7 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".SignupActivity"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_login" />
         android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name="ir.moslem_deris.apps.zarinpal.PaymentActivity" />
@@ -114,12 +115,16 @@
             android:name=".payActivity"
             android:label="@string/title_activity_pay"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".pInfoMenuActivity" />
+        <activity android:name=".pInfoMenuActivity"
+                  android:screenOrientation="portrait"
+            />
         <activity
             android:name=".infoEditActivity"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_info_edit" />
         <activity
             android:name=".loginActivity"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_login"></activity>
     </application>
 

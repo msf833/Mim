@@ -34,7 +34,7 @@
                 android:id="@+id/nameFamily"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="علی قاسم زاد"
+                android:text="نام شما"
                 android:textSize="18dp"
                 android:paddingTop="30dp"
                 android:paddingRight="30dp"/>
